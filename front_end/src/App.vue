@@ -34,9 +34,9 @@ export default {
   color: #2c3e50;
 }
 
-nav {
+/* nav {
   padding: 30px;
-}
+} */
 
 nav a {
   font-weight: bold;
@@ -55,7 +55,6 @@ nav a.router-link-exact-active {
 
 li {
 	/*margin-top:20px;*/
-	
 }
 
 .content-list {
@@ -63,19 +62,19 @@ li {
 	width: 40%;
 }
 
-.top {
+/* .top {
 	background-color: rgb(62, 62, 62);
-	/* height:40px; */
-}
+	height:40px;
+}*/
 
-.top-button {
+/*.top-button {
 	background-color: rgb(0, 0, 0);
 	color: white;
 	padding-left: 5px;
 	padding-right: 7px;
 	margin-right: 5px;
 	height: 50px;
-}
+} */
 
 .top>ul {
 	padding-top: 5px;
