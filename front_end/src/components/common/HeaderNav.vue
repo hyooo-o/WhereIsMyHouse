@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-show="!login">
-        <header-nav-without-login></header-nav-without-login>
+            <header-nav-without-login></header-nav-without-login>
         </div>
         <div v-show="login">
             <header-nav-with-login></header-nav-with-login>
