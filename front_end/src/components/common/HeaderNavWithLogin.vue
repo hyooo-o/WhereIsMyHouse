@@ -36,10 +36,29 @@
                     <a class="nav-link" aria-current="page" href="${root}/apt/mvRegist">아파트 관리</a>
                 </li>
                 <li class="nav-item" style="padding-right: 30px">
-                    <a class="nav-link" aria-current="page" href="${root}/apt/mvRegist">{{this.$store.state.loginUser.userName}}님 안녕하세요</a>
-                </li>
-                <li class="nav-item" style="padding-right: 30px">
-                    <a class="nav-link" aria-current="page" @click="logout">로그아웃</a>
+                    <div class="text-center">
+                        <v-menu
+                            open-on-hover
+                            offset-y>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text class="nav-link" v-bind="attrs" v-on="on">
+                                    <b>{{ name }}</b>님 안녕하세요<v-icon>mdi-menu-down</v-icon>
+                                </v-text>
+                            </template>
+                            <v-list>
+                                <v-list-item link>
+                                    <v-list-item-title @click="logout">마이페이지</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item link>
+                                    <v-list-item-title @click="logout">관심지역</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item link>
+                                    <v-list-item-title @click="logout">로그아웃</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </div>
+                    <!-- <a class="nav-link" aria-current="page" href="${root}/apt/mvRegist">{{this.$store.state.loginUser.userName}}님 안녕하세요</a> -->
                 </li>
             </ul>
         </div>
@@ -48,6 +67,11 @@
 
 <script>
 export default {
+    computed: {
+        name() {
+            return this.$store.state.loginUser.userName;
+        }
+    },
     methods: {
 		logout() {
 			this.$store.dispatch("logout");
