@@ -167,10 +167,10 @@ export default {
 			dododong.value = dong.options[dong.selectedIndex].innerText;
 
 			let yearSel = document.querySelector("#year");
-		    let year = yearSel[yearSel.selectedIndex].value;
-		    let monthSel = document.querySelector("#month");
-		    let month = monthSel[monthSel.selectedIndex].value;
-		    
+			let year = yearSel[yearSel.selectedIndex].value;
+			let monthSel = document.querySelector("#month");
+			let month = monthSel[monthSel.selectedIndex].value;
+			
 			if(gugun.options[gugun.selectedIndex].text == "구군선택" || month == "매매년도선택" || year == "매매월월선택") {
 				alert("다시 입력하세요");
 			} else {
