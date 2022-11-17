@@ -1,21 +1,28 @@
 <template>
-  <div id="app">
-	<header-nav></header-nav>
-    <router-view/>
-	<the-footer></the-footer>
-  </div>
+  <v-app>
+    <v-main>
+      <header-nav></header-nav>
+      <router-view/>
+      <the-footer></the-footer>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HeaderNav from "@/components/common/HeaderNav.vue";
+import HeaderNav from "./components/common/HeaderNav.vue";
 import TheFooter from "@/components/common/TheFooter.vue";
 
 export default {
-	components: {
-        HeaderNav,
-		TheFooter,
-    },
-}
+  name: 'App',
+
+  data: () => ({
+    
+  }),
+  components: {
+    HeaderNav,
+    TheFooter
+  },
+};
 </script>
 
 <style>
