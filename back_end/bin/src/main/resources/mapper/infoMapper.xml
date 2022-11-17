@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.info.model.mapper.InfoMapper">
+	
+	<insert id="registArea" parameterType="map">
+		insert into favorite_dong
+		values (#{si_code},#{bub_code},#{user_id})
+	</insert>
+	
+	<select id="getClinicInfo" parameterType="String" resultType="ClinicDto">
+		select distinct sc.*
+		from screeningcenter sc, dong d
+		where sc.city_gun_borough = d.si_name and d.si_code = #{gugun}
+	</select>
+	
+	<select id="getCommercialInfo" parameterType="String" resultType="CommercialDto">
+		select distinct sc.*
+		from surrounding_commercial sc, dong d
+		where sc.gun_borough = d.si_name and d.si_code = #{gugun}
+		limit 50
+	</select>
+	
+	<select id="getHospitalInfo" parameterType="String" resultType="HospitalDto">
+		select distinct sh.*
+		from safe_hospital sh, dong d
+		where sh.city_gun_borough = d.si_name and d.si_code = #{gugun}
+	</select>
+	
+	<select id="favorite" parameterType="String" resultType="DongDto">
+		select distinct d.si_code, d.bub_code
+		from dong d, favorite_dong fd
+		where fd.user_id = #{userId} and d.si_code=fd.si_code and d.bub_code = fd.bub_code
+	</select>
+	
+	<select id="getAccommodationDtoInfo" parameterType="String" resultType="AccomodationDto">
+		select distinct a.*
+		from accommodation a, dong d
+		where a.bub_code = d.bub_code and d.si_code = #{gugun}
+		limit 50
+	</select>
+	
+	
+
+</mapper>
