@@ -26,7 +26,7 @@
 					<div class="text-danger mb-2"></div>
 					<div class="col-auto text-center">
 						<button type="button" id="btn-login"
-							class="btn btn-outline-primary mb-3" @click="confirm">로그인</button>
+							class="btn btn-outline-primary mb-3" @click="login(user)">로그인</button>
 						<button type="button" id="btn-mv-join"
 							class="btn btn-outline-success mb-3">회원가입</button>
 						<button type="button" id="btn-search-pwd"
@@ -39,40 +39,21 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
-const userStore = "userStore";
-
 export default {
-	name: "UserLogin",
-	data() {
-		return {
-			// isLoginError: false,
-			user: {
-				userid: null,
-				userpwd: null,
-			},
-		};
-	},
-	computed: {
-		...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
-	},
-	methods: {
-		...mapActions(userStore, ["userConfirm", "getUserInfo"]),
-		async confirm() {
-			await this.userConfirm(this.user);
-			let token = sessionStorage.getItem("access-token");
-			// console.log("1. confirm() token >> " + token);
-			if (this.isLogin) {
-				await this.getUserInfo(token);
-				// console.log("4. confirm() userInfo :: ", this.userInfo);
-				this.$router.push({ name: "main" });
-			}
-		},
-		movePage() {
-			this.$router.push({ name: "join" });
-		},
-	},
+    data() {
+        return {
+            user: {
+                userId: null,
+                userPwd: null,
+            }
+        }
+    },
+    methods: {
+        login(user) {
+            this.$store.dispatch("login", user);
+			this.$router.push({name: "main"});
+        }
+    }
 }
 </script>
 
