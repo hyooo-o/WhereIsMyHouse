@@ -3,13 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.member.model.mapper.MemberMapper">
 	
-	<resultMap type="memberDto" id="loginMember">
+	<resultMap type="memberDto" id="member">
 		<result column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
-	</resultMap>
-	
-	<resultMap type="memberDto" id="memberAll" extends="loginMember">
-	<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
 		<result column="user_password" property="userPwd"/>
 		<result column="email_id" property="emailId"/>
@@ -38,16 +33,10 @@
 	</insert>
 	
 	<!-- loginMember -->
-	<select id="loginMember" parameterType="memberDto" resultMap="loginMember">
-		select user_id, user_name
-		from members
-		where user_id = #{userId} and user_password = #{userPwd}
-	</select>
-	
-	<select id="search" parameterType="String" resultMap="memberAll">
+	<select id="loginMember" parameterType="memberDto" resultMap="member">
 		select *
 		from members
-		where user_id=#{userId}
+		where user_id = #{userId} and user_password = #{userPwd}
 	</select>
 	
 	<!-- searchPwd -->

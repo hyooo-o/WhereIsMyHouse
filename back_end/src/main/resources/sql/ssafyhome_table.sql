@@ -9,7 +9,6 @@ CREATE TABLE `members` (
   `email_id` varchar(20) DEFAULT NULL,
   `email_domain` varchar(45) DEFAULT NULL,
   `join_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `token` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
