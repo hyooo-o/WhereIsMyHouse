@@ -66,15 +66,31 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
+const userStore = "userStore";
+
 export default {
     computed: {
+        ...mapState(userStore, ["userInfo"]),
         name() {
-            return this.$store.state.loginUser.userName;
+            return this.userInfo.userName;
         }
     },
     methods: {
+        ...mapActions(userStore, ["userLogout"]),
 		logout() {
-			this.$store.dispatch("logout");
+            // this.SET_IS_LOGIN(false);
+            // this.SET_USER_INFO(null);
+            // sessionStorage.removeItem("access-token");
+            // if (this.$route.path != "/") this.$router.push({ name: "main" });
+            //vuex actions에서 userLogout 실행(Backend에 저장 된 리프레시 토큰 없애기
+            //+ satate에 isLogin, userInfo 정보 변경)
+            // this.$store.dispatch("userLogout", this.userInfo.userid);
+            this.userLogout(this.userInfo.userId);
+            sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
+            sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기;
+            if (this.$route.path != "/") this.$router.push({ name: "main" });
 		},
         moveToLogin() {
             this.$router.push({name : "userlogin"});

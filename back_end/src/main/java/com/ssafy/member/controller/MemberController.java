@@ -1,13 +1,12 @@
 package com.ssafy.member.controller;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +19,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.MemberDto;
+import com.ssafy.member.model.service.JwtServiceImpl;
 import com.ssafy.member.model.service.MemberService;
-
-import io.swagger.annotations.Api;
 
 @Controller
 @RequestMapping("/user")
 @CrossOrigin("*")
 public class MemberController {
+	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private JwtServiceImpl jwtService;
 
 	@GetMapping()
 	public String index() {
@@ -168,44 +170,75 @@ public class MemberController {
 
 	// login
 	@PostMapping("/login")
-	@ResponseBody
-	public ResponseEntity<?> login(@RequestBody Map<String, String> map) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 		try {
-			String userId = map.get("userId");
-			String userPwd = map.get("userPwd");
-
-			System.out.println(map.toString());
-			System.out.println(userId + " " + userPwd);
-
-			// memberDto는 userid와 username을 알고있음.
-			MemberDto member = memberService.loginMember(userId, userPwd);
-			if (member != null) { // 로그인 성공
-				return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
+			MemberDto loginUser = memberService.loginMember(memberDto);
+			if (loginUser != null) {
+				String accessToken = jwtService.createAccessToken("userid", loginUser.getUserId());// key, data
+				String refreshToken = jwtService.createRefreshToken("userid", loginUser.getUserId());// key, data
+				memberService.saveRefreshToken(memberDto.getUserId(), refreshToken);
+				logger.debug("로그인 accessToken 정보 : {}", accessToken);
+				logger.debug("로그인 refreshToken 정보 : {}", refreshToken);
+				resultMap.put("access-token", accessToken);
+				resultMap.put("refresh-token", refreshToken);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
-
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			logger.error("로그인 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	// logout
+	@GetMapping("/logout/{userid}")
+	public ResponseEntity<?> removeToken(@PathVariable("userid") String userid) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		try {
+			memberService.deleRefreshToken(userid);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			logger.error("로그아웃 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// searchUser
-	@GetMapping("/user/{userid}")
+	@GetMapping("/{userid}")
 	@ResponseBody
-	public ResponseEntity<?> search(@PathVariable("userid") String userid) {
+	public ResponseEntity<Map<String, Object>> search(@PathVariable("userid") String userid) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 		try {
 			// memberDto는 userid와 username을 알고있음.
 			MemberDto member = memberService.search(userid);
+			
 			if (member != null) { // 로그인 성공
-				return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
+				resultMap.put("userInfo", member);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			logger.error("유저 정보 가져오기 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// logout
