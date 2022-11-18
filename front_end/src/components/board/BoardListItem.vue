@@ -1,6 +1,6 @@
 <template>
   <tr class="text-center">
-    <th>{{article.articleNo}}</th>
+    <th class="text-center">{{article.articleNo}}</th>
     <td>
       <router-link :to="`/board/view/${article.articleNo}`">
         {{ article.subject }}
@@ -22,5 +22,4 @@ export default {
 </script>
 
 <style>
-
 </style>
