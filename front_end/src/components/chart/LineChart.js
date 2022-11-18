@@ -1,9 +1,9 @@
-import { Line, mixins } from 'vue-chartjs/legacy' //또는 'vue-chartjs/legacy'
-const { reactiveProp } = mixins
+import { Line } from 'vue-chartjs' //또는 'vue-chartjs/legacy'
+// const { reactiveProp } = mixins
 
 export default {
   extends: Line,
-  mixins: [reactiveProp],
+  // mixins: [reactiveProp],
   props: ['options'],
   mounted() {
     // this.chartData is created in the mixin.
