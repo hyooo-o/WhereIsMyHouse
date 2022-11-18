@@ -61,7 +61,6 @@
 			</div>
 		</div>
 	</div>
-	</nav>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
 		<div class="container-fluid">

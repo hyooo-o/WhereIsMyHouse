@@ -1,18 +1,44 @@
 <template>
-  <div class="regist">
-    <h1 class="underline">게시글 수정</h1>
-    <div class="regist_form">
-      <label for="userid">작성자</label>
-      <input type="text" id="userid" v-model="article.userId" ref="userId" readonly/><br />
-      <label for="subject">제목</label>
-      <input type="text" id="subject" v-model="article.subject" ref="subject" /><br />
-      <label for="content">내용</label>
-      <br />
-      <textarea id="content" v-model="article.content" ref="content" cols="35" rows="5"></textarea><br />
-      <button @click="checkValue">수정</button>
-      <button @click="moveList">목록</button>
+  <v-container>
+    <div class="regist">
+      <h1 class="underline">게시글 수정</h1>
+      <div class="regist_form">
+        <table class="tbAdd">
+          <tr>
+            <th>제목</th>
+            <td>
+              <input type="text" id="subject" v-model="article.subject" ref="subject" />
+            </td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td ref="userId">{{article.userId}}</td>
+          </tr>
+          <tr>
+						<th>내용</th>
+						<td class="txt_cont">
+              <input type="text" id="subject" v-model="article.subject" ref="subject" />
+            </td>
+					</tr>
+          <!-- <label for="userid">작성자</label>
+          <input type="text" id="userid" v-model="article.userId" ref="userId" readonly/><br />
+          <label for="subject">제목</label>
+          <input type="text" id="subject" v-model="article.subject" ref="subject" /><br />
+          <label for="content">내용</label> -->
+          <!-- <br /> -->
+        </table>
+        <!-- <v-textarea id="content" v-model="article.content" ref="content" cols="35" rows="5"></v-textarea><br /> -->
+        <v-row text-align="center" justify="space-around">
+          <v-col>
+            <v-btn title color="light-green lighten-2" @click="checkValue">수정 완료</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn @click="moveList">목록</v-btn>
+          </v-col>
+        </v-row>
+      </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -67,4 +93,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  .tbAdd{border-top:1px solid #888;}
+	.tbAdd th, .tbAdd td{border-bottom:1px solid #eee; padding:5px 0; }
+	.tbAdd td{padding:10px 10px; text-align:left;}
+	.tbAdd td.txt_cont{height:300px; vertical-align:top;}
+</style>
