@@ -1,7 +1,7 @@
 <template>
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
 		<div class="container-fluid">
-			<a class="navbar-brand text-primary" href="${root}/index.jsp">
+			<a class="navbar-brand text-primary" href="/">
             <img
                 src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
                 width="150"
