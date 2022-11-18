@@ -1,9 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 
-// axios 객체 생성
-export default axios.create({
-  baseURL: "http://localhost",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-});
+// // axios 객체 생성
+// export default axios.create({
+//   baseURL: "http://localhost",
+//   headers: {
+//     "Content-Type": "application/json;charset=utf-8",
+//   },
+// });
