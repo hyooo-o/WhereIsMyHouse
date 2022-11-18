@@ -1,7 +1,10 @@
 package com.ssafy.member.model.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,9 @@ import com.ssafy.member.model.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+	
+	@Autowired
+	private SqlSession sqlSession;
 	
 	@Autowired
 	private MemberMapper memberMapper;
@@ -26,9 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDto loginMember(String userId, String userPwd) throws Exception {
+	public MemberDto loginMember(MemberDto memberDto) throws Exception {
 		// TODO Auto-generated method stub
-		return memberMapper.loginMember(userId, userPwd);
+		return memberMapper.loginMember(memberDto);
 	}
 
 	@Override
@@ -51,4 +57,24 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.search(userid);
 	}
 
+	@Override
+	public void saveRefreshToken(String userid, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", refreshToken);
+		sqlSession.getMapper(MemberMapper.class).saveRefreshToken(map);
+	}
+
+	@Override
+	public Object getRefreshToken(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).getRefreshToken(userid);
+	}
+
+	@Override
+	public void deleRefreshToken(String userid) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", null);
+		sqlSession.getMapper(MemberMapper.class).deleteRefreshToken(map);
+	}
 }
