@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-main>
-      <header-nav></header-nav>
-      <router-view/>
-      <the-footer></the-footer>
-    </v-main>
+    <header-nav></header-nav>
+      <v-main style="height: 100%;">
+        <router-view/>
+      </v-main>
+    <the-footer></the-footer>
   </v-app>
 </template>
 
@@ -92,5 +92,15 @@ li {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+footer{
+  position: static;
+  bottom: 0;
 }
 </style>

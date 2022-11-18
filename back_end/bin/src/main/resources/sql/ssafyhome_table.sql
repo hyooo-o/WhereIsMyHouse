@@ -13,6 +13,25 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+CREATE TABLE `question` (
+  `question_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(16) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`question_id`),
+  KEY `fk_question_to_user_idx` (`user_id`),
+  CONSTRAINT `fk_question_to_user` FOREIGN KEY (`user_id`) REFERENCES `members` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `answer` (
+  `question_id` int NOT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`question_id`),
+  CONSTRAINT `fk_answer_to_question` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 CREATE TABLE `apart` (
   `id` int NOT NULL AUTO_INCREMENT,
   `build_year` int DEFAULT NULL,
