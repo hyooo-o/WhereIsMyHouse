@@ -11,7 +11,6 @@
 	<resultMap type="memberDto" id="memberAll" extends="loginMember">
 	<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
-		<result column="user_password" property="userPwd"/>
 		<result column="email_id" property="emailId"/>
 		<result column="email_domain" property="emailDomain"/>
 		<result column="join_date" property="joinDate"/>
@@ -62,5 +61,23 @@
 		delete from members
 		where user_id=#{userId}
 	</delete>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from members
+		where user_id = #{userid}
+	</select>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update members
+		set token = #{token}
+		where user_id = #{userid}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update members
+		set token = #{token, jdbcType=VARCHAR}
+		where user_id = #{userid}
+	</update>
 
 </mapper>
