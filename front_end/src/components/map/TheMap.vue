@@ -1,15 +1,12 @@
 <template>
-	<div class="container">
+	<!-- <div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div id="jumbotron"
-					class="mt-4 p-5 jumbotron text-white jumbotron-image shadow"
-					style="background-image: url(https://thumb.photo-ac.com/82/82aa26eb7c35a8a4491661920a692ece_t.jpeg)">
-					
+				
 					<div @click="print">
 						아파트 확인
 					</div>
-					<div class="row">
+					<div class="row"> -->
 						<!-- <div class="col-md-3">
 							<div
 								style="width: 100%; height: 700px; overflow: auto; background-color: beige;">
@@ -30,8 +27,8 @@
 								</table>
 							</div>
 						</div> -->
-						<div class="col-sm-9">
-							<div id="map" style="width: 100%; height: 700px">
+						
+							<div id="map" style="width: 100%; height: 80%">
 								<!-- <script>
 									var container = document
 											.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -83,14 +80,13 @@
 									marker.setMap(map);
 									map.setCenter(locPosition);
 								</script> -->
-							</div>
+					
 						</div>
-					</div>
+					<!-- </div>
 				</div>
-			</div>
 		</div>
 
-	</div>
+	</div> -->
 </template>
 
 <script>
@@ -167,5 +163,7 @@ export default {
 </script>
 
 <style>
-
+footer{
+  display: none;
+}
 </style>

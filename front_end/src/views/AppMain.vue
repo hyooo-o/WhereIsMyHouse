@@ -1,8 +1,7 @@
 <template>
     <div>
         <the-search></the-search>
-        <BarChart />
-        <the-map></the-map>
+        <!-- <BarChart /> -->
         <the-news></the-news>
     </div>
 </template>
@@ -10,15 +9,13 @@
 <script>
 import TheNews from "@/components/main/TheNews.vue";
 import TheSearch from "@/components/main/TheSearch.vue";
-import BarChart from '@/components/chart/BarChart'
-import TheMap from '@/components/map/TheMap';
+// import BarChart from '@/components/chart/BarChart'
 
 export default {
     components: {
         TheNews,
         TheSearch,
-        BarChart,
-        TheMap,
+        // BarChart,
     },
 }
 </script>
