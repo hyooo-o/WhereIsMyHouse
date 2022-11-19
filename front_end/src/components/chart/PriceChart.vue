@@ -26,6 +26,8 @@ import {
   PointElement
 } from 'chart.js'
 
+// import http from "@/api/http";
+
 ChartJS.register(
   Title,
   Tooltip,
@@ -85,7 +87,7 @@ export default {
         ],
         datasets: [
           {
-            label: 'Data One',
+            label: '월',
             backgroundColor: '#f87979',
             data: [40, 39, 10, 40, 39, 80, 40]
           }
@@ -96,6 +98,9 @@ export default {
         maintainAspectRatio: false
       }
     }
+  },
+  created() {
+    // http.post("/apt/search/", name).then(({ data }) => (this.chartData = data));
   }
 }
 </script>

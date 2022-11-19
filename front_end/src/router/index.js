@@ -124,6 +124,19 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/map",
+    name: "map",
+    component: () => import("@/views/AppMap"),
+    redirect: "/map/list",
+    children: [
+      {
+        path: "list",
+        name: "maplist",
+        component: () => import("@/components/map/TheMap"),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({
