@@ -15,4 +15,6 @@ public interface AptService {
 	void deleteTrade(int id) throws Exception;
 
 	void updateTrade(TradeDto tradeDto) throws Exception;
+	
+	List<TradeDto> aptTradePrice(String name) throws Exception;
 }
