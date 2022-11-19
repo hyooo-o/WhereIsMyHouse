@@ -86,6 +86,23 @@ public class AptController {
 		}
 	}
 	
+	@PostMapping("/search/{name}")
+	private ResponseEntity<?> aptTradePrice(@PathVariable("name") String name) {
+		try {
+			List<TradeDto> list = aptService.aptTradePrice(name);
+			logger.info("aptTradePrice 호출");
+			System.out.println(name);
+			System.out.println(list.toString());
+			if (list != null && !list.isEmpty()) {
+				return new ResponseEntity<List<TradeDto>>(list, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
         return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HeaderNav from "./components/common/HeaderNav.vue";
+import HeaderNav from "@/components/common/HeaderNav.vue";
 import TheFooter from "@/components/common/TheFooter.vue";
 
 export default {

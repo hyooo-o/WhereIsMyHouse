@@ -102,4 +102,9 @@ public class AptServiceImpl implements AptService {
 	public void updateTrade(TradeDto tradeDto) throws Exception {
 		aptMapper.updateTrade(tradeDto);
 	}
+
+	@Override
+	public List<TradeDto> aptTradePrice(String name) throws Exception {
+		return aptMapper.aptTradePrice(name);
+	}
 }

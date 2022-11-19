@@ -4,6 +4,15 @@
 
 <mapper namespace="com.ssafy.apt.model.mapper.AptMapper">
 
+	<resultMap type="TradeDto" id="trade">
+		<result column="id" property="id"/>
+		<result column="deal_year" property="dealYear"/>
+		<result column="deal_month" property="dealMonth"/>
+		<result column="deal_day" property="dealDay"/>
+		<result column="deal_amount" property="dealAmount"/>
+		<result column="apart_id" property="apartId"/>	
+	</resultMap>
+	
 	<insert id="regist" parameterType="AptDto">
 		insert into apart(build_year, dong, name, area, jibun, regional_code)
 		values(#{build_year}, #{dong}, #{name}, #{area}, #{jibun}, #{regional_code})
@@ -38,5 +47,14 @@
 		from trade
 		where id = #{trade_id}
 	</delete>
+	
+	<select id="aptTradePrice" parameterType="String" resultMap="trade">
+		select deal_year, deal_month, deal_day, deal_amount
+		from trade
+		where apart_id in (select id
+							from apart
+							where name = #{name})
+		order by deal_year, deal_month, deal_day
+	</select>
 
 </mapper>
