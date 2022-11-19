@@ -125,15 +125,15 @@ const routes = [
     ],
   },
   {
-    path: "/apt",
+    path: "/map",
     name: "map",
     component: () => import("@/views/AppMap"),
-    redirect: "/apt/list",
+    redirect: "/map/list",
     children: [
       {
         path: "list",
-        name: "aptlist",
-        component: () => import("@/components/test/AptList"),
+        name: "maplist",
+        component: () => import("@/components/map/TheMap"),
       },
     ],
   },
