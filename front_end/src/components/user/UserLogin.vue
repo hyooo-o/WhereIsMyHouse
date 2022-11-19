@@ -16,7 +16,7 @@
 					<div class="mb-3">
 						<label for="userid" class="form-label">아이디 : </label> <input
 							type="text" class="form-control" id="userid" name="userid" v-model="user.userId"
-							placeholder="아이디..." value="${saveid}" />
+							placeholder="아이디..." />
 					</div>
 					<div class="mb-3">
 						<label for="userpwd" class="form-label">비밀번호 : </label> <input
@@ -49,8 +49,8 @@ export default {
 		return {
 			// isLoginError: false,
 			user: {
-				userid: null,
-				userpwd: null,
+				userId: "",
+				userPwd: "",
 			},
 		};
 	},
@@ -60,13 +60,14 @@ export default {
 	methods: {
 		...mapActions(userStore, ["userConfirm", "getUserInfo"]),
 		async confirm() {
+			console.log(this.user);
 			await this.userConfirm(this.user);
 			let token = sessionStorage.getItem("access-token");
 			// console.log("1. confirm() token >> " + token);
 			if (this.isLogin) {
 				await this.getUserInfo(token);
 				// console.log("4. confirm() userInfo :: ", this.userInfo);
-				this.$router.push({ name: "main" });
+				this.$router.push('/');
 			}
 		},
 		movePage() {

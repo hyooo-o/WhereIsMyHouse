@@ -2,7 +2,7 @@
   <v-app>
     <header-nav></header-nav>
       <v-main style="height: 100%;">
-        <router-view/>
+        <router-view :key="$route.fullPath"/>
       </v-main>
     <the-footer></the-footer>
   </v-app>
@@ -38,12 +38,12 @@ export default {
   padding: 30px;
 } */
 
-nav a {
+/* nav a {
   font-weight: bold;
   color: #2c3e50;
-}
+} */
 
-nav a.router-link-exact-active {
+/* nav a.router-link-exact-active {
   color: #42b983;
 }
 
@@ -51,7 +51,7 @@ nav a.router-link-exact-active {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-}
+} */
 
 li {
 	/*margin-top:20px;*/

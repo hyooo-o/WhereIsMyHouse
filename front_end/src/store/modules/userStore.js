@@ -129,9 +129,9 @@ const userStore = {
         userid,
         ({ data }) => {
           if (data.message === "success") {
-            commit("SET_IS_LOGIN", false);
             commit("SET_USER_INFO", null);
             commit("SET_IS_VALID_TOKEN", false);
+            commit("SET_IS_LOGIN", false);
           } else {
             console.log("유저 정보 없음!!!!");
           }
