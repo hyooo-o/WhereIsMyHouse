@@ -1,6 +1,6 @@
 <template>
   <tr class="text-center">
-    <th>{{article.questionId}}</th>
+    <th class="text-center">{{article.questionId}}</th>
     <td>
       <router-link :to="`/qna/view/${article.questionId}`">
         {{ article.title }}

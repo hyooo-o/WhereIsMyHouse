@@ -124,6 +124,19 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/apt",
+    name: "map",
+    component: () => import("@/views/AppMap"),
+    redirect: "/apt/list",
+    children: [
+      {
+        path: "list",
+        name: "aptlist",
+        component: () => import("@/components/test/AptList"),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({

@@ -2,7 +2,7 @@
   <v-app>
     <header-nav></header-nav>
       <v-main style="height: 100%;">
-        <router-view :key="$route.fullPath"/>
+        <router-view/>
       </v-main>
     <the-footer></the-footer>
   </v-app>

@@ -9,7 +9,7 @@
 <script>
 import TheNews from "@/components/main/TheNews.vue";
 import TheSearch from "@/components/main/TheSearch.vue";
-import BarChart from '@/components/chart/BarChart'
+import BarChart from '@/component/chart/BarChart'
 
 export default {
     components: {
