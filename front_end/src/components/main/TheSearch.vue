@@ -69,8 +69,13 @@
 
 <script>
 export default {
-
-}
+  methods: {
+    searchApt() {
+      console.log("아파트 검색");
+      this.$router.push({ name: "map" });
+    }
+  }
+};
 </script>
 
 <style>
