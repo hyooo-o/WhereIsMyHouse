@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-show="!login">
-            <header-nav-without-login></header-nav-without-login>
-        </div>
-        <div v-show="login">
+        <div v-if="isLogin">
             <header-nav-with-login></header-nav-with-login>
+        </div>
+        <div v-else>
+            <header-nav-without-login></header-nav-without-login>
         </div>
     </div>
 </template>
@@ -12,6 +12,9 @@
 <script>
 import HeaderNavWithLogin from "@/components/common/HeaderNavWithLogin.vue";
 import HeaderNavWithoutLogin from "@/components/common/HeaderNavWithoutLogin.vue";
+import { mapState } from "vuex";
+
+const userStore = "userStore";
 
 export default {
     components : {
@@ -19,9 +22,7 @@ export default {
         HeaderNavWithoutLogin,
     },
     computed: {
-        login() {
-            return this.$store.state.loginUser !== null;
-        }
+        ...mapState(userStore, ["isLogin"]),
     }
 }
 </script>
