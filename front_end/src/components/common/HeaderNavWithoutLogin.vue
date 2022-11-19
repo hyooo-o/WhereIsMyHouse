@@ -16,6 +16,9 @@
                 id="navbarSupportedContent">
                 <ul class="navbar-nav" id="logout-menu">
                     <li class="nav-item">
+                        <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
+                    </li>
+                    <li class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
                     </li>
                     <li class="nav-item">
