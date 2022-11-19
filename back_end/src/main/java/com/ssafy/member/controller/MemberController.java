@@ -241,14 +241,6 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	// logout
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		// 세션 삭제하기 --> 모두 삭제 invalidate()
-		session.invalidate();
-		return "redirect:";
-	}
-
 	// search - 비밀번호 찾기
 	@GetMapping("/user/password/{userid}")
 	@ResponseBody
