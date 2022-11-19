@@ -16,13 +16,13 @@
                 id="navbarSupportedContent">
                 <ul class="navbar-nav" id="logout-menu">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" @click="moveToBoard">공지사항</a>
+                        <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" @click="moveToQNA">Q&A</a>
+                        <router-link class="nav-link" :to="{ name: 'qna' }">Q & A</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" @click="moveToLogin">로그인</a>
+                        <router-link class="nav-link" :to="{ name: 'userlogin' }">로그인</router-link>
                     </li>
                 </ul>
             </div>
@@ -32,20 +32,7 @@
 
 <script>
 export default {
-    methods: {
-        moveToBoard() {
-            this.$router.push({name : "board"});
-        },
-        moveToQNA() {
-            this.$router.push({name : "qna"});
-        },
-        moveToLogin() {
-            this.$router.push({name : "userlogin"});
-        },
-        moveToJoin() {
-            this.$router.push({name : "userjoin"});
-        }
-    }
+
 }
 </script>
 
