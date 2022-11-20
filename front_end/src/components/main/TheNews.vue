@@ -61,33 +61,10 @@
                 <div class="col-sm-4">
                     <ul class="list-group list-group-flush mt-4">
                         <li class="list-group-item bo"><h2>부동산 뉴스</h2></li>
-                        <li>
-                            <a class="list-group-item" href="https://www.mk.co.kr/news/realestate/view/2022/09/796396/"
-                            >"급매가가 시세라고 보면 돼요"…집값 하락이 바꿔놨다</a
+                        <li v-for="news in newsList" :key="news.news_id">
+                            <a class="list-group-item" :href="news.news_url"
+                            >{{news.news_title}}</a
                             >
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="https://www.mk.co.kr/news/realestate/view/2022/09/797095/"
-                            >"넓은 곳에서 살고 싶은데"…3분기 전국 중대형 입주 물량 역대 최저</a
-                            >
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="https://www.mk.co.kr/news/realestate/view/2022/09/795978/"
-                            >'일시적 2주택자·고령 1주택자' 종부세 완화 개정안, 국회 통과</a
-                            >
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="https://www.mk.co.kr/news/realestate/view/2022/09/796648/"
-                            >추석 이후 연말까지 아파트 16만3천가구 공급</a
-                            >
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="https://n.news.naver.com/mnews/article/003/0011406523?sid=101"
-                            >구축 아파트 깡통전세 위험↑…신축·재건축 상대적으로 '안전'</a
-                            >
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="https://www.mk.co.kr/news/realestate/view/2022/09/796389/">'재산세 30% 상한' 주택 크게 줄어</a>
                         </li>
                     </ul>
                 </div>
@@ -97,8 +74,23 @@
 </template>
 
 <script>
-export default {
+import { mapState, mapActions } from 'vuex'
 
+const newsStore = "newsStore";
+
+export default {
+    computed: {
+        ...mapState(newsStore, ["newsList"]),
+    },
+    methods: {
+        ...mapActions(newsStore, ["getAllNews"]),
+        print(){
+            console.log(this.newsList);
+        }
+    },
+    created() {
+        this.getAllNews();
+    }
 }
 </script>
 
