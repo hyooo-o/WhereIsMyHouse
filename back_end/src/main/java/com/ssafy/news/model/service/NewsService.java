@@ -1,13 +1,11 @@
 package com.ssafy.news.model.service;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
-import com.ssafy.board.BoardDto;
+import com.ssafy.news.NewsDto;
+
 
 public interface NewsService {
-
-	int writeArticle(BoardDto boardDto) throws Exception;
-	
+	ArrayList<NewsDto> getAllNews() throws SQLException;
 }
