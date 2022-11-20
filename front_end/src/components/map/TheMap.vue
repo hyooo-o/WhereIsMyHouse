@@ -27,8 +27,8 @@
 								</table>
 							</div>
 						</div> -->
-						
-							<div id="map" style="width: 100%; height: 80%">
+            <div style="width: 100%; height: 80%">
+							<div id="map" style="width: 100%; height: 70%">
 								<!-- <script>
 									var container = document
 											.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -80,8 +80,11 @@
 									marker.setMap(map);
 									map.setCenter(locPosition);
 								</script> -->
-					
-						</div>
+              </div>
+              <div style="width: 100%; height: 10%">
+                <map-detail></map-detail>
+              </div>
+            </div>
 					<!-- </div>
 				</div>
 		</div>
@@ -90,11 +93,15 @@
 </template>
 
 <script>
+import MapDetail from "@/components/map/MapDetail.vue";
 import { mapState, mapActions } from "vuex";
 
 const aptStore = "aptStore";
 
 export default {
+  components: {
+    MapDetail,
+  },
 	computed: {
 		...mapState(aptStore, ["aptList"]),
 	},
