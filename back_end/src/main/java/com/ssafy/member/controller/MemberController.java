@@ -66,7 +66,7 @@ public class MemberController {
 	}
 
 	// modify
-	@PutMapping("/user")
+	@PutMapping("/modify")
 	@ResponseBody
 	public ResponseEntity<?> userModify(@RequestBody MemberDto memberDto) {
 		try {
@@ -223,7 +223,7 @@ public class MemberController {
 		try {
 			// memberDto는 userid와 username을 알고있음.
 			MemberDto member = memberService.search(userid);
-			
+			System.out.println(userid);
 			if (member != null) { // 로그인 성공
 				resultMap.put("userInfo", member);
 				resultMap.put("message", SUCCESS);
