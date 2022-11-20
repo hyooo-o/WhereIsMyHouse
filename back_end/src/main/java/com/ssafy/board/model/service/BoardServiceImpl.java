@@ -26,12 +26,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDto> listArticle() throws Exception {
+	public List<BoardDto> listArticle(int limit, int offset) throws Exception {
 //		int pgno = Integer.parseInt(map.get("pgno"));
 //		int spl = SizeConstant.SIZE_PER_LIST;
 //		int start = (pgno - 1) * spl;
 //		map.put("start", start + "");
-		return boardMapper.listArticle();
+		return boardMapper.listArticle(limit, offset);
 	}
 
 	@Override
@@ -57,6 +57,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardDto> searchArticle(Map<String, String> map) throws Exception {
 		return boardMapper.searchArticle(map);
+	}
+
+	@Override
+	public int selectBoardTotalCount() throws Exception {
+		return boardMapper.selectBoardTotalCount();
 	}
 
 }
