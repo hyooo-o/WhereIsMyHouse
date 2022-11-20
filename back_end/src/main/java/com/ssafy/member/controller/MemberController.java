@@ -68,36 +68,54 @@ public class MemberController {
 	// modify
 	@PutMapping("/modify")
 	@ResponseBody
-	public ResponseEntity<?> userModify(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<Map<String, Object>> userModify(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
 		try {
 			int cnt = memberService.modifyMember(memberDto);
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// join
-	@PostMapping(value = "/user")
+	@PostMapping("/join")
 	@ResponseBody
-	public ResponseEntity<?> userRegister(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<Map<String, Object>> userRegister(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
+		System.out.println(memberDto);
+		
 		try {
 			int cnt = memberService.joinMember(memberDto);
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
-
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// login page
