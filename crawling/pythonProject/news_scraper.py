@@ -20,16 +20,26 @@ conn = DBConnector()
 db = conn.connect()
 cursor = db.cursor()
 
+print()
+print()
+print()
+print()
 
 # 뉴스제목을 text로 추출하여 출력합니다.
 for tit in html_class:
     title = tit.text.strip()
     news_url = tit['href']
 
+    if '\'' in title:
+        continue
+
+    if '\"' in title:
+        continue
+
     sql = f"insert into news values(0, '{title}', '{news_url}')"
+    
     cursor.execute(sql)
     db.commit()
 
     print(title, news_url)
-
 
