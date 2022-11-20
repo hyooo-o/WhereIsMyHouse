@@ -9,7 +9,8 @@ import com.ssafy.board.BoardDto;
 public interface BoardService {
 
 	int writeArticle(BoardDto boardDto) throws Exception;
-	List<BoardDto> listArticle() throws Exception;
+	List<BoardDto> listArticle(int limit, int offset) throws Exception;
+	int selectBoardTotalCount() throws Exception;
 	BoardDto getArticle(int articleNo) throws Exception;
 	List<BoardDto> searchArticle(Map<String, String> map) throws Exception;
 	void updateHit(int articleNo) throws Exception;

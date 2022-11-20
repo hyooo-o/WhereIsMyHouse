@@ -22,6 +22,7 @@
 	<select id="listArticle" parameterType="map" resultMap="board">
 		select article_no, user_id, subject, content, hit, register_time
 		from board
+		limit #{limit} offset #{offset}
 	</select>
 
 	<select id="getArticle" parameterType="int" resultMap="board">
@@ -47,11 +48,6 @@
 		where article_no = #{articleNo}
 	</delete>
 
-	<select id="totalArticleCount" parameterType="map" resultType="int">
-		select count(*)
-		from board
-	</select>
-
 	<select id="searchArticle"  parameterType="map" resultMap="board">
 		select article_no, user_id, subject, content, hit, register_time
 		from board
@@ -63,6 +59,12 @@
 				where user_id = #{word}
 			</if>
 		</if>
+	</select>
+
+	<!-- 게시글 limit offset 조회 -->
+	<select id="selectBoardTotalCount" resultType="int">
+		select count(*)
+		from board
 	</select>
 	
 </mapper>

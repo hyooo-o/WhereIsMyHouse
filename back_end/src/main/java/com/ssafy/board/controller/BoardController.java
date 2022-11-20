@@ -48,16 +48,23 @@ public class BoardController extends HttpServlet {
 		this.boardService = boardService;
 	}
 	
-//	@GetMapping("/list")
-//	public String list() {
-//		return "redirect:/board/boardlist.html";
-//	}
+	@GetMapping("/list/count")
+	@ResponseBody
+	public ResponseEntity<Integer> selectBoardTotalCount() throws Exception {
+		logger.debug("totalArticleCount - 호출");
+		return new ResponseEntity<Integer>(boardService.selectBoardTotalCount(), HttpStatus.OK);
+	}
 
 	@GetMapping("/list")
 	@ResponseBody
-	public ResponseEntity<List<BoardDto>> list() throws Exception {
-		logger.info("listArticle - 호출");
-		return new ResponseEntity<List<BoardDto>>(boardService.listArticle(), HttpStatus.OK);
+	public ResponseEntity<?> list(int limit, int offset) throws Exception {
+		try {
+			logger.info("listArticle - 호출");
+			System.out.println("limit : " + limit + " / offset : " + offset);
+			return new ResponseEntity<List<BoardDto>>(boardService.listArticle(limit, offset), HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
 	}
 	
 	@PostMapping("/write")
