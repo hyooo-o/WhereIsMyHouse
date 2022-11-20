@@ -36,13 +36,18 @@
         </v-col>
       </v-row>
     </v-row>
+    <v-row>
+      <div class="text-center">
+        <page-link></page-link>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import http from "@/api/http";
 import BoardListItem from "@/components/board/BoardListItem.vue";
-
+import PageLink from "@/components/board/PageLink";
 
 export default {
   name: "BoardList",
@@ -55,7 +60,7 @@ export default {
   },
   components: {
     BoardListItem,
-    
+    PageLink
   },
   created() {
     // http.get(`/board/list`).then(({ data }) => (this.articles = data));

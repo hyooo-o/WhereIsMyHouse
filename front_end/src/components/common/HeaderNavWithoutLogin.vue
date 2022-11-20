@@ -15,16 +15,16 @@
             <div class="collapse navbar-collapse justify-content-end"
                 id="navbarSupportedContent">
                 <ul class="navbar-nav" id="logout-menu">
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-right: 30px">
                         <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-right: 30px">
                         <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-right: 30px">
                         <router-link class="nav-link" :to="{ name: 'qna' }">Q & A</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-right: 30px">
                         <router-link class="nav-link" :to="{ name: 'userlogin' }">로그인</router-link>
                     </li>
                 </ul>
