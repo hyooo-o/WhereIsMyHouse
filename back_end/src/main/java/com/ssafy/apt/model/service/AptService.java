@@ -1,5 +1,6 @@
 package com.ssafy.apt.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface AptService {
 	void updateTrade(TradeDto tradeDto) throws Exception;
 	
 	List<TradeDto> aptTradePrice(String name) throws Exception;
+
+	ArrayList<AptSearchDto> getList() throws Exception;
 }

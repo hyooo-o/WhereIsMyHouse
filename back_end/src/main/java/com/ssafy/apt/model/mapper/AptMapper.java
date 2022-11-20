@@ -1,6 +1,7 @@
 package com.ssafy.apt.model.mapper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,5 @@ public interface AptMapper {
 	void deleteTrade(int id)throws SQLException;
 	void updateTrade(TradeDto tradeDto) throws SQLException;
 	List<TradeDto> aptTradePrice(String name) throws SQLException;
+	ArrayList<AptSearchDto> getList() throws SQLException;
 }

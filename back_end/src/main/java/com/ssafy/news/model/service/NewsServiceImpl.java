@@ -1,9 +1,13 @@
 package com.ssafy.news.model.service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.board.BoardDto;
+import com.ssafy.news.NewsDto;
 import com.ssafy.news.model.mapper.NewsMapper;
 //import com.ssafy.util.SizeConstant;
 
@@ -18,9 +22,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public int writeArticle(BoardDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<NewsDto> getAllNews() throws SQLException {
+		return newsMapper.getAllNews();
 	}
-
 }

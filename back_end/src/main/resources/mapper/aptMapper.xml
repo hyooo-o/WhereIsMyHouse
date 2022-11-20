@@ -18,6 +18,11 @@
 		values(#{build_year}, #{dong}, #{name}, #{area}, #{jibun}, #{regional_code})
 	</insert>
 	
+	<select id="getList" resultType="AptSearchDto">
+		select *
+		from apart a join trade t on (a.id = t.apart_id)
+	</select>
+	
 	<select id="search" parameterType="map" resultType="AptSearchDto">
 		select *
 		from apart a join trade t on (a.id = t.apart_id)

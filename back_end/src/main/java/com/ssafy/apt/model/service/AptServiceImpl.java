@@ -1,5 +1,6 @@
 package com.ssafy.apt.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,11 @@ public class AptServiceImpl implements AptService {
 		aptMapper.regist(aptDto);
 	}
 
+	@Override
+	public ArrayList<AptSearchDto> getList() throws Exception {
+		return aptMapper.getList();
+	}
+	
 	@Override
 	public List<AptSearchDto> search(Map<String, String> condition) throws Exception {
 		// 값 설정
@@ -107,4 +113,5 @@ public class AptServiceImpl implements AptService {
 	public List<TradeDto> aptTradePrice(String name) throws Exception {
 		return aptMapper.aptTradePrice(name);
 	}
+
 }
