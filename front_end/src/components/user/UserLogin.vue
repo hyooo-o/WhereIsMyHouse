@@ -28,7 +28,7 @@
 						<button type="button" id="btn-login"
 							class="btn btn-outline-primary mb-3" @click="confirm">로그인</button>
 						<button type="button" id="btn-mv-join"
-							class="btn btn-outline-success mb-3">회원가입</button>
+							class="btn btn-outline-success mb-3" @click="moveJoin">회원가입</button>
 						<button type="button" id="btn-search-pwd"
 							class="btn btn-outline-primary mb-3">비밀번호 찾기</button>
 					</div>
@@ -63,15 +63,13 @@ export default {
 			console.log(this.user);
 			await this.userConfirm(this.user);
 			let token = sessionStorage.getItem("access-token");
-			// console.log("1. confirm() token >> " + token);
 			if (this.isLogin) {
 				await this.getUserInfo(token);
-				// console.log("4. confirm() userInfo :: ", this.userInfo);
 				this.$router.push('/');
 			}
 		},
-		movePage() {
-			this.$router.push({ name: "join" });
+		moveJoin() {
+			this.$router.push({ name: "userjoin" });
 		},
 	},
 }

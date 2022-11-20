@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout } from "@/api/user";
+import { modify, login, findById, tokenRegeneration, logout } from "@/api/user";
 
 const userStore = {
   namespaced: true,
@@ -138,6 +138,21 @@ const userStore = {
         },
         (error) => {
           console.log(error);
+        }
+      );
+    },
+    async userModify({ commit }, user) {
+      await modify(
+        user,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_USER_INFO", user);
+          } else {
+            console.log("유저 수정 실패!!!!");
+          }
+        },
+        (error) => {
+          console.log("유저 수정 중 에러!!!!", error);
         }
       );
     },
