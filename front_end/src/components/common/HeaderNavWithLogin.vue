@@ -2,37 +2,20 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
     <div class="container-fluid">
         <a class="navbar-brand text-primary" href="/">
-        <img
+            <img
             src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
             width="150"
-            alt=""/></a>
+            alt=""/>
+        </a>
 
         <ul class="navbar-nav" id="login-menu">
             <li class="nav-item" style="padding-right: 30px">
-                <div class="dropdown">
-                    <button type="button" class="nav-link border-0 bg-white dropdown-toggle" data-bs-toggle="dropdown">관심지역</button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a
-                            class="dropdown-item"
-                            href="#"
-                            onclick="sendRequest('sido-modal', '*00000000');"
-                            data-bs-toggle="modal"
-                            data-bs-target="#interestingEnrollModal"
-                            >관심지역 등록</a
-                            >
-                        </li>
-                        <li><a class="dropdown-item" href="#">관심지역 정보</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
                 <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="padding-right: 30px">
                 <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="padding-right: 30px">
                 <router-link class="nav-link" :to="{ name: 'qna' }">Q & A</router-link>
             </li>
             <li class="nav-item" style="padding-right: 30px">
@@ -47,10 +30,10 @@
                         </template>
                         <v-list>
                             <v-list-item link>
-                                <v-list-item-title @click="logout">마이페이지</v-list-item-title>
+                                <v-list-item-title @click="mypage">마이페이지</v-list-item-title>
                             </v-list-item>
                             <v-list-item link>
-                                <v-list-item-title @click="logout">관심지역</v-list-item-title>
+                                <v-list-item-title @click="favorite">관심지역</v-list-item-title>
                             </v-list-item>
                             <v-list-item link>
                                 <v-list-item-title @click="logout">로그아웃</v-list-item-title>
@@ -97,6 +80,12 @@ methods: {
     },
     moveToJoin() {
         this.$router.push({name : "userjoin"});
+    },
+    mypage() {
+        this.$router.push({ name: "userdetail" });
+    },
+    favorite() {
+        // this.$router.push({name : "userlogin"});
     }
 }
 }
