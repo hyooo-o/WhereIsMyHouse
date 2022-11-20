@@ -36,13 +36,6 @@
         </v-col>
       </v-row>
     </v-row>
-    <v-row>
-      <div class="text-center">
-        <v-pagination
-          :length="3"
-        ></v-pagination>
-      </div>
-    </v-row>
   </v-container>
 </template>
 
@@ -50,24 +43,46 @@
 import http from "@/api/http";
 import BoardListItem from "@/components/board/BoardListItem.vue";
 
+
 export default {
   name: "BoardList",
   data() {
     return {
       articles: [],
+      pageLimit : 10,
+      pageOffet : 0
     };
   },
   components: {
     BoardListItem,
+    
   },
   created() {
-    http.get(`/board/list`).then(({ data }) => (this.articles = data));
+    // http.get(`/board/list`).then(({ data }) => (this.articles = data));
+    this.initComponent();
+  },
+  watch: {
+    '$route.query': function(){
+      this.initComponent();
+    }
   },
   methods: {
     moveWrite() {
       console.log("글쓰러 가자!!!");
       this.$router.push({ name: "boardwrite" });
     },
+    initComponent() {
+      
+      http.get('/board/list',{
+        params: { limit: this.pageLimit, offset: `${eval(this.$route.query.no - this.pageLimit)}`}
+      })
+      .then(({ data }) => {
+        this.articles = data;
+      })
+      // .catch(() => {
+      //   alert('에러가 발생했습니다.');
+      // });
+    }
   },
 };
 </script>

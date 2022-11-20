@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
     <div class="container-fluid">
-        <a class="navbar-brand text-primary" href="${root}/index.jsp">
+        <a class="navbar-brand text-primary" href="/">
         <img
             src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
             width="150"
@@ -26,14 +26,14 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item" style="padding-right: 30px">
-                <a class="nav-link" aria-current="page" href="/board">공지사항</a>
+            <li class="nav-item">
+                <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
             </li>
-            <li class="nav-item" style="padding-right: 30px">
-                <a class="nav-link" aria-current="page" href="/qna">Q&A</a>
+            <li class="nav-item">
+                <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
             </li>
-            <li class="nav-item" style="padding-right: 30px">
-                <a class="nav-link" aria-current="page" href="${root}/apt/mvRegist">아파트 관리</a>
+            <li class="nav-item">
+                <router-link class="nav-link" :to="{ name: 'qna' }">Q & A</router-link>
             </li>
             <li class="nav-item" style="padding-right: 30px">
                 <div class="text-center">
