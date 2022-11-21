@@ -15,5 +15,5 @@ public interface AptMapper {
 	void deleteTrade(int id)throws SQLException;
 	void updateTrade(TradeDto tradeDto) throws SQLException;
 	List<TradeDto> aptTradePrice(String name) throws SQLException;
-	ArrayList<AptSearchDto> getList() throws SQLException;
+	ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws SQLException;
 }
