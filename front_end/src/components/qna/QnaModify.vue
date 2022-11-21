@@ -1,18 +1,36 @@
 <template>
-  <div class="regist">
-    <h1 class="underline">게시글 수정</h1>
-    <div class="regist_form">
-      <label for="userid">작성자</label>
-      <input type="text" id="userid" v-model="article.userId" ref="userId" readonly/><br />
-      <label for="title">제목</label>
-      <input type="text" id="title" v-model="article.title" ref="title" /><br />
-      <label for="content">내용</label>
-      <br />
-      <textarea id="content" v-model="article.content" ref="content" cols="35" rows="5"></textarea><br />
-      <button @click="checkValue">수정</button>
-      <button @click="moveList">목록</button>
-    </div>
-  </div>
+  <v-container>
+    <v-row style="padding-top: 5%;">
+      <v-col>
+        <h1 class="underline">질문 수정</h1>
+      </v-col>
+
+      <table class="tbAdd">
+        <tr>
+          <th>제목</th>
+          <td>
+            <input class="form-control" type="text" id="title" v-model="article.title" ref="title" />
+          </td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td ref="userId">{{article.userId}}</td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td class="txt_cont">
+            <textarea class="form-control" type="text" id="content" v-model="article.content" ref="subject" rows="10"/>
+          </td>
+        </tr>
+      </table>
+      <div class="form-group row" style="padding-top: 5%;">
+        <div>
+          <v-btn @click="checkValue">수정 완료</v-btn>
+          <v-btn @click="moveList">목록</v-btn>
+        </div>
+      </div>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -67,4 +85,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  .tbAdd{border-top:1px solid #888;}
+	.tbAdd th, .tbAdd td{border-bottom:1px solid #eee; padding:5px 0; }
+	.tbAdd td{padding:10px 10px; text-align:left;}
+	.tbAdd td.txt_cont{height:300px; vertical-align:top;}
+</style>

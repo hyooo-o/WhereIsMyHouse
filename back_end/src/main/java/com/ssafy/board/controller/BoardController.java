@@ -128,7 +128,7 @@ public class BoardController extends HttpServlet {
 			if (boardService.modifyArticle(boardDto)) {
 				return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
@@ -142,7 +142,7 @@ public class BoardController extends HttpServlet {
 			if (boardService.deleteArticle(articleNo)) {
 				return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}

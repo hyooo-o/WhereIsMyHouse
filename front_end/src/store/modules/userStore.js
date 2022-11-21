@@ -156,6 +156,23 @@ const userStore = {
         }
       );
     },
+    async userDelete({ commit }, user) {
+      await delete(
+        user,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_IS_LOGIN", false);
+            commit("SET_USER_INFO", null);
+            commit("SET_IS_VALID_TOKEN", null);
+          } else {
+            console.log("유저 삭제 실패!!!!");
+          }
+        },
+        (error) => {
+          console.log("유저 삭제 중 에러!!!!", error);
+        }
+      );
+    }
   },
 };
 

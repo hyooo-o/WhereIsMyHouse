@@ -77,6 +77,8 @@ export default {
 		async userJoin() {
 			console.log(this.user);
 			await join(this.user);
+			alert("회원 가입 완료! 로그인 해주세요.");
+			this.$router.push({ name: 'userlogin' });
 		},
 	}
 }

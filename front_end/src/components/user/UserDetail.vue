@@ -30,8 +30,7 @@
 							<router-link class="nav-link" :to="{ name: 'main' }">확인</router-link>
 						</v-btn>
 						<v-btn id="btn-del">
-							<a class="nav-link"
-								href="${root}/user?act=del&userid=${userinfo.userId}">탈퇴</a>
+							<router-link class="nav-link" :to="{ name: 'userdelete' }">탈퇴</router-link>
 						</v-btn>
 					</div>
 				</form>
