@@ -1,11 +1,26 @@
 <template>
-  <div>
-    <hr>
-    <div>답변</div>
-    <input type="text" class="form-control" id="content" name="content" v-model="content" ref="content">
-    <button @click="checkValue">수정 완료</button>
-    <button @click="reset">수정 취소</button>
-  </div>
+  <v-container>
+    <v-row style="padding-top: 5%;">
+      <v-col>
+        <h1 class="underline">답변 수정</h1>
+        </v-col>
+
+        <table class="tbAdd">
+          <tr>
+						<th>답변</th>
+						<td class="txt_cont">
+              <textarea class="form-control" type="text" id="content" v-model="content" ref="content" rows="5"/>
+            </td>
+					</tr>
+        </table>
+        <div class="form-group row" style="padding-top: 5%;">
+          <div>
+            <v-btn @click="checkValue">수정 완료</v-btn>
+            <v-btn @click="reset">수정 취소</v-btn>
+          </div>
+        </div>
+      </v-row>
+  </v-container>
 </template>
 
 <script>
