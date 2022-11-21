@@ -18,14 +18,16 @@ export default {
 	},
   methods: {
     ...mapActions(userStore, ["userDelete"]),
-    async userDelete() {
-      console.log(this.userInfo);
-      await this.userDelete(this.userInfo);
-      if (this.userInfo == null) {
-        this.$router.push('/');
-      }
+    async delete() {
+      console.log("corona");
+      await this.userDelete(this.userInfo.userId);
+      this.$router.push('/');
     },
-  }
+  },
+  mounted() {
+    this.delete();
+    alert("탈퇴 완료!");
+  },
 };
 </script>
 
