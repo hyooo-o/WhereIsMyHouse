@@ -25,8 +25,8 @@ public class AptServiceImpl implements AptService {
 	}
 
 	@Override
-	public ArrayList<AptSearchDto> getList() throws Exception {
-		return aptMapper.getList();
+	public ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws Exception {
+		return aptMapper.getList(loc);
 	}
 	
 	@Override

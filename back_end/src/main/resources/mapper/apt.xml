@@ -18,9 +18,11 @@
 		values(#{build_year}, #{dong}, #{name}, #{area}, #{jibun}, #{regional_code})
 	</insert>
 	
-	<select id="getList" resultType="AptSearchDto">
+	<select id="getList" parameterType="map" resultType="AptDto">
 		select *
-		from apart a join trade t on (a.id = t.apart_id)
+		from apart
+		where (lat between #{swLat} and #{neLat})
+		and (lng between #{swLng} and #{neLng})		
 	</select>
 	
 	<select id="search" parameterType="map" resultType="AptSearchDto">
