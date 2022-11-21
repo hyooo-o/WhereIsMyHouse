@@ -41,6 +41,11 @@ const routes = [
         name: "usersearchpwd",
         component: () => import("@/components/user/UserSearchPassword"),
       },
+      {
+        path: "delete",
+        name: "userdelete",
+        component: () => import("@/components/user/UserDelete"),
+      },
     ]
   },
   {
