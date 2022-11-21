@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { modify, login, findById, tokenRegeneration, logout } from "@/api/user";
+import { modify, login, findById, tokenRegeneration, logout, deleteUser } from "@/api/user";
 //choijiseong babo
 const userStore = {
   namespaced: true,
@@ -156,14 +156,15 @@ const userStore = {
         }
       );
     },
-    async userDelete({ commit }, user) {
-      await delete(
-        user,
+    async userDelete({ commit }, userid) {
+      await deleteUser(
+        userid,
         ({ data }) => {
           if (data.message === "success") {
-            commit("SET_IS_LOGIN", false);
+            console.log("유저 삭제 성공!!");
             commit("SET_USER_INFO", null);
-            commit("SET_IS_VALID_TOKEN", null);
+            commit("SET_IS_VALID_TOKEN", false);
+            commit("SET_IS_LOGIN", false);
           } else {
             console.log("유저 삭제 실패!!!!");
           }

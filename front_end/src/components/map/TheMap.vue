@@ -109,10 +109,10 @@ export default {
 		MapDetail,
 	},
 	computed: {
-		...mapState(aptStore, ["aptList", "drawer"]),
+		...mapState(aptStore, ["apt", "aptList", "drawer"]),
 	},
     methods: {
-		...mapActions(aptStore, ["getAptList", "setMarkers", "switchDrawer"]),
+		...mapActions(aptStore, ["getAptList", "setApt", "switchDrawer"]),
         // searchApt() {
         //     let form = document.querySelector("#search-form");
 			
@@ -155,6 +155,12 @@ export default {
 			//지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
 			this.map = new kakao.maps.Map(container, options);
 
+			let neLat = this.map.getBounds().getNorthEast().getLat();
+			let neLng = this.map.getBounds().getNorthEast().getLng();
+			let swLat = this.map.getBounds().getSouthWest().getLat();
+			let swLng = this.map.getBounds().getSouthWest().getLng();
+			vueInstance.displayMarker(neLat, neLng, swLat, swLng);
+
 			kakao.maps.event.addListener(this.map, "zoom_changed", function() {
 				var neLat = this.getBounds().getNorthEast().getLat();
 				var neLng = this.getBounds().getNorthEast().getLng();
@@ -182,8 +188,6 @@ export default {
 					position: new kakao.maps.LatLng(apt.lat, apt.lng),
 				});
 
-				console.log(marker);
-
 				let iwContent = document.createElement("div")
 
 				let companyName = document.createElement("div")
@@ -203,6 +207,7 @@ export default {
 				kakao.maps.event.addListener(marker, 'click', function() {
 					// 뷰엑스의 apt = element
 					// drawer = !drawer
+					vueInstance.setApt(apt);
 					console.log(vueInstance.drawer);
 					vueInstance.switchDrawer(!vueInstance.drawer);
 				});
@@ -222,7 +227,7 @@ export default {
 				vueInstance.markers.push(marker);
 			})    
 		},
-		displayMarker(neLat, neLng, swLat, swLng) {
+		async displayMarker(neLat, neLng, swLat, swLng) {
 			const loc = {
 				neLat,
 				neLng,
@@ -232,7 +237,7 @@ export default {
 
 			const vueInstance = this;
 
-			this.getAptList(loc);
+			await this.getAptList(loc);
 
 			// console.log(neLat, neLng, swLat, swLng);
 
@@ -240,13 +245,11 @@ export default {
 
 			this.createMarker();
 
-			console.log(vueInstance.markers);
-
-			vueInstance.markers.forEach((marker) => {
-				marker.setMap(vueInstance.map);	
-			});
+			// vueInstance.markers.forEach((marker) => {
+			// 	marker.setMap(vueInstance.map);	
+			// });
+			this.setMarkers(this.map);
 		},
-
 		setMarkers(show) {
 			for (var i = 0; i < this.markers.length; i++) {
 				this.markers[i].setMap(show);	
