@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-        <div class="col-sm-12">
+        <!-- <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4 text-center">
-                    <img src="https://blog.kakaocdn.net/dn/bPJj9J/btqXRvIP6Iz/P6zBJCUEGysYlGz9qStC8K/img.png" class="img-thumbnail mt-5" />
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6 text-center"> -->
+                    
+                    <!-- <img src="https://blog.kakaocdn.net/dn/bPJj9J/btqXRvIP6Iz/P6zBJCUEGysYlGz9qStC8K/img.png" class="img-thumbnail mt-5" /> -->
+                <!-- </div> -->
+                <!-- <div class="col-sm-4">
                     <ul class="list-group list-group-flush mt-4">
                         <li class="list-group-item"><h2>지혜롭게 내집 마련하기</h2></li>
                         <li class="list-group-item border-0">
@@ -57,8 +58,8 @@
                             인테리어 공사
                         </li>
                     </ul>
-                </div>
-                <div class="col-sm-4">
+                </div> -->
+                <!-- <div class="col-sm-6"> -->
                     <ul class="list-group list-group-flush mt-4">
                         <li class="list-group-item bo"><h2>부동산 뉴스</h2></li>
                         <li v-for="news in newsList" :key="news.news_id">
@@ -67,9 +68,9 @@
                             >
                         </li>
                     </ul>
-                </div>
+                <!-- </div>
             </div>
-      </div>
+        </div> -->
     </div>
 </template>
 

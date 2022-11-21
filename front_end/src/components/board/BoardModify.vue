@@ -1,13 +1,15 @@
 <template>
   <v-container>
-    <div class="regist">
-      <h1 class="underline">게시글 수정</h1>
-      <div class="regist_form">
+    <v-row style="padding-top: 5%;">
+      <v-col>
+        <h1 class="underline">공지사항 수정</h1>
+        </v-col>
+
         <table class="tbAdd">
           <tr>
             <th>제목</th>
             <td>
-              <input type="text" id="subject" v-model="article.subject" ref="subject" />
+              <input class="form-control" type="text" id="subject" v-model="article.subject" ref="subject" />
             </td>
           </tr>
           <tr>
@@ -17,27 +19,17 @@
           <tr>
 						<th>내용</th>
 						<td class="txt_cont">
-              <input type="text" id="subject" v-model="article.subject" ref="subject" />
+              <textarea class="form-control" type="text" id="content" v-model="article.content" ref="subject" rows="10"/>
             </td>
 					</tr>
-          <!-- <label for="userid">작성자</label>
-          <input type="text" id="userid" v-model="article.userId" ref="userId" readonly/><br />
-          <label for="subject">제목</label>
-          <input type="text" id="subject" v-model="article.subject" ref="subject" /><br />
-          <label for="content">내용</label> -->
-          <!-- <br /> -->
         </table>
-        <!-- <v-textarea id="content" v-model="article.content" ref="content" cols="35" rows="5"></v-textarea><br /> -->
-        <v-row text-align="center" justify="space-around">
-          <v-col>
-            <v-btn title color="light-green lighten-2" @click="checkValue">수정 완료</v-btn>
-          </v-col>
-          <v-col>
+        <div class="form-group row" style="padding-top: 5%;">
+          <div>
+            <v-btn @click="checkValue">수정 완료</v-btn>
             <v-btn @click="moveList">목록</v-btn>
-          </v-col>
-        </v-row>
-      </div>
-    </div>
+          </div>
+        </div>
+      </v-row>
   </v-container>
 </template>
 

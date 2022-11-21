@@ -293,10 +293,12 @@ public class MemberController {
 	public ResponseEntity<?> userDelete(@PathVariable("userid") String userId) {
 		try {
 			int cnt = memberService.delMember(userId);
+			logger.info("delMember - 호출");
+			System.out.println(cnt);
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<String>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
 			return exceptionHandling(e);
