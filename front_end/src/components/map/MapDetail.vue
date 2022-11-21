@@ -18,7 +18,35 @@
           v-for="item in items"
           :key="item.title">  
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ apt.apartmentName }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title">  
+          <v-list-item-content>
+            <v-list-item-title>{{ apt.buildYear }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title">  
+          <v-list-item-content>
+            <v-list-item-title>{{ apt.roadName }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title">  
+          <v-list-item-content>
+            <v-list-item-title>{{ apt.dong }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title">  
+          <v-list-item-content>
+            <v-list-item-title>{{ apt.jibun }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -31,17 +59,22 @@ import { mapState } from "vuex"
 
 const aptStore = "aptStore"
 
+// 사라질 때 무조건 drawer가 false로 바뀌면 가능!
+
 export default {
   data () {
     return {
       items: [
-        { title: '단지 정보', icon: 'mdi-view-dashboard' },
-        { title: '거래 가격 차트', icon: 'mdi-forum' },
+        { title: '이름', icon: 'mdi-view-dashboard' },
+        { title: '년도', icon: 'mdi-forum' },
+        { title: '길', icon: 'mdi-view-dashboard' },
+        { title: '동', icon: 'mdi-forum' },
+        { title: '지번', icon: 'mdi-view-dashboard' },
       ],
     }
   },
   computed: {
-    ...mapState(aptStore, ["drawer"]),
+    ...mapState(aptStore, ["apt", "drawer"]),
   },
 }
 </script>

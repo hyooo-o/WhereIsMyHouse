@@ -14,6 +14,10 @@ async function modify(user, success, fail) {
   await api.put(`/user/modify`, JSON.stringify(user)).then(success).catch(fail);
 }
 
+async function deleteUser(userId, success, fail) {
+  await api.delete(`/user/${userId}`).then(success).catch(fail);
+}
+
 async function findById(userid, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   await api.get(`/user/${userid}`).then(success).catch(fail);
@@ -28,4 +32,4 @@ async function logout(userid, success, fail) {
   await api.get(`/user/logout/${userid}`).then(success).catch(fail);
 }
 
-export { join, login, modify, findById, tokenRegeneration, logout }
+export { join, login, modify, findById, tokenRegeneration, logout, deleteUser }

@@ -4,7 +4,6 @@ const aptStore = {
   namespaced: true,
   state: {
     aptList: [],
-    markers: [],
     apt: null,
     drawer: false,
   },
@@ -22,9 +21,6 @@ const aptStore = {
   mutations: {
     SET_APT_LIST: (state, aptList) => {
       state.aptList = aptList;
-    },
-    SET_MARKERS: (state, markers) => {
-      state.markers = markers;
     },
     SET_APT: (state, apt) => {
       state.apt = apt;
@@ -49,9 +45,6 @@ const aptStore = {
           console.log("아파트 정보 가져오는 중 에러 발생!!! ", error.response.status);
         }
       );
-    },
-    setMarkers({ commit }, markers) {
-      commit("SET_MARKERS", markers);
     },
     setApt({ commit }, apt) {
       commit("SET_APT", apt);

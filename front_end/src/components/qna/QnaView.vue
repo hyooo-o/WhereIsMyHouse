@@ -39,7 +39,7 @@
         </h2>
       </div>
       <qna-answer-write v-show="answer.length === 0"></qna-answer-write>
-      <qna-answer-detail v-show="answer.length !== 0" :answer="answer"></qna-answer-detail>
+      <qna-answer-detail class="col-lg-8 col-md-10 col-sm-12" v-show="answer.length !== 0" :answer="answer"></qna-answer-detail>
     </div>
   </v-container>
 </template>
