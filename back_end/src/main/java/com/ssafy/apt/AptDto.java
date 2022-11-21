@@ -15,12 +15,23 @@ import lombok.ToString;
 @ToString
 public class AptDto {
 	
-	private int id;
-	private int build_year;
+	private long aptCode;
+	private int buildYear;
+	private String roadName;
+	private String roadNameBonbun;
+	private String roadNameBubun;
+	private String roadNameSeq;
+	private String roadNameBasementCode;
+	private String roadNameCode;
 	private String dong;
-	private String name;
-	private String area;
+	private String bonbun;
+	private String bubun;
+	private String sigunguCode;
+	private String eubmyundongCode;
+	private String dongCode;
+	private String landCode;
+	private String apartmentName;
 	private String jibun;
-	private String regional_code;
-	
+	private String lng;
+	private String lat;
 }
