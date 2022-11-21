@@ -2,9 +2,6 @@
   <v-sheet height="400" class="overflow-hidden" style="position: relative;">
     <v-container class="fill-height">
       <v-row text-align="center" justify="center">
-        <v-btn color="pink" dark @click.stop="drawer = !drawer">
-          아파트 마크 클릭
-        </v-btn>
       </v-row>
     </v-container>
 
@@ -30,15 +27,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
+const aptStore = "aptStore"
+
 export default {
   data () {
     return {
-      drawer: null,
       items: [
         { title: '단지 정보', icon: 'mdi-view-dashboard' },
         { title: '거래 가격 차트', icon: 'mdi-forum' },
       ],
     }
+  },
+  computed: {
+    ...mapState(aptStore, ["drawer"]),
   },
 }
 </script>

@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 import { modify, login, findById, tokenRegeneration, logout } from "@/api/user";
-
+//choijiseong babo
 const userStore = {
   namespaced: true,
   state: {
