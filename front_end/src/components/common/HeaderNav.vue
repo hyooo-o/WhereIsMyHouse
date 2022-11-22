@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="isLogin">
+        <div v-if="userInfo">
             <header-nav-with-login></header-nav-with-login>
         </div>
         <div v-else>
@@ -22,7 +22,7 @@ export default {
         HeaderNavWithoutLogin,
     },
     computed: {
-        ...mapState(userStore, ["isLogin"]),
+        ...mapState(userStore, ["userInfo"]),
     }
 }
 </script>
