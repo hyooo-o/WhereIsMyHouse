@@ -1,15 +1,17 @@
 <template>
-  <LineChartGenerator
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+  <div>
+    <LineChartGenerator
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      :chart-id="chartId"
+      :dataset-id-key="datasetIdKey"
+      :plugins="plugins"
+      :css-classes="cssClasses"
+      :styles="styles"
+      :width="width"
+      :height="height"
+    />
+  </div>
 </template>
 
 <script>
@@ -25,6 +27,10 @@ import {
   CategoryScale,
   PointElement
 } from 'chart.js'
+
+import { mapState } from "vuex"
+
+const aptStore = "aptStore"
 
 // import http from "@/api/http";
 
@@ -75,32 +81,39 @@ export default {
   },
   data() {
     return {
-      chartData: {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July'
-        ],
-        datasets: [
-          {
-            label: '월',
-            backgroundColor: '#f87979',
-            data: [1500, 39, 10, 40, 39, 80, 40]
-          }
-        ]
-      },
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false
       }
     }
   },
-  created() {
-    // http.post("/apt/search/", name).then(({ data }) => (this.chartData = data));
+  computed: {
+    ...mapState(aptStore, ["chartDatas"]),
+    chartData() {
+      let la = [];
+      let d = [];
+
+      this.chartDatas.forEach(data => {
+        la.push(data.dealYear);
+        d.push(data.pricePerYear);
+      });
+
+      return {
+        labels: la,
+        datasets: [
+          {
+            label: '년',
+            backgroundColor: '#f87979',
+            data: d
+          }
+        ]
+      }
+    },
+  },
+  methods: {
+    print(){
+      console.log(this.chartData);
+    }
   }
 }
 </script>

@@ -10,8 +10,8 @@
         <v-list-item-content>
           <v-row justify="center">
             <v-col></v-col>
-            <v-col style="text-align: center;">
-              <h3>{{ apt.apartmentName }}</h3>
+            <v-col cols="9" style="text-align: center;">
+              <h4>{{ apt.apartmentName }}</h4>
             </v-col>
             <v-col >
               <v-btn @click="turnOffDrawer" absolute style="top:0px; right:0px">X</v-btn>
@@ -23,14 +23,64 @@
       <v-divider></v-divider>
 
       <v-row>
-        <v-col>사진 자리</v-col>
+        <v-col style="height: 200px;">크롤링 해서 사진 붙일 자리</v-col>
       </v-row>
 
-      <p>{{ apt.buildYear }}</p>
-      <p>{{ apt.roadName }}</p>
-      <p>{{ apt.dong }}</p>
-      <p>{{ apt.jibun }}</p>
-      <price-chart></price-chart>
+      <v-row>
+        <table class="tbAdd">
+          <tr>
+            <th>준공년도</th>
+            <td>{{ apt.buildYear }}</td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>{{ apt.roadName }} {{ apt.dong }} {{ apt.jibun }}</td>
+          </tr>
+          <tr>
+            <th>유형</th>
+            <td>아파트</td>
+          </tr>
+          <tr>
+            <th>최지성</th>
+            <td>교수</td>
+          </tr>
+          <tr>
+            <th>김정효</th>
+            <td>공주</td>
+          </tr>
+        </table>
+      </v-row>
+  <hr>
+      <v-row>
+      <p>실거래 내역</p>
+        <table class="tbAdd">
+          <tr>
+            <th>준공년도</th>
+            <td>{{ apt.buildYear }}</td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>{{ apt.roadName }} {{ apt.dong }} {{ apt.jibun }}</td>
+          </tr>
+          <tr>
+            <th>유형</th>
+            <td>아파트</td>
+          </tr>
+          <tr>
+            <th>최지성</th>
+            <td>공주</td>
+          </tr>
+          <tr>
+            <th>김정효</th>
+            <td>공주</td>
+          </tr>
+        </table>
+      </v-row>
+  <hr>
+
+      <v-row justify="center">
+          <price-chart style="width: 25vw; height: 40vh;"></price-chart>
+      </v-row>
       
     </v-navigation-drawer>
   </v-sheet>
@@ -41,8 +91,6 @@ import PriceChart from "@/components/chart/PriceChart.vue"
 import { mapActions, mapState } from "vuex"
 
 const aptStore = "aptStore"
-
-// 사라질 때 무조건 drawer가 false로 바뀌면 가능!
 
 export default {
   data () {
@@ -69,5 +117,8 @@ export default {
 </script>
 
 <style>
-
+  .tbAdd{border-top:1px solid #888;}
+	.tbAdd th, .tbAdd td{border-bottom:1px solid #eee; padding:5px 0; }
+	.tbAdd td{padding:10px 10px; text-align: center;}
+	.tbAdd td.txt_cont{height:300px; vertical-align:top;}
 </style>

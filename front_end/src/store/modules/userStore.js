@@ -66,20 +66,23 @@ const userStore = {
       let decodeToken = jwtDecode(token);
       // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
       console.log(decodeToken);
-      await findById(
+      findById(
         decodeToken.userid,
         ({ data }) => {
           if (data.message === "success") {
             commit("SET_USER_INFO", data.userInfo);
             // console.log("3. getUserInfo data >> ", data);
+            return 1;
           } else {
             console.log("유저 정보 없음!!!!");
+            return 0;
           }
         },
         async (error) => {
           console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
+          return -1;
         }
       );
     },

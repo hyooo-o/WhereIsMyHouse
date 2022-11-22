@@ -124,20 +124,28 @@ public class AptController {
 		}
 	}
 
-	@PostMapping("/search/{aptCode}")
-	private ResponseEntity<?> aptTradePrice(@PathVariable("aptCode") String aptCode) {
+	@GetMapping("/chart/{aptCode}")
+	private ResponseEntity<Map<String, Object>> aptTradePrice(@PathVariable("aptCode") String aptCode) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
 		try {
 			List<DealChartDto> list = aptService.aptTradePrice(aptCode);
 			logger.info("aptTradePrice 호출");
 			System.out.println(aptCode);
 			if (list != null && !list.isEmpty()) {
-				return new ResponseEntity<List<DealChartDto>>(list, HttpStatus.OK);
+				resultMap.put("chartData", list);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
