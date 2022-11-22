@@ -10,7 +10,7 @@
 
         <ul class="navbar-nav" id="login-menu">
             <li class="nav-item" style="padding-right: 30px">
-                <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
+                <router-link class="nav-link" :to="{ name: 'map' }">내 집 찾기</router-link>
             </li>
             <li class="nav-item" style="padding-right: 30px">
                 <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>

@@ -61,8 +61,8 @@ export default {
 			await this.userConfirm(this.user);
 			let token = sessionStorage.getItem("access-token");
 			if (this.isLogin) {
-				await this.getUserInfo(token);
-				this.$router.push('/');
+				await this.getUserInfo(token)
+				this.$router.push({ name: "main" });
 			}
 		},
 		moveJoin() {
