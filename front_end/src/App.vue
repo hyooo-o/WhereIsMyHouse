@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <header-nav></header-nav>
-      <v-main style="height: 100%;">
+      <v-main style="height: 91.8%;">
         <router-view/>
       </v-main>
-    <the-footer></the-footer>
+    <the-footer v-if="this.$route.path !== '/map/list'"></the-footer>
   </v-app>
 </template>
 
@@ -102,5 +102,24 @@ a{
 footer{
   position: static;
   bottom: 0;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e6e6e6;
+  border-left: 1px solid #dadada;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border: solid 3px #e6e6e6;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(204, 204, 204);
 }
 </style>

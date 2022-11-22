@@ -1,14 +1,21 @@
 <template>
-  <v-sheet height="400" class="overflow-hidden" style="position: relative;">
+  <v-sheet height="400" class="overflow-hidden" style="position: absolute; top: 0px; width:100%; height: 100%">
     <v-container class="fill-height">
       <v-row text-align="center" justify="center">
       </v-row>
     </v-container>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" absolute style="width: 500px">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>아파트 정보</v-list-item-title>
+          <v-row>
+            <v-col justify=center>
+              <v-list-item-title >아파트 정보</v-list-item-title>
+            </v-col>
+            <v-col justify=end>
+              <v-btn @click="turnOffDrawer">X</v-btn>
+            </v-col>
+          </v-row>
         </v-list-item-content>
       </v-list-item>
 
@@ -55,7 +62,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapActions, mapState } from "vuex"
 
 const aptStore = "aptStore"
 
@@ -76,6 +83,9 @@ export default {
   computed: {
     ...mapState(aptStore, ["apt", "drawer"]),
   },
+  methods: {
+    ...mapActions(aptStore, ["turnOffDrawer"]),
+  }
 }
 </script>
 
