@@ -8,60 +8,36 @@
     <v-navigation-drawer v-model="drawer" absolute style="width: 500px">
       <v-list-item>
         <v-list-item-content>
-          <v-row>
-            <v-col justify=center>
-              <v-list-item-title >아파트 정보</v-list-item-title>
+          <v-row justify="center">
+            <v-col></v-col>
+            <v-col style="text-align: center;">
+              <h3>{{ apt.apartmentName }}</h3>
             </v-col>
-            <v-col justify=end>
-              <v-btn @click="turnOffDrawer">X</v-btn>
+            <v-col >
+              <v-btn @click="turnOffDrawer" absolute style="top:0px; right:0px">X</v-btn>
             </v-col>
           </v-row>
         </v-list-item-content>
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title">  
-          <v-list-item-content>
-            <v-list-item-title>{{ apt.apartmentName }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title">  
-          <v-list-item-content>
-            <v-list-item-title>{{ apt.buildYear }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title">  
-          <v-list-item-content>
-            <v-list-item-title>{{ apt.roadName }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title">  
-          <v-list-item-content>
-            <v-list-item-title>{{ apt.dong }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title">  
-          <v-list-item-content>
-            <v-list-item-title>{{ apt.jibun }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+
+      <v-row>
+        <v-col>사진 자리</v-col>
+      </v-row>
+
+      <p>{{ apt.buildYear }}</p>
+      <p>{{ apt.roadName }}</p>
+      <p>{{ apt.dong }}</p>
+      <p>{{ apt.jibun }}</p>
+      <price-chart></price-chart>
+      
     </v-navigation-drawer>
   </v-sheet>
 </template>
 
 <script>
+import PriceChart from "@/components/chart/PriceChart.vue"
 import { mapActions, mapState } from "vuex"
 
 const aptStore = "aptStore"
@@ -85,6 +61,9 @@ export default {
   },
   methods: {
     ...mapActions(aptStore, ["turnOffDrawer"]),
+  },
+  components: {
+    PriceChart
   }
 }
 </script>
