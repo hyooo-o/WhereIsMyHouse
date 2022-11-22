@@ -33,16 +33,16 @@ CREATE TABLE `answer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-CREATE TABLE `apart` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `build_year` int DEFAULT NULL,
-  `dong` varchar(45) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `area` varchar(45) DEFAULT NULL,
-  `jibun` varchar(45) DEFAULT NULL,
-  `regional_code` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14664 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- CREATE TABLE `apart` (
+--   `id` int NOT NULL AUTO_INCREMENT,
+--   `build_year` int DEFAULT NULL,
+--   `dong` varchar(45) DEFAULT NULL,
+--   `name` varchar(45) DEFAULT NULL,
+--   `area` varchar(45) DEFAULT NULL,
+--   `jibun` varchar(45) DEFAULT NULL,
+--   `regional_code` varchar(45) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=14664 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `news` (
 	`news_id` int NOT NULL AUTO_INCREMENT,
@@ -64,13 +64,13 @@ CREATE TABLE `board` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-CREATE TABLE `dong` (
-  `si_code` int NOT NULL,
-  `bub_code` int NOT NULL,
-  `si_name` varchar(45) DEFAULT NULL,
-  `bub_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`si_code`,`bub_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- CREATE TABLE `dong` (
+--   `si_code` int NOT NULL,
+--   `bub_code` int NOT NULL,
+--   `si_name` varchar(45) DEFAULT NULL,
+--   `bub_name` varchar(45) DEFAULT NULL,
+--   PRIMARY KEY (`si_code`,`bub_code`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 
@@ -158,17 +158,17 @@ CREATE TABLE `surrounding_commercial` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-CREATE TABLE `trade` (
-  `id` int NOT NULL,
-  `deal_year` int DEFAULT NULL,
-  `deal_month` int DEFAULT NULL,
-  `deal_day` int DEFAULT NULL,
-  `deal_amount` varchar(45) DEFAULT NULL,
-  `apart_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_apart_id_idx` (`apart_id`),
-  CONSTRAINT `fk_apart_id` FOREIGN KEY (`apart_id`) REFERENCES `apart` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- CREATE TABLE `trade` (
+--   `id` int NOT NULL,
+--   `deal_year` int DEFAULT NULL,
+--   `deal_month` int DEFAULT NULL,
+--   `deal_day` int DEFAULT NULL,
+--   `deal_amount` varchar(45) DEFAULT NULL,
+--   `apart_id` int DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   KEY `fk_apart_id_idx` (`apart_id`),
+--   CONSTRAINT `fk_apart_id` FOREIGN KEY (`apart_id`) REFERENCES `apart` (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `accommodation` (
   `id` int NOT NULL,
