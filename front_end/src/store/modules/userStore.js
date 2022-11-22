@@ -9,6 +9,7 @@ const userStore = {
     isLoginError: false,
     userInfo: null,
     isValidToken: false,
+    favorite: false,
   },
   getters: {
     checkUserInfo: function (state) {
