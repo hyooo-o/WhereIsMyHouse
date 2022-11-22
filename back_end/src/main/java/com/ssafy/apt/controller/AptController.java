@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
+import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.service.AptService;
-import com.ssafy.board.controller.BoardController;
 
 @RestController
 @RequestMapping("/apt")
@@ -123,16 +123,15 @@ public class AptController {
 			return exceptionHandling(e);
 		}
 	}
-	
-	@PostMapping("/search/{name}")
-	private ResponseEntity<?> aptTradePrice(@PathVariable("name") String name) {
+
+	@PostMapping("/search/{aptCode}")
+	private ResponseEntity<?> aptTradePrice(@PathVariable("aptCode") String aptCode) {
 		try {
-			List<TradeDto> list = aptService.aptTradePrice(name);
+			List<DealChartDto> list = aptService.aptTradePrice(aptCode);
 			logger.info("aptTradePrice 호출");
-			System.out.println(name);
-			System.out.println(list.toString());
+			System.out.println(aptCode);
 			if (list != null && !list.isEmpty()) {
-				return new ResponseEntity<List<TradeDto>>(list, HttpStatus.OK);
+				return new ResponseEntity<List<DealChartDto>>(list, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			}

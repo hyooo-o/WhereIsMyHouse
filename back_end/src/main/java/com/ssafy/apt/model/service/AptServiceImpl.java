@@ -1,7 +1,6 @@
 package com.ssafy.apt.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
+import com.ssafy.apt.DealChartDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.mapper.AptMapper;
 
@@ -110,8 +110,8 @@ public class AptServiceImpl implements AptService {
 	}
 
 	@Override
-	public List<TradeDto> aptTradePrice(String name) throws Exception {
-		return aptMapper.aptTradePrice(name);
+	public List<DealChartDto> aptTradePrice(String aptCode) throws Exception {
+		return aptMapper.aptTradePrice(aptCode);
 	}
 
 }
