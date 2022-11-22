@@ -85,7 +85,7 @@ methods: {
         this.$router.push({ name: "userdetail" });
     },
     favorite() {
-        // this.$router.push({name : "userlogin"});
+        this.$router.push({name : "useraptfavorite"});
     }
 }
 }

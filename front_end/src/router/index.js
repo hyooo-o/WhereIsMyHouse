@@ -46,6 +46,11 @@ const routes = [
         name: "userdelete",
         component: () => import("@/components/user/UserDelete"),
       },
+      {
+        path: "favorite",
+        name: "useraptfavorite",
+        component: () => import("@/components/user/UserAptFavorite"),
+      },
     ]
   },
   {
