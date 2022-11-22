@@ -89,7 +89,7 @@ export default {
           {
             label: '월',
             backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40]
+            data: [1500, 39, 10, 40, 39, 80, 40]
           }
         ]
       },
