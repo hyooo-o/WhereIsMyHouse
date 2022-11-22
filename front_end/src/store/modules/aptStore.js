@@ -25,8 +25,11 @@ const aptStore = {
     SET_APT: (state, apt) => {
       state.apt = apt;
     },
-    SWITCH_DRAWER: (state) => {
-      state.drawer = !state.drawer;
+    TURN_ON_DRAWER: (state) => {
+      state.drawer = true;
+    },
+    TURN_OFF_DRAWER: (state) => {
+      state.drawer = false;
     },
   },
   actions: {
@@ -49,8 +52,11 @@ const aptStore = {
     setApt({ commit }, apt) {
       commit("SET_APT", apt);
     },
-    switchDrawer({ commit }) {
-      commit("SWITCH_DRAWER");
+    turnOnDrawer({ commit }) {
+      commit("TURN_ON_DRAWER");
+    },
+    turnOffDrawer({ commit }) {
+      commit("TURN_OFF_DRAWER");
     },
   },
 };
