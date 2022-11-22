@@ -19,5 +19,5 @@ public interface AptService {
 	
 	List<TradeDto> aptTradePrice(String name) throws Exception;
 
-	ArrayList<AptSearchDto> getList() throws Exception;
+	ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws Exception;
 }

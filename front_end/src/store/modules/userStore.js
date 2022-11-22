@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { modify, login, findById, tokenRegeneration, logout } from "@/api/user";
-
+import { modify, login, findById, tokenRegeneration, logout, deleteUser } from "@/api/user";
+//choijiseong babo
 const userStore = {
   namespaced: true,
   state: {
@@ -156,6 +156,24 @@ const userStore = {
         }
       );
     },
+    async userDelete({ commit }, userid) {
+      await deleteUser(
+        userid,
+        ({ data }) => {
+          if (data.message === "success") {
+            console.log("유저 삭제 성공!!");
+            commit("SET_USER_INFO", null);
+            commit("SET_IS_VALID_TOKEN", false);
+            commit("SET_IS_LOGIN", false);
+          } else {
+            console.log("유저 삭제 실패!!!!");
+          }
+        },
+        (error) => {
+          console.log("유저 삭제 중 에러!!!!", error);
+        }
+      );
+    }
   },
 };
 

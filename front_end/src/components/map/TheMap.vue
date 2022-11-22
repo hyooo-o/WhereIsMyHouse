@@ -80,10 +80,10 @@
 						marker.setMap(map);
 						map.setCenter(locPosition);
 					</script> -->
-              </div>
-              <div style="width: 100%; height: 10%">
-                <map-detail></map-detail>
-              </div>
+            </div>
+				<div style="width: 100%; height: 10%;">
+					<map-detail></map-detail>
+				</div>
             </div>
 					<!-- </div>
 				</div>
@@ -102,16 +102,17 @@ export default {
 	data() {
 		return {
 			map: null,
+			markers: [],
 		}
 	},
 	components: {
 		MapDetail,
 	},
 	computed: {
-		...mapState(aptStore, ["aptList", "markers"]),
+		...mapState(aptStore, ["apt", "aptList", "drawer"]),
 	},
     methods: {
-		...mapActions(aptStore, ["getAptList", "setMarkers"]),
+		...mapActions(aptStore, ["getAptList", "setApt", "switchDrawer"]),
         // searchApt() {
         //     let form = document.querySelector("#search-form");
 			
@@ -147,116 +148,112 @@ export default {
 				center: new kakao.maps.LatLng(37.555, 127),
 				level: 5,
 			};
+			// var markers=[];
+			const vueInstance = this;
 
 			//지도 객체를 등록합니다.
 			//지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
 			this.map = new kakao.maps.Map(container, options);
 
-			// kakao.maps.event.addListener(this.map, "zoom_changed", function() {
-			// 	var neLat = this.getBounds().getNorthEast().getLat();
-			// 	var neLng = this.getBounds().getNorthEast().getLng();
-			// 	var swLat = this.getBounds().getSouthWest().getLat();
-			// 	var swLng = this.getBounds().getSouthWest().getLng();
-			// 	console.log(neLat, neLng, swLat, swLng);
-			// 	// displayMarker(this.markers, neLat, neLng, swLat, swLng);
-			// });
+			let neLat = this.map.getBounds().getNorthEast().getLat();
+			let neLng = this.map.getBounds().getNorthEast().getLng();
+			let swLat = this.map.getBounds().getSouthWest().getLat();
+			let swLng = this.map.getBounds().getSouthWest().getLng();
+			vueInstance.displayMarker(neLat, neLng, swLat, swLng);
 
-			// kakao.maps.event.addListener(this.map, 'dragend', function() {        
-			// 	var neLat = this.getBounds().getNorthEast().getLat();
-			// 	var neLng = this.getBounds().getNorthEast().getLng();
-			// 	var swLat = this.getBounds().getSouthWest().getLat();
-			// 	var swLng = this.getBounds().getSouthWest().getLng();
-			// 	console.log(neLat, neLng, swLat, swLng);
-			// 	// displayMarker(this.markers, neLat, neLng, swLat, swLng);
-			// });
-
-			this.createMarker(this.map);
-		},
-		createMarker(map) {
-			let markers = [];
-
-			var geocoder = new kakao.maps.services.Geocoder();
-
-			this.aptList.forEach(function(element) {
-				geocoder.addressSearch(`${element['dong'] + element['jibun']}`, function(result, status) {
-					// 정상적으로 검색이 완료됐으면 
-					if (status === kakao.maps.services.Status.OK) {
-
-						var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-						// 결과값으로 받은 위치를 마커로 표시합니다
-						var marker = new kakao.maps.Marker({
-							map: map,
-							position: coords
-						});
-
-						let iwContent = document.createElement("div")
-
-						let companyName = document.createElement("div")
-						companyName.textContent = `아파트명 : ${element.name}`
-
-						let btn = document.createElement("button");
-						btn.textContent = `자세히 보기`;
-						btn.onclick = function() {
-							console.log(element);
-						};
-
-						iwContent.append(
-							companyName,
-							btn
-						);
-
-						// var iwContent = `<button style="padding:5px;" id="${element.id}">${element.name}</button>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-						// 인포윈도우를 생성합니다
-						var infowindow = new kakao.maps.InfoWindow({
-							content : iwContent,
-							removable: true,
-						});
-
-						kakao.maps.event.addListener(marker, 'click', function() {
-							// 뷰엑스의 apt = element
-							// drawer = !drawer
-							console.log(element);
-						});
-
-						kakao.maps.event.addListener(marker, 'mouseover', function() {
-							// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-							infowindow.open(map, marker);
-						});
-
-						// // 마커에 마우스아웃 이벤트를 등록합니다
-						// kakao.maps.event.addListener(marker, 'mouseout', function() {
-						// 	// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-						// 	infowindow.close();
-						// });
-
-						markers.push(marker);
-					} 
-				});    
+			kakao.maps.event.addListener(this.map, "zoom_changed", function() {
+				var neLat = this.getBounds().getNorthEast().getLat();
+				var neLng = this.getBounds().getNorthEast().getLng();
+				var swLat = this.getBounds().getSouthWest().getLat();
+				var swLng = this.getBounds().getSouthWest().getLng();
+				vueInstance.setMarkers(null);
+				vueInstance.displayMarker(neLat, neLng, swLat, swLng);
 			});
 
-			this.setMarkers(markers);
+			kakao.maps.event.addListener(this.map, 'dragend', function() {        
+				var neLat = this.getBounds().getNorthEast().getLat();
+				var neLng = this.getBounds().getNorthEast().getLng();
+				var swLat = this.getBounds().getSouthWest().getLat();
+				var swLng = this.getBounds().getSouthWest().getLng();
+				vueInstance.setMarkers(null);
+				vueInstance.displayMarker(neLat, neLng, swLat, swLng);
+			});
 		},
-		
-		// displayMarker(markers, neLat, neLng, swLat, swLng) {
-		// 	console.log(neLat, neLng, swLat, swLng);
-		// 	markers.forEach(marker => {
-		// 		let la = marker.position.La;
-		// 		let ma = marker.position.Ma;
-				
-		// 		if(la >= swLat && la <= neLat && ma >= swLng && ma <= neLng){
-		// 			// 인포윈도우로 장소에 대한 설명을 표시합니다
-		// 			var infowindow = new kakao.maps.InfoWindow({
-		// 				content: `<div style="width:150px;text-align:center;padding:6px 0;">우아아앙</div>`
-		// 			});
-		// 		}		
+		createMarker() {
+			const vueInstance = this;
 
-		// 		infowindow.open(this.map, marker);
-		// 	});
-		// },
-		print() {
-			console.log("이거 레알");
+			this.aptList.forEach(function(apt) {
+				// 결과값으로 받은 위치를 마커로 표시합니다
+				var marker = new kakao.maps.Marker({
+					position: new kakao.maps.LatLng(apt.lat, apt.lng),
+				});
+
+				let iwContent = document.createElement("div")
+
+				let companyName = document.createElement("div")
+				companyName.textContent = `아파트명 : ${apt.name}`
+
+				iwContent.append(
+					companyName,
+				);
+
+				// var iwContent = `<button style="padding:5px;" id="${element.id}">${element.name}</button>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+				// 인포윈도우를 생성합니다
+				var infowindow = new kakao.maps.InfoWindow({
+					content : iwContent,
+				});
+				
+				kakao.maps.event.addListener(marker, 'click', function() {
+					// 뷰엑스의 apt = element
+					// drawer = !drawer
+					vueInstance.setApt(apt);
+					console.log(vueInstance.drawer);
+					vueInstance.switchDrawer(!vueInstance.drawer);
+				});
+
+				kakao.maps.event.addListener(marker, 'mouseover', function() {
+					// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+					infowindow.open(this.map, marker);
+				});
+
+				// // 마커에 마우스아웃 이벤트를 등록합니다
+				kakao.maps.event.addListener(marker, 'mouseout', function() {
+					// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+					infowindow.close();
+				});
+
+				// vueInstance.markers.push(marker);
+				vueInstance.markers.push(marker);
+			})    
+		},
+		async displayMarker(neLat, neLng, swLat, swLng) {
+			const loc = {
+				neLat,
+				neLng,
+				swLat,
+				swLng
+			};
+
+			const vueInstance = this;
+
+			await this.getAptList(loc);
+
+			// console.log(neLat, neLng, swLat, swLng);
+
+			vueInstance.markers = [];
+
+			this.createMarker();
+
+			// vueInstance.markers.forEach((marker) => {
+			// 	marker.setMap(vueInstance.map);	
+			// });
+			this.setMarkers(this.map);
+		},
+		setMarkers(show) {
+			for (var i = 0; i < this.markers.length; i++) {
+				this.markers[i].setMap(show);	
+			}            
 		}
 	},
 	mounted() {
@@ -271,14 +268,9 @@ export default {
 			document.head.appendChild(script);
 		}
 	},
-	created() {
-		this.getAptList();
-	}
 }
 </script>
 
 <style>
-footer{
-  display: none;
-}
+
 </style>

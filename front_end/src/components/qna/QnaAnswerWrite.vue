@@ -1,14 +1,24 @@
 <template>
-  <div>
-    <hr>
-    <div>답변</div>
-    <input type="text" class="form-control" id="content" name="content" v-model="content" placeholder="내용을 입력하세요.">
-    <button @click="createAnswer">확인</button>
+  <div style="padding-top: 5%;">
+    <textarea rows="5" cols="10" type="text" class="form-control" id="content" name="content"
+    v-model="content" placeholder="내용을 입력하세요." v-show="userInfo !== null && userInfo.userId === `admin`">
+    </textarea>
+    <textarea rows="5" cols="10" type="text" class="form-control" id="content" name="content"
+    v-model="content" placeholder="관리자만 답변이 가능합니다." v-show="userInfo === null || userInfo.userId !== `admin`" readonly>
+    </textarea>
+    <v-row style="padding-top: 5%;" v-show="userInfo !== null && userInfo.userId === `admin`">
+      <v-col>
+        <v-btn @click="createAnswer">확인</v-btn>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import http from "@/api/http";
+import { mapState } from "vuex";
+
+const userStore = "userStore";
 
 export default {
   data(){
@@ -36,6 +46,9 @@ export default {
       console.log(this.$route.params.questionId);
       this.$router.push({ name: "qnaview", params: { questionId: this.$route.params.questionId }});
     },
+  },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
   },
 }
 </script>
