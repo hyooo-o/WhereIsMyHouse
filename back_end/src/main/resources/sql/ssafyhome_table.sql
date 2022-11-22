@@ -85,6 +85,23 @@ CREATE TABLE `favorite_dong` (
   CONSTRAINT `favorite_dong_members` FOREIGN KEY (`user_id`) REFERENCES `members` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `favorite` (
+  `aptCode` BIGINT NOT NULL,
+  `user_id` VARCHAR(16) NOT NULL,
+  PRIMARY KEY (`aptCode`, `user_id`),
+  INDEX `fk_favorite_to_members_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_favorite_to_apart`
+    FOREIGN KEY (`aptCode`)
+    REFERENCES `apart` (`aptCode`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_favorite_to_members`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `members` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
 CREATE TABLE `safe_hospital` (
   `no` int NOT NULL,
   `do_city` varchar(45) NOT NULL,
