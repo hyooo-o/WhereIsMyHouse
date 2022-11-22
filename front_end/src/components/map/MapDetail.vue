@@ -11,7 +11,7 @@
           <v-row justify="center">
             <v-col></v-col>
             <v-col cols="9" style="text-align: center;">
-              <h4>{{ apt.apartmentName }}</h4>
+              <h4>{{ apt.apartmentName }} &nbsp; <heart-button></heart-button> </h4>
             </v-col>
             <v-col >
               <v-btn @click="turnOffDrawer" absolute style="top:0px; right:0px">X</v-btn>
@@ -87,8 +87,9 @@
 </template>
 
 <script>
-import PriceChart from "@/components/chart/PriceChart.vue"
-import { mapActions, mapState } from "vuex"
+import PriceChart from "@/components/chart/PriceChart.vue";
+import HeartButton from "@/components/map/HeartButton.vue";
+import { mapActions, mapState } from "vuex";
 
 const aptStore = "aptStore"
 
@@ -111,7 +112,8 @@ export default {
     ...mapActions(aptStore, ["turnOffDrawer"]),
   },
   components: {
-    PriceChart
+    PriceChart,
+    HeartButton,
   }
 }
 </script>
