@@ -25,7 +25,7 @@ export default {
 		...mapState(aptStore, ["apt", "aptList", "drawer"]),
 	},
     methods: {
-		...mapActions(aptStore, ["getAptList", "setApt", "turnOnDrawer"]),
+		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer"]),
         // searchApt() {
         //     let form = document.querySelector("#search-form");
 			
@@ -121,7 +121,8 @@ export default {
 					// 뷰엑스의 apt = element
 					// drawer = !drawer
 					vueInstance.setApt(apt);
-					console.log(vueInstance.drawer);
+					// console.log(vueInstance.drawer);
+					vueInstance.setChartData(apt.aptCode);
 					vueInstance.turnOnDrawer();
 				});
 
