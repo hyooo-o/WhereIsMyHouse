@@ -43,12 +43,37 @@ public class AptController {
 	}
 
 	@GetMapping("/list")
-	private ResponseEntity<Map<String, Object>> getAllApt() {
+	private ResponseEntity<Map<String, Object>> getList(@RequestParam Map<String, Double> loc) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
 		try {
-			ArrayList<AptSearchDto> list = (ArrayList<AptSearchDto>) aptService.getList();
+			ArrayList<AptSearchDto> list = (ArrayList<AptSearchDto>) aptService.getList(loc);
+			
+			if (list != null && !list.isEmpty()) {
+				resultMap.put("aptList", list);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@PostMapping("/search")
+	private ResponseEntity<Map<String, Object>> search(@RequestParam Map<String, String> map) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
+		try {
+			ArrayList<AptSearchDto> list = (ArrayList<AptSearchDto>) aptService.search(map);
 			
 			if (list != null && !list.isEmpty()) {
 				resultMap.put("aptList", list);
@@ -65,32 +90,17 @@ public class AptController {
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
-	@PostMapping("/search")
-	private ResponseEntity<?> search(@RequestParam Map<String, String> map) {
-		try {
-			ArrayList<AptSearchDto> list = (ArrayList<AptSearchDto>) aptService.search(map);
-			
-			if (list != null && !list.isEmpty()) {
-				return new ResponseEntity<List<AptSearchDto>>(list, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-			}
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
 
-	@PostMapping("/regist")
-	private ResponseEntity<?> regist(@RequestBody AptDto aptDto) {
-		try {
-			aptService.regist(aptDto);
-
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@PostMapping("/regist")
+//	private ResponseEntity<?> regist(@RequestBody AptDto aptDto) {
+//		try {
+//			aptService.regist(aptDto);
+//
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 	@DeleteMapping("/delete/{trade_id}")
 	private ResponseEntity<?> deleteTrade(@PathVariable("trade_id") int id){

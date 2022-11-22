@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-auto text-center">
 						<v-btn @click="modifyUser">회원수정</v-btn>
-						<v-btn @click="reset">초기화</v-btn>
+						<v-btn @click="moveMain">취소</v-btn>
 					</div>
 				<!-- </form> -->
 			</div>
@@ -84,10 +84,10 @@ export default {
       this.$router.push({name : "userdetail"});
     },
 
-  //   moveMypage() {
-  //     console.log("내 정보로");
-  //     this.$router.push({ name: "userdetail" });
-  //   },
+    moveMain() {
+      console.log("moveMain");
+      this.$router.push({ name: "main" });
+    },
   }
 };
 </script>

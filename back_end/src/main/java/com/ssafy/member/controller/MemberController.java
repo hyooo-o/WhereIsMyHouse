@@ -288,19 +288,29 @@ public class MemberController {
 //	}
 
 	// delete - 회원 탈퇴
-	@DeleteMapping("/user/{userid}")
+	@DeleteMapping("/{userid}")
 	@ResponseBody
-	public ResponseEntity<?> userDelete(@PathVariable("userid") String userId) {
+	public ResponseEntity<Map<String, Object>> userDelete(@PathVariable("userid") String userId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		logger.info("delMember - 호출");
+		
 		try {
 			int cnt = memberService.delMember(userId);
+			
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
 		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {
