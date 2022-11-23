@@ -30,17 +30,17 @@ public class AptServiceImpl implements AptService {
 	}
 	
 	@Override
-	public List<AptSearchDto> search(Map<String, String> condition) throws Exception {
+	public List<AptDto> search(String dong) throws Exception {
 		// 값 설정
-		condition.put("gugun", condition.get("gugun").substring(0, 5));
-		condition.put("dong", condition.remove("dododong"));
+//		condition.put("gugun", condition.get("gugun").substring(0, 5));
+//		condition.put("dong", condition.remove("dododong"));
 
-		System.out.println(condition.toString());
+//		System.out.println(condition.toString());
 		
 		// 가격 정렬 (Merge 정렬 사용)
-		List<AptSearchDto> list = aptMapper.search(condition); // 검색 목록의 리스트를 list에 담음
+		List<AptDto> list = aptMapper.search(dong); // 검색 목록의 리스트를 list에 담음
 		
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		
 //		mergeSort(list, 0, list.size() - 1);
 		
