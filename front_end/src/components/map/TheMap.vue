@@ -28,7 +28,7 @@ export default {
 	},
     methods: {
 		...mapActions(userStore, ["setFavorite"]),
-		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer"]),
+		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer", "setAptImg"]),
         // searchApt() {
         //     let form = document.querySelector("#search-form");
 			
@@ -136,6 +136,7 @@ export default {
 					// 뷰엑스의 apt = element
 					vueInstance.setApt(apt);
 					// 유저의 데이터와 아파트의 데이터를 비교해서 userStore의 favorite 상태 변경
+					vueInstance.setAptImg();
 					vueInstance.setChartData(apt.aptCode);
 					vueInstance.setFavorite(apt.aptCode);
 					vueInstance.turnOnDrawer();
