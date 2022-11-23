@@ -96,13 +96,7 @@ const aptStore = "aptStore"
 export default {
   data () {
     return {
-      items: [
-        { title: '이름', icon: 'mdi-view-dashboard' },
-        { title: '년도', icon: 'mdi-forum' },
-        { title: '길', icon: 'mdi-view-dashboard' },
-        { title: '동', icon: 'mdi-forum' },
-        { title: '지번', icon: 'mdi-view-dashboard' },
-      ],
+
     }
   },
   computed: {
