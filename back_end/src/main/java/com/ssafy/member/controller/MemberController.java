@@ -324,11 +324,15 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 
+		System.out.println("관심매물 가져오기");
+		System.out.println(userId + " " + aptCode);
 		try {
 			FavoriteDto favoriteDto = new FavoriteDto(Long.parseLong(aptCode), userId);
 
 			FavoriteDto result = favoriteService.getFavorite(favoriteDto);
 
+			System.out.println(result);
+			
 			if (result != null) {
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
@@ -345,12 +349,14 @@ public class MemberController {
 	}
 
 	// 관심지역 등록
-	@PostMapping("/favorite/")
+	@PostMapping("/favorite")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> addFavorite(@RequestBody FavoriteDto favoriteDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 
+		System.out.println("관심 지역 등록!   " + favoriteDto);
+		
 		try {
 			int cnt = favoriteService.addFavorite(favoriteDto);
 
@@ -370,7 +376,7 @@ public class MemberController {
 	}
 
 	// 관심지역 제거
-	@DeleteMapping("/favorite/")
+	@DeleteMapping("/favorite")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> deleteFavorite(@RequestBody FavoriteDto favoriteDto) {
 		Map<String, Object> resultMap = new HashMap<>();
