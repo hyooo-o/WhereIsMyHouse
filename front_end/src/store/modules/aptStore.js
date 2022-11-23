@@ -83,6 +83,7 @@ const aptStore = {
       await getAptDeal(
         aptCode,
         ({ data }) => {
+          console.log(data.message);
           if (data.message === "success") {
             commit("SET_APT_DEAL", data.dealList);
             console.log("getAptDeal data >> ", data);
