@@ -7,6 +7,7 @@ import java.util.Map;
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
 import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 
 public interface AptService {
@@ -21,4 +22,6 @@ public interface AptService {
 	List<DealChartDto> aptTradePrice(String aptCode) throws Exception;
 
 	ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws Exception;
+	
+	List<DealDto> aptDealList(String aptCode) throws Exception;
 }

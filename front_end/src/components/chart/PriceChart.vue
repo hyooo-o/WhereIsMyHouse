@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>년도별 평균 거래가</p>
     <LineChartGenerator
       :chart-options="chartOptions"
       :chart-data="chartData"

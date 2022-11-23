@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
 import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.mapper.AptMapper;
 
@@ -112,6 +113,11 @@ public class AptServiceImpl implements AptService {
 	@Override
 	public List<DealChartDto> aptTradePrice(String aptCode) throws Exception {
 		return aptMapper.aptTradePrice(aptCode);
+	}
+
+	@Override
+	public List<DealDto> aptDealList(String aptCode) throws Exception {
+		return aptMapper.aptDealList(aptCode);
 	}
 
 }
