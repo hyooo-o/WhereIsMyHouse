@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
 import com.ssafy.apt.DealChartDto;
-import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.service.AptService;
 
@@ -67,13 +67,13 @@ public class AptController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@PostMapping("/search")
-	private ResponseEntity<Map<String, Object>> search(@RequestParam Map<String, String> map) {
+	@PostMapping("/search/{dong}")
+	private ResponseEntity<?> search(@PathVariable("dong") String dong) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
 		try {
-			ArrayList<AptSearchDto> list = (ArrayList<AptSearchDto>) aptService.search(map);
+			ArrayList<AptDto> list = (ArrayList<AptDto>) aptService.search(dong);
 			
 			if (list != null && !list.isEmpty()) {
 				resultMap.put("aptList", list);
