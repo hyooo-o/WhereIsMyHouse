@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 public class ImageCrawling {
-    public static void main(String[] args) {
+    public void main(String[] args) {
         String clientId = "U6A7vYP0Ip2Cpg28JFE5"; //애플리케이션 클라이언트 아이디
         String clientSecret = "giq9nEotFy"; //애플리케이션 클라이언트 시크릿
 
@@ -38,7 +38,7 @@ public class ImageCrawling {
     }
 
 
-    private static String get(String apiUrl, Map<String, String> requestHeaders){
+    public static String get(String apiUrl, Map<String, String> requestHeaders){
         HttpURLConnection con = connect(apiUrl);
         try {
             con.setRequestMethod("GET");
