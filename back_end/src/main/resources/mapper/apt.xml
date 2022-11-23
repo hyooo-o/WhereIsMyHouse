@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="aptDealList" parameterType="String" resultType="DealDto">
-		select *
+		select dealAmount, dealYear, dealMonth, dealDay, floor, area
 		from deal
 		where aptCode = #{aptCode}
 		order by dealYear, dealMonth, dealDay

@@ -175,7 +175,7 @@ public class AptController {
 		try {
 			List<DealChartDto> list = aptService.aptTradePrice(aptCode);
 			logger.info("aptTradePrice 호출");
-//			System.out.println(aptCode);
+			System.out.println(aptCode);
 			if (list != null && !list.isEmpty()) {
 				resultMap.put("chartData", list);
 				resultMap.put("message", SUCCESS);
@@ -199,7 +199,8 @@ public class AptController {
 		try {
 			List<DealDto> list = aptService.aptDealList(aptCode);
 			logger.info("aptDealList 호출");
-			System.out.println(list);
+			System.out.println(aptCode);
+			System.out.println(list.toString());
 			if (list != null && !list.isEmpty()) {
 				resultMap.put("dealList", list);
 				resultMap.put("message", SUCCESS);
