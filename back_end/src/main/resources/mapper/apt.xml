@@ -45,5 +45,12 @@
 		where dealYear between 2015 and 2021 and aptCode = #{aptCode}
 		group by dealYear;
 	</select>
+	
+	<select id="aptDealList" parameterType="String" resultType="DealDto">
+		select *
+		from deal
+		where aptCode = #{aptCode}
+		order by dealYear, dealMonth, dealDay
+	</select>
 
 </mapper>

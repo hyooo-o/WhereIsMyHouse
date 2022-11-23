@@ -1,4 +1,4 @@
-import { getChartData, getAptList, getAptImg } from "@/api/apt";
+import { getChartData, getAptList, getAptImg, getAptDeal } from "@/api/apt";
 
 const aptStore = {
   namespaced: true,
@@ -8,6 +8,7 @@ const aptStore = {
     aptImg: null,
     chartDatas: null,
     drawer: false,
+    aptDeal: [],
   },
   getters: {
     checkAptList: function (state) {
@@ -18,6 +19,9 @@ const aptStore = {
     },
     checkDrawer: function (state) {
       return state.drawer;
+    },
+    checkAptDeal: function (state) {
+      return state.aptDeal;
     },
   },
   mutations: {
@@ -33,6 +37,11 @@ const aptStore = {
     SET_DRAWER: (state, isDrawer) => {
       state.drawer = isDrawer;
     },
+
+    SET_APT_DEAL: (state, aptDeal) => {
+      state.aptDeal = aptDeal;
+    },
+
     SET_APT_IMG: (state, aptImg) => {
       state.aptImg = aptImg
     }
@@ -69,6 +78,22 @@ const aptStore = {
           console.log("아파트 차트 정보 가져오는 중 에러 발생!!! ", error.response.status);
         }
       )
+    },
+    async getAptDeal({ commit }, aptCode) {
+      await getAptDeal(
+        aptCode,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_APT_DEAL", data.dealList);
+            console.log("getAptDeal data >> ", data);
+        } else {
+            console.log("아파트 거래내역을 가져오지 못함!!!!");
+          }
+        },
+        async (error) => {
+          console.log("아파트 거래내역 가져오는 중 에러 발생!!! ", error.response.status);
+        }
+      );
     },
     setApt({ commit }, apt) {
       commit("SET_APT", apt);
