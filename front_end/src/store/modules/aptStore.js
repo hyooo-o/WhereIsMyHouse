@@ -1,11 +1,11 @@
-import { getAptList } from "@/api/apt";
-import { getChartData } from "@/api/apt";
+import { getChartData, getAptList, getAptImg } from "@/api/apt";
 
 const aptStore = {
   namespaced: true,
   state: {
     aptList: [],
     apt: null,
+    aptImg: null,
     chartDatas: null,
     drawer: false,
   },
@@ -33,6 +33,9 @@ const aptStore = {
     SET_DRAWER: (state, isDrawer) => {
       state.drawer = isDrawer;
     },
+    SET_APT_IMG: (state, aptImg) => {
+      state.aptImg = aptImg
+    }
   },
   actions: {
     async getAptList({ commit }, loc) {
@@ -69,6 +72,21 @@ const aptStore = {
     },
     setApt({ commit }, apt) {
       commit("SET_APT", apt);
+    },
+    async setAptImg({commit, getters}) {
+      let aptcode = getters.checkApt.aptCode;
+      let kw = getters.checkApt.apartmentName;
+      
+      await getAptImg(
+        aptcode,
+        kw,
+        ({ data }) => {
+            commit("SET_APT_IMG", data.image);
+        },
+        async (error) => {
+          console.log("아파트 이미지 가져오는 중 에러 발생!!! ", error.response.status);
+        }
+      )
     },
     turnOnDrawer({ commit }) {
       commit("SET_DRAWER", true);
