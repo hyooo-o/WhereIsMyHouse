@@ -8,6 +8,7 @@ import java.util.Map;
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
 import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 
 public interface AptMapper {
@@ -17,4 +18,5 @@ public interface AptMapper {
 	void updateTrade(TradeDto tradeDto) throws SQLException;
 	List<DealChartDto> aptTradePrice(String name) throws SQLException;
 	ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws SQLException;
+	List<DealDto> aptDealList(String aptCode) throws SQLException;
 }

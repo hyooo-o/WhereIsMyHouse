@@ -10,4 +10,8 @@ async function getChartData(aptCode, success, fail) {
   await api.get(`/apt/chart/${aptCode}`).then(success).catch(fail);
 }
 
-export { getAptList, getChartData }
+async function getAptDeal(aptCode, success, fail) {
+  await api.get(`/apt/deal/${aptCode}`).then(success).catch(fail);
+}
+
+export { getAptList, getChartData, getAptDeal }
