@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
 import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.service.AptService;
 
@@ -68,7 +69,7 @@ public class AptController {
 	}
 	
 	@PostMapping("/search/{dong}")
-	private ResponseEntity<?> search(@PathVariable("dong") String dong) {
+	private ResponseEntity<Map<String, Object>> search(@PathVariable("dong") String dong) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
@@ -135,6 +136,30 @@ public class AptController {
 			System.out.println(aptCode);
 			if (list != null && !list.isEmpty()) {
 				resultMap.put("chartData", list);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@GetMapping("/deal/{aptCode}")
+	private ResponseEntity<Map<String, Object>> aptDealList(@PathVariable("aptCode") String aptCode) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
+		try {
+			List<DealDto> list = aptService.aptDealList(aptCode);
+			logger.info("aptDealList 호출");
+			System.out.println(list);
+			if (list != null && !list.isEmpty()) {
+				resultMap.put("dealList", list);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} else {
