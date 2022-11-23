@@ -2,16 +2,17 @@ import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-async function getFavorite(favoriteDto, success, fail) {
-    await api.get(`/user/favorite/${favoriteDto.userId}/${favoriteDto.aptCode}`).then(success).catch(fail);
+async function getFavorite(favorite, success, fail) {
+    await api.get(`/user/favorite/${favorite.userId}/${favorite.aptCode}`).then(success).catch(fail);
 }
 
-async function addFavorite(loc, success, fail) {
-    await api.post(`/user/favorite`).then(success).catch(fail);
+async function addFavorite(favorite, success, fail) {
+    await api.post(`/user/favorite`, JSON.stringify(favorite)).then(success).catch(fail);
 }
 
-async function deleteFavorite(loc, success, fail) {
-    await api.delete(`/user/favorite`).then(success).catch(fail);
+async function deleteFavorite(favorite, success, fail) {
+    console.log(favorite);
+    await api.delete(`/user/favorite`, {data: JSON.stringify(favorite) }).then(success).catch(fail);
 }
 
 export { getFavorite, addFavorite, deleteFavorite }

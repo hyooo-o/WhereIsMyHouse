@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <header-nav></header-nav>
-      <v-main style="height: 100%;">
+      <v-main style="height: 91.9%;">
         <router-view/>
       </v-main>
-    <the-footer></the-footer>
+    <the-footer v-if="this.$route.path !== '/map/list'"></the-footer>
   </v-app>
 </template>
 

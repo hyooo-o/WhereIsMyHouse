@@ -4,7 +4,7 @@
         <a class="navbar-brand text-primary" href="/">
             <img
             src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
-            width="150"
+            width="100"
             alt=""/>
         </a>
 

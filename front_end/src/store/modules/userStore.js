@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 import { modify, login, findById, tokenRegeneration, logout, deleteUser } from "@/api/user";
+import { getFavorite, addFavorite, deleteFavorite } from "@/api/favorite"
 //choijiseong babo
 const userStore = {
   namespaced: true,
@@ -9,7 +10,7 @@ const userStore = {
     isLoginError: false,
     userInfo: null,
     isValidToken: false,
-    favorite: false,
+    isFavorite: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -36,6 +37,9 @@ const userStore = {
       state.isLogin = true;
       state.userInfo = userInfo;
     },
+    SET_IS_FAVORITE: (state, isFavorite) => {
+      state.isFavorite = isFavorite;
+    }
   },
   actions: {
     async userConfirm({ commit }, user) {
@@ -177,6 +181,92 @@ const userStore = {
           console.log("유저 삭제 중 에러!!!!", error);
         }
       );
+    },
+    async setFavorite({ getters, commit }, aptCode) {
+      let isLogin = getters.checkIsLogin;
+  
+      if (isLogin) {
+        let userInfo = getters.checkUserInfo;
+
+        let favorite = {
+          userId: userInfo.userId,
+          aptCode,
+        }
+
+        await getFavorite(
+          favorite,
+          ({ data }) => {
+            if (data.message === "success") {
+              console.log("관심 매물!!");
+              commit("SET_IS_FAVORITE", true);
+            } else {
+              commit("SET_IS_FAVORITE", false);
+              console.log("관심 매물 아님!!!!");
+            }
+          },
+          (error) => {
+            console.log("관심 매물 검색 중 에러 발생!!!!", error);
+          }
+        )
+      }
+    },
+    async addUserFavorite({ getters, commit }, aptCode) {
+      let isLogin = getters.checkIsLogin;
+      
+      console.log(isLogin);
+
+      if (isLogin) {
+        let userInfo = getters.checkUserInfo;
+
+        let favorite = {
+          userId: userInfo.userId,
+          aptCode,
+        }
+
+        await addFavorite(
+          favorite,
+          ({ data }) => {
+            if (data.message === "success") {
+              console.log("관심 매물 등록 성공!!");
+              commit("SET_IS_FAVORITE", true);
+            } else {
+              commit("SET_IS_FAVORITE", false);
+              console.log("관심 매물 등록 실패!!!!");
+            }
+          },
+          (error) => {
+            console.log("관심 매물 등록 중 에러 발생!!!!", error);
+          }
+        )
+      }
+    },
+    async deleteUserFavorite({ getters, commit }, aptCode) {
+      let isLogin = getters.checkIsLogin;
+      
+      if (isLogin) {
+        let userInfo = getters.checkUserInfo;
+
+        let favorite = {
+          userId: userInfo.userId,
+          aptCode,
+        }
+
+        await deleteFavorite(
+          favorite,
+          ({ data }) => {
+            if (data.message === "success") {
+              console.log("관심 매물 삭제 성공!!");
+              commit("SET_IS_FAVORITE", false);
+            } else {
+              commit("SET_IS_FAVORITE", true);
+              console.log("관심 매물 삭제 실패!!!!");
+            }
+          },
+          (error) => {
+            console.log("관심 매물 삭제 중 에러 발생!!!!", error);
+          }
+        )
+      }
     }
   },
 };
