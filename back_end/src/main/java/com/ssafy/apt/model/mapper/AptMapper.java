@@ -11,7 +11,7 @@ import com.ssafy.apt.DealChartDto;
 import com.ssafy.apt.TradeDto;
 
 public interface AptMapper {
-	List<AptSearchDto> search(Map<String, String> condition) throws SQLException;
+	List<AptDto> search(String dong) throws SQLException;
 	void regist(AptDto aptDto)throws SQLException;
 	void deleteTrade(int id)throws SQLException;
 	void updateTrade(TradeDto tradeDto) throws SQLException;

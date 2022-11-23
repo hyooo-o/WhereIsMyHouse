@@ -10,9 +10,20 @@
         <v-container>
           <div class="row col-md-12 justify-content-center mb-1">
             <div class="form-group col-md-6">
-              <div class="input-group rounded">
-                <input type="search" class="form-control rounded" placeholder="동 검색" aria-label="Search" aria-describedby="search-addon" />
-              </div>
+              <v-autocomplete
+                v-model="select"
+                :loading="loading"
+                :items="items"
+                :search-input.sync="search"
+                append-item
+                cache-items
+                class="mx-4"
+                flat
+                clearable
+                hide-no-data
+                hide-details
+                label="동 / 아파트 검색"
+                solo></v-autocomplete>
             </div>
             <div style="display: flex" class="col-md-1">
               <button type="button" class="btn btn-outline-secondary me-4"
@@ -28,12 +39,36 @@
 
 <script>
 export default {
+  data () {
+    return {
+      loading: false,
+      items: [],
+      search: null,
+      select: null,
+      states: [],
+    }
+  },
+  watch: {
+    search (val) {
+      val && val !== this.select && this.querySelections(val)
+    },
+  },
   methods: {
     searchApt() {
       console.log("아파트 검색");
       this.$router.push({ name: "map" });
-    }
-  }
+    },
+    querySelections (v) {
+      this.loading = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.items = this.states.filter(e => {
+          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
+        this.loading = false
+      }, 500)
+    },
+  },
 };
 </script>
 

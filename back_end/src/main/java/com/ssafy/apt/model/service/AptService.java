@@ -10,7 +10,7 @@ import com.ssafy.apt.DealChartDto;
 import com.ssafy.apt.TradeDto;
 
 public interface AptService {
-	List<AptSearchDto> search(Map<String, String> condition) throws Exception;	// 아파트 정보 읽어오기	
+	List<AptDto> search(String dong) throws Exception;	// 아파트 정보 읽어오기	
 
 	void regist(AptDto aptDto)throws Exception;
 
