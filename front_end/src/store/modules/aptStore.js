@@ -30,11 +30,8 @@ const aptStore = {
     SET_CHART_DATA: (state, chartDatas) => {
       state.chartDatas = chartDatas;
     },
-    TURN_ON_DRAWER: (state) => {
-      state.drawer = true;
-    },
-    TURN_OFF_DRAWER: (state) => {
-      state.drawer = false;
+    SET_DRAWER: (state, isDrawer) => {
+      state.drawer = isDrawer;
     },
   },
   actions: {
@@ -74,10 +71,10 @@ const aptStore = {
       commit("SET_APT", apt);
     },
     turnOnDrawer({ commit }) {
-      commit("TURN_ON_DRAWER");
+      commit("SET_DRAWER", true);
     },
     turnOffDrawer({ commit }) {
-      commit("TURN_OFF_DRAWER");
+      commit("SET_DRAWER", false);
     },
   },
 };
