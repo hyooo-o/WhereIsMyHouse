@@ -2,110 +2,21 @@
   <div class="col-md-12">
     <div id="jumbotron"
       class="mt-4 p-5 jumbotron text-white jumbotron-image shadow"
-      style="background-image: url(https://cdn.smedaily.co.kr/news/photo/202203/226046_163577_1155.jpg)">
-      <h2 class="mb-4" style="text-align: center">집을 찾고 계신가요?</h2>
+      style="height: 470px; background-image: url(https://i.pinimg.com/736x/35/78/1d/35781da12a4142281d9d0b45fafca461.jpg);
+      background-size: 100% 160%">
+      <h1 class="mb-4" style="text-align: center; color: grey;">집을 찾고 계신가요?</h1>
       <hr />
-      <p class="mb-4" style="text-align: center">찾고 있는 아파트를 검색해 보세요.</p>
+      <p class="mb-4" style="text-align: center; color: darkslategrey;">찾고 있는 아파트를 검색해 보세요.</p>
         <v-container>
           <v-row>
-            <v-col cols="9">
-              <v-autocomplete
-                v-model="haha"
-                :items="products"
-                :loading="loading"
-                append-item
-                cache-items
-                flat
-                clearable
-                hide-no-data
-                hide-details
-                label="동 / 아파트 검색"
-                solo
-                @focus="focus"
-                @focusout="focusout"
-                >
-                
-              </v-autocomplete>
-
-              <!-- <v-text-field solo v-model="keyword" placeholder="동 / 아파트 검색" @focus="focus" @focusout="focusout" @keyup="keyup"></v-text-field> -->
-            </v-col>
-            <v-col style="display: flex;" cols="1">
-              <button type="button" class="btn btn-outline-secondary me-4"
-                id="list-btn" @click="searchApt">
-                <v-icon>mdi-home-search</v-icon>
-              </button>
+            <v-col style="text-align: center;">
+              <v-btn large class="ma-2" depressed color="#BCAAA4" @click="searchApt">
+                <v-icon>mdi-home-search</v-icon> 집 찾으러 가기
+              </v-btn>
             </v-col>
           </v-row>
         </v-container>
       </div>
-
-      <v-card v-show="view === true" style="width: 700px; background-color: grey;">
-      <!--   <v-col>
-          <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
-            <v-virtual-scroll
-              :items="dongSearch"
-              item-height="40"
-            >
-            <template v-slot:default="{ item }">
-              <v-list-item :key="item">
-                <v-list-item-action>
-                  <v-icon>mdi-home-city-outline</v-icon>
-                </v-list-item-action>
-    
-                <v-list-item-content>
-                  <v-list-item-title>
-
-                    {{ item.dong }}
-
-                    <strong>{{ item.dong }}</strong>
-
-                  </v-list-item-title>
-                </v-list-item-content>
-    
-                <v-list-item-action>
-                  <v-icon small>
-                    mdi-open-in-new
-                  </v-icon>
-                </v-list-item-action>
-              </v-list-item>
-            </template>
-          </v-virtual-scroll>
-        </v-card-text>
-      </v-col>
-    </v-card> -->
-
-        <v-col>
-          <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
-            <v-virtual-scroll
-            :items="aptSearch"
-            item-height="40"
-            >
-              <template v-slot:default="{ item }">
-                <v-list-item :key="item">
-                  <v-list-item-action>
-                    <v-icon>mdi-home-city-outline</v-icon>
-                  </v-list-item-action>
-      
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      <strong>{{ item.apartmentName }}</strong>
-                    </v-list-item-title>
-                  </v-list-item-content>
-      
-                  <v-list-item-action>
-                    <v-icon small>
-                      mdi-open-in-new
-                    </v-icon>
-                  </v-list-item-action>
-                </v-list-item>
-              </template>
-            </v-virtual-scroll>
-          </v-card-text>
-        </v-col>
-    </v-card>
-
-
-      
   </div>
 </template>
 
@@ -121,11 +32,7 @@ export default {
       items: [],
       view: false,
       search: null,
-      haha: {},
-      products: [
-        'Samson', 'Wichita', 'Combustion', 'Triton',
-        'Helios', 'Wimbeldon', 'Brixton', 'Iguana',
-        'Xeon', 'Falsy', 'Armagedon', 'Zepellin'],
+      keyword: null,
     }
   },
   watch: {

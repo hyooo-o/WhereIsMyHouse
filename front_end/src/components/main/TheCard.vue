@@ -5,12 +5,8 @@
     hide-delimiter-background
     show-arrows-on-hover
   >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
+    <v-carousel-item>
       <v-sheet
-        :color="colors[i]"
         height="100%"
       >
         <v-row
@@ -18,8 +14,38 @@
           text-align="center"
           justify="center"
         >
-          <div class="text-h3">
-            {{ slide }} Slide
+          <div>
+            <img src="@/assets/img/apt1.png" style="height: 80%;">
+          </div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+    <v-carousel-item>
+      <v-sheet
+        height="100%"
+      >
+        <v-row
+          class="fill-height"
+          text-align="center"
+          justify="center"
+        >
+          <div>
+            <img src="@/assets/img/apt2.png" style="height: 80%;">
+          </div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+    <v-carousel-item>
+      <v-sheet
+        height="100%"
+      >
+        <v-row
+          class="fill-height"
+          text-align="center"
+          justify="center"
+        >
+          <div>
+            <img src="@/assets/img/apt3.png" style="height: 80%;">
           </div>
         </v-row>
       </v-sheet>
@@ -31,20 +57,6 @@
 export default {
   data () {
     return {
-      colors: [
-        'indigo',
-        'blue',
-        'pink',
-        'red lighten-1',
-        'purple accent-4',
-      ],
-      slides: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-      ],
     }
   },
 }

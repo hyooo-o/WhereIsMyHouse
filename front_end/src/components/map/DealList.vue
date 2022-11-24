@@ -8,7 +8,7 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row v-if="this.dataFull === false">
+    <v-row v-if="this.dataFull === false && totalDealList.length > 5">
       <v-btn @click="addList">더보기 ( {{ this.endPage }} / {{totalDealList.length}} )<v-icon>mdi-chevron-down</v-icon></v-btn>
     </v-row>
     <v-row v-if="this.dataFull === true">
@@ -52,6 +52,7 @@ export default {
       for (let i = 0; i < totalDealList.length; i++) {
         totalDealList[i].dealDate = this.aptDeal[i].dealYear + '.' + this.aptDeal[i].dealMonth + "." + this.aptDeal[i].dealDay;
       }
+
       return totalDealList;
     },
   },
@@ -82,7 +83,8 @@ export default {
     },
   },
   created() {
-    this.setAptDeal(this.apt.aptCode);
+    this.getAptDeal(this.apt.aptCode);
+    
   }
 }
 </script>
