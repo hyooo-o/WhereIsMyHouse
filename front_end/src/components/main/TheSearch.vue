@@ -6,11 +6,12 @@
       <h2 class="mb-4" style="text-align: center">집을 찾고 계신가요?</h2>
       <hr />
       <p class="mb-4" style="text-align: center">찾고 있는 아파트를 검색해 보세요.</p>
-
         <v-container>
           <v-row>
             <v-col cols="9">
               <v-autocomplete
+                v-model="haha"
+                :items="products"
                 :loading="loading"
                 append-item
                 cache-items
@@ -23,7 +24,10 @@
                 @focus="focus"
                 @focusout="focusout"
                 >
+                
               </v-autocomplete>
+
+              <!-- <v-text-field solo v-model="keyword" placeholder="동 / 아파트 검색" @focus="focus" @focusout="focusout" @keyup="keyup"></v-text-field> -->
             </v-col>
             <v-col style="display: flex;" cols="1">
               <button type="button" class="btn btn-outline-secondary me-4"
@@ -36,7 +40,7 @@
       </div>
 
       <v-card v-show="view === true" style="width: 700px; background-color: grey;">
-        <v-col>
+      <!--   <v-col>
           <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
             <v-virtual-scroll
               :items="dongSearch"
@@ -50,7 +54,11 @@
     
                 <v-list-item-content>
                   <v-list-item-title>
-                    <strong>{{ item }}</strong>
+
+                    {{ item.dong }}
+
+                    <strong>{{ item.dong }}</strong>
+
                   </v-list-item-title>
                 </v-list-item-content>
     
@@ -64,11 +72,12 @@
           </v-virtual-scroll>
         </v-card-text>
       </v-col>
+    </v-card> -->
 
         <v-col>
           <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
             <v-virtual-scroll
-            :items="dongSearch"
+            :items="aptSearch"
             item-height="40"
             >
               <template v-slot:default="{ item }">
@@ -79,7 +88,7 @@
       
                   <v-list-item-content>
                     <v-list-item-title>
-                      User Database Record <strong>ID {{ item }}</strong>
+                      <strong>{{ item.apartmentName }}</strong>
                     </v-list-item-title>
                   </v-list-item-content>
       
@@ -95,12 +104,13 @@
         </v-col>
     </v-card>
 
+
       
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const aptStore = "aptStore"
 
@@ -108,16 +118,26 @@ export default {
   data () {
     return {
       loading: false,
-      states: [],
+      items: [],
       view: false,
+      search: null,
+      haha: {},
+      products: [
+        'Samson', 'Wichita', 'Combustion', 'Triton',
+        'Helios', 'Wimbeldon', 'Brixton', 'Iguana',
+        'Xeon', 'Falsy', 'Armagedon', 'Zepellin'],
     }
   },
   watch: {
     search (val) {
-      val && val !== this.select && this.querySelections(val)
+      val && val !== this.keyword && this.querySelections(val)
     },
   },
+  computed: {
+    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
+  },
   methods: {
+    ...mapActions(aptStore, ["setDongSearch", "setAptSearch"]),
     searchApt() {
       console.log("아파트 검색");
       this.$router.push({ name: "map" });
@@ -126,7 +146,7 @@ export default {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.states.filter(e => {
+        this.items = this.dongSearch.dong.filter(e => {
           return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
         this.loading = false
@@ -139,11 +159,17 @@ export default {
     focusout() {
       this.view = false;
       console.log(this.view);
+    },
+    key() {
+      console.log(this.keyword);
+      this.setDogSearch(this.keyword);
+      this.setAptSearch(this.keyword);
     }
   },
-  computed: {
-    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
-  }
+  created() {
+    console.log(this.keyword);
+    this.setDongSearch(this.keyword);
+  },
 };
 </script>
 

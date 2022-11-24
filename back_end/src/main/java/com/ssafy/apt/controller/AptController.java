@@ -136,7 +136,7 @@ public class AptController {
 	
 	
 	
-	@GetMapping("/search/{dong}")
+	@GetMapping("/search/dong/{dong}")
 	private ResponseEntity<Map<String, Object>> dongSearch(@PathVariable("dong") String dong) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -153,6 +153,7 @@ public class AptController {
 				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
@@ -160,7 +161,7 @@ public class AptController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@GetMapping("/search/{apartmentName}")
+	@GetMapping("/search/apt/{apartmentName}")
 	private ResponseEntity<Map<String, Object>> aptSearch(@PathVariable("apartmentName") String apartmentName) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -177,6 +178,7 @@ public class AptController {
 				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}

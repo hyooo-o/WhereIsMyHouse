@@ -19,7 +19,7 @@
               <v-card-text>
 
                 <div class="my-4 text-subtitle-1">
-                  <div v-if="favorite !== null">{{favorite.minPrice}} ~ {{favorite.maxPrice}}</div>
+                  <div v-if="favorite !== null">{{favorite.minPrice}} ~ {{favorite.maxPrice}} (만원)</div>
                 </div>
 
               </v-card-text>
@@ -35,7 +35,7 @@
 import { mapActions, mapState } from "vuex";
 
 const userStore = "userStore";
-const aptStore = "aptStore";
+// const aptStore = "aptStore";
 
 export default {
   computed: {
