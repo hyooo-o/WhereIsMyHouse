@@ -8,11 +8,7 @@
 
         <v-row v-for="(favoriteSubList,index) in this.favoriteList" :key="index">
           <v-col col-md-3 v-for="(favorite, subIndex) in favoriteSubList" :key="subIndex">
-            <v-card :loading="loading" class="mx-auto my-12" max-width="300" @click="goToMap(favorite.aptCode)" :style="isNull(favorite) ? 'display:none;' : ''">
-              <v-img
-                height="250"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              ></v-img>
+            <v-card :loading="loading" class="mx-auto my-12" max-width="250" @click="goToMap(favorite.aptCode)" :style="isNull(favorite) ? 'display:none;' : ''">
 
               <v-card-title v-if="favorite !== null">{{favorite.apartmentName}}</v-card-title>
               <v-divider class="mx-4"></v-divider>
@@ -35,7 +31,7 @@
 import { mapActions, mapState } from "vuex";
 
 const userStore = "userStore";
-// const aptStore = "aptStore";
+const aptStore = "aptStore";
 
 export default {
   computed: {
@@ -61,10 +57,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(userStore, ["setFavoriteInfo"]),
-    ...mapActions(aptStore, ["getApt"]),
-    goToMap(aptCode) {
-      this.getApt(aptCode);
+    ...mapActions(userStore, ["setFavoriteInfo", "setFavorite"]),
+    ...mapActions(aptStore, ["setChartData", "getApt", "turnOnDrawer", "setAptDeal"]),
+    async goToMap(aptCode) {
+      await this.getApt(aptCode);
+      // 유저의 데이터와 아파트의 데이터를 비교해서 userStore의 favorite 상태 변경
+      // vueInstance.setAptImg();
+      await this.setChartData(aptCode);
+      await this.setAptDeal(aptCode);
+      await this.setFavorite(aptCode);
+      this.turnOnDrawer();
+
       this.$router.push("/map/list");
     },
     isNull(favorite) {
