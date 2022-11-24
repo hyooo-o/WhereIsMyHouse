@@ -13,8 +13,8 @@
             <v-col cols="9" style="text-align: center;">
               <h4>{{ apt.apartmentName }} &nbsp; <heart-button></heart-button> </h4>
             </v-col>
-            <v-col >
-              <v-btn @click="turnOffDrawer" absolute style="top:0px; right:0px">X</v-btn>
+            <v-col>
+              <v-btn text large color="blue-grey" @click="turnOffDrawer" absolute style="top:0px; right:0px"><v-icon>mdi-close-circle-outline</v-icon></v-btn>
             </v-col>
           </v-row>
         </v-list-item-content>
@@ -23,9 +23,11 @@
       <v-divider></v-divider>
 
       <v-row>
-        <v-col style="height: 200px;">크롤링 해서 사진 붙일 자리</v-col>
+        <v-img height="250"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj-NFKXqpjlSr0NfBylYckVjLLK8AIp6CcRA&usqp=CAU"
+              ></v-img>
       </v-row>
-
+      <hr style="height: 15px; color: lightsteelblue;">
       <v-row>
         <table class="tbAdd">
           <tr>
@@ -33,27 +35,20 @@
             <td>{{ apt.buildYear }}</td>
           </tr>
           <tr>
-            <th>주소</th>
-            <td>{{ apt.roadName }} {{ apt.dong }} {{ apt.jibun }}</td>
+            <th>도로명 주소</th>
+            <td>{{ apt.roadName }}</td>
           </tr>
           <tr>
-            <th>유형</th>
-            <td>아파트</td>
-          </tr>
-          <tr>
-            <th>최지성</th>
-            <td>공주</td>
-          </tr>
-          <tr>
-            <th>김정효</th>
-            <td>공주</td>
+            <th>지번 주소</th>
+            <td>{{ apt.dong }} {{ apt.jibun }}</td>
           </tr>
         </table>
       </v-row>
-      <hr>
-      <v-row style="padding-bottom: 10%;">
+      <v-row><hr style="height: 15px; color: lightsteelblue;"></v-row>
+      <v-row>
         <deal-list></deal-list>
       </v-row>
+      <v-row><hr style="height: 15px; color: lightsteelblue;"></v-row>
       <v-row justify="center">
           <price-chart style="width: 90%; height: 40vh;"></price-chart>
       </v-row>
