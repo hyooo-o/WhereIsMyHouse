@@ -62,11 +62,11 @@ export default {
   },
   methods: {
     ...mapActions(userStore, ["setFavoriteInfo"]),
-    // ...mapActions(aptStore, ["getApt"]),
-    // goToMap(aptCode) {
-      
-    //   this.$router.push("/map/list");
-    // },
+    ...mapActions(aptStore, ["getApt"]),
+    goToMap(aptCode) {
+      this.getApt(aptCode);
+      this.$router.push("/map/list");
+    },
     isNull(favorite) {
       if(favorite == null) {
         return true;
