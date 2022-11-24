@@ -57,7 +57,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(aptStore, ["getAptDeal"]),
+    ...mapActions(aptStore, ["setAptDeal"]),
     print() {
       console.log(this.aptDeal);
     },

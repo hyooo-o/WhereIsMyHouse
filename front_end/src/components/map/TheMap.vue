@@ -2,6 +2,12 @@
 	<div style="width: 100%; height: 100%">
 		<div id="map" style="width: 100%; height: 100%"></div>
 		<map-detail></map-detail>
+		<v-snackbar
+		v-model="snackbar"
+		timeout="3000"
+		>
+		{{ text }}
+		</v-snackbar>
 	</div>
 </template>
 
@@ -18,6 +24,7 @@ export default {
 			map: null,
 			markers: [],
 			clusterer: null,
+			text: "상세 매물 확인을 위해 지도를 확대해 주세요.",
 		}
 	},
 	components: {
@@ -25,39 +32,18 @@ export default {
 	},
 	computed: {
 		...mapState(aptStore, ["apt", "aptList", "drawer"]),
+		snackbar() {
+			if(this.map !== null && this.map.getLevel() > 5){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	},
     methods: {
 		...mapActions(userStore, ["setFavorite"]),
-		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer", "setAptImg", "setAptDeal"]),
-        // searchApt() {
-        //     let form = document.querySelector("#search-form");
-			
-        //     let gugun = document.querySelector("#gugun");
-		// 	//gugun.value = gugun.options[gugun.selectedIndex].text;
-		// 	//gugun.options[gugun.selectedIndex].text 
-
-		// 	let gugugun = document.querySelector("#gugugun");
-		// 	//gugugun.value=gugun.options[gugun.selectedIndex].innerText;
-
-        //     let dong = document.querySelector("#dong");
-		// 	console.log(dong.selectedIndex.innerText);
-		// 	//dong.value = dong.options[dong.selectedIndex].innerText;
-
-		// 	let dododong = document.querySelector("#dododong");
-		// 	dododong.value = dong.options[dong.selectedIndex].innerText;
-
-		// 	let yearSel = document.querySelector("#year");
-		// 	let year = yearSel[yearSel.selectedIndex].value;
-		// 	let monthSel = document.querySelector("#month");
-		// 	let month = monthSel[monthSel.selectedIndex].value;
-			
-		// 	if(gugun.options[gugun.selectedIndex].text == "구군선택" || month == "매매년도선택" || year == "매매월월선택") {
-		// 		alert("다시 입력하세요");
-		// 	} else {
-		// 		console.log("버튼 클릭!!");
-		// 		form.submit();
-		// 	}
-        // }
+		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer", "turnOffDrawer", "setAptImg", "setAptDeal"]),
 		initMap() {
 			const container = document.getElementById("map");
 
@@ -65,7 +51,7 @@ export default {
 			if(this.apt !== null){
 				options = {
 					center: new kakao.maps.LatLng(this.apt.lat, this.apt.lng),
-					level: 5,
+					level: 1,
 				};
 			}else{
 				options = {
@@ -145,7 +131,7 @@ export default {
 					// 뷰엑스의 apt = element
 					vueInstance.setApt(apt);
 					// 유저의 데이터와 아파트의 데이터를 비교해서 userStore의 favorite 상태 변경
-					vueInstance.setAptImg();
+					// vueInstance.setAptImg();
 					vueInstance.setChartData(apt.aptCode);
 					vueInstance.setFavorite(apt.aptCode);
 					vueInstance.setAptDeal(apt.aptCode);
@@ -192,6 +178,7 @@ export default {
 		}
 	},
 	mounted() {
+		console.log("마운티드");
 		if (window.kakao && window.kakao.maps) {
 			this.initMap();
 		} else {
@@ -203,6 +190,11 @@ export default {
 			document.head.appendChild(script);
 		}
 	},
+	destroyed() {
+		console.log("디스트로이드");
+		this.setApt(null);
+		this.turnOffDrawer();
+	}
 }
 </script>
 
