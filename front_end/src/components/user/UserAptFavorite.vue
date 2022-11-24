@@ -35,7 +35,7 @@
 import { mapActions, mapState } from "vuex";
 
 const userStore = "userStore";
-// const aptStore = "aptStore";
+const aptStore = "aptStore";
 
 export default {
   computed: {
