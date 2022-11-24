@@ -2,50 +2,114 @@
   <div class="col-md-12">
     <div id="jumbotron"
       class="mt-4 p-5 jumbotron text-white jumbotron-image shadow"
-      style="background-image: url(https://thumb.photo-ac.com/82/82aa26eb7c35a8a4491661920a692ece_t.jpeg)">
+      style="background-image: url(https://cdn.smedaily.co.kr/news/photo/202203/226046_163577_1155.jpg)">
       <h2 class="mb-4" style="text-align: center">집을 찾고 계신가요?</h2>
       <hr />
       <p class="mb-4" style="text-align: center">찾고 있는 아파트를 검색해 보세요.</p>
 
         <v-container>
-          <div class="row col-md-12 justify-content-center mb-1">
-            <div class="form-group col-md-6">
+          <v-row>
+            <v-col cols="9">
               <v-autocomplete
-                v-model="select"
                 :loading="loading"
-                :items="items"
-                :search-input.sync="search"
                 append-item
                 cache-items
-                class="mx-4"
                 flat
                 clearable
                 hide-no-data
                 hide-details
                 label="동 / 아파트 검색"
-                solo></v-autocomplete>
-            </div>
-            <div style="display: flex" class="col-md-1">
+                solo
+                @focus="focus"
+                @focusout="focusout"
+                >
+              </v-autocomplete>
+            </v-col>
+            <v-col style="display: flex;" cols="1">
               <button type="button" class="btn btn-outline-secondary me-4"
                 id="list-btn" @click="searchApt">
                 <v-icon>mdi-home-search</v-icon>
               </button>
-            </div>
-          </div>
+            </v-col>
+          </v-row>
         </v-container>
-    </div>
+      </div>
+
+      <v-card v-show="view === true" style="width: 700px; background-color: grey;">
+        <v-col>
+          <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
+            <v-virtual-scroll
+              :items="dongSearch"
+              item-height="40"
+            >
+            <template v-slot:default="{ item }">
+              <v-list-item :key="item">
+                <v-list-item-action>
+                  <v-icon>mdi-home-city-outline</v-icon>
+                </v-list-item-action>
+    
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <strong>{{ item }}</strong>
+                  </v-list-item-title>
+                </v-list-item-content>
+    
+                <v-list-item-action>
+                  <v-icon small>
+                    mdi-open-in-new
+                  </v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card-text>
+      </v-col>
+
+        <v-col>
+          <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
+            <v-virtual-scroll
+            :items="dongSearch"
+            item-height="40"
+            >
+              <template v-slot:default="{ item }">
+                <v-list-item :key="item">
+                  <v-list-item-action>
+                    <v-icon>mdi-home-city-outline</v-icon>
+                  </v-list-item-action>
+      
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      User Database Record <strong>ID {{ item }}</strong>
+                    </v-list-item-title>
+                  </v-list-item-content>
+      
+                  <v-list-item-action>
+                    <v-icon small>
+                      mdi-open-in-new
+                    </v-icon>
+                  </v-list-item-action>
+                </v-list-item>
+              </template>
+            </v-virtual-scroll>
+          </v-card-text>
+        </v-col>
+    </v-card>
+
+      
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const aptStore = "aptStore"
+
 export default {
   data () {
     return {
       loading: false,
-      items: [],
-      search: null,
-      select: null,
       states: [],
+      view: false,
     }
   },
   watch: {
@@ -68,7 +132,18 @@ export default {
         this.loading = false
       }, 500)
     },
+    focus() {
+      this.view = true;
+      console.log(this.view);
+    },
+    focusout() {
+      this.view = false;
+      console.log(this.view);
+    }
   },
+  computed: {
+    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
+  }
 };
 </script>
 

@@ -18,4 +18,12 @@ async function getAptDeal(aptCode, success, fail) {
   await api.get(`/apt/deal/${aptCode}`).then(success).catch(fail);
 }
 
-export { getAptList, getChartData, getAptImg, getAptDeal }
+async function getAptSearch(apartmentName, success, fail) {
+  await api.get(`/apt/search/${apartmentName}`).then(success).catch(fail);
+}
+
+async function getDongSearch(dong, success, fail) {
+  await api.get(`/apt/search/${dong}`).then(success).catch(fail);
+}
+
+export { getAptList, getChartData, getAptImg, getAptDeal, getAptSearch, getDongSearch }
