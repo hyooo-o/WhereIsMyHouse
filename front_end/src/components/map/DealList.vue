@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <p>실거래가</p>
+  <v-container style="padding-bottom: 3%;">
+    <mark><strong>실거래가</strong></mark>
     <v-row>
       <v-col>
         <v-sheet>
@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       headers: [
-        { text: '계약일', value: 'dealDate', align: 'center' },
+        { text: '계약일', value: 'dealDate', align: 'center', sortable: false},
         { text: '거래가격 (만원)', value: 'dealAmount', align: 'center' },
         { text: '타입', value: 'area', align: 'center' },
         { text: '층수', value: 'floor', align: 'center' },
