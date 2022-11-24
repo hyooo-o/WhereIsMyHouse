@@ -138,7 +138,7 @@ const aptStore = {
         ({ data }) => {
           console.log(data.message);
           if (data.message === "success") {
-            commit("SET_APT_SEARCH", data.dongSearch);
+            commit("SET_DONG_SEARCH", data.dongSearch);
             console.log("getAptSearch data >> ", data);
         } else {
             console.log("동 검색내역을 가져오지 못함!!!!");
