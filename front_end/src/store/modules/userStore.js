@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 import { modify, login, findById, tokenRegeneration, logout, deleteUser } from "@/api/user";
-import { getFavorite, addFavorite, deleteFavorite } from "@/api/favorite"
+import { getFavorite, addFavorite, deleteFavorite, getFavoriteInfo } from "@/api/favorite"
 //choijiseong babo
 const userStore = {
   namespaced: true,
@@ -11,6 +11,7 @@ const userStore = {
     userInfo: null,
     isValidToken: false,
     isFavorite: false,
+    favorite: null,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -39,6 +40,9 @@ const userStore = {
     },
     SET_IS_FAVORITE: (state, isFavorite) => {
       state.isFavorite = isFavorite;
+    },
+    SET_FAVORITE: (state, favorite) => {
+      state.favorite = favorite;
     }
   },
   actions: {
@@ -267,6 +271,24 @@ const userStore = {
           }
         )
       }
+    },
+    async setFavoriteInfo ({ commit }, userId) {
+      await getFavoriteInfo(
+        userId,
+        ({ data }) => {
+          if (data.message === "success") {
+            console.log("관심 매물 검색 성공!!");
+            console.log(data.favoriteInfo);
+            commit("SET_FAVORITE", data.favoriteInfo);
+          } else {
+            commit("SET_FAVORITE", null);
+            console.log("관심 매물 검색 실패!!!!");
+          }
+        },
+        (error) => {
+          console.log("관심 매물 검색 중 에러 발생!!!!", error);
+        }
+      )
     }
   },
 };
