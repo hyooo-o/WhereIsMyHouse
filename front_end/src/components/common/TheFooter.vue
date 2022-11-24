@@ -14,7 +14,7 @@
         </v-btn>
       </v-card-text>
       <v-card-text style="padding: 0;" class="grey lighten-2 py-4 text-center grey--text">
-        Copyright © jeonghyo
+        Copyright © jeonghyoChoe
       </v-card-text>
     </v-row>
   </v-footer>
