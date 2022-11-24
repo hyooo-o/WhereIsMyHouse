@@ -1,4 +1,4 @@
-import { getChartData, getAptList, getAptImg, getAptDeal, getAptSearch, getDongSearch } from "@/api/apt";
+import { getChartData, getApt, getAptList, getAptImg, getAptDeal, getAptSearch, getDongSearch } from "@/api/apt";
 
 const aptStore = {
   namespaced: true,
@@ -76,7 +76,7 @@ const aptStore = {
       );
     },
     async getApt({ commit }, aptCode) {
-      await this.getApt(
+      await getApt(
         aptCode,
         ({ data }) => {
           if (data.message === "success") {
