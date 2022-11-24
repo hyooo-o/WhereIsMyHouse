@@ -11,7 +11,10 @@
           <v-row>
             <v-col cols="9">
               <v-autocomplete
-                :loading="loading"
+                v-model="keyword"
+
+                :items="items"
+                :search-input.sync="search"
                 append-item
                 cache-items
                 flat
@@ -20,10 +23,10 @@
                 hide-details
                 label="동 / 아파트 검색"
                 solo
-                @focus="focus"
-                @focusout="focusout"
                 >
               </v-autocomplete>
+
+              <!-- <v-text-field solo v-model="keyword" placeholder="동 / 아파트 검색" @focus="focus" @focusout="focusout" @keyup="keyup"></v-text-field> -->
             </v-col>
             <v-col style="display: flex;" cols="1">
               <button type="button" class="btn btn-outline-secondary me-4"
@@ -35,7 +38,7 @@
         </v-container>
       </div>
 
-      <v-card v-show="view === true" style="width: 700px; background-color: grey;">
+      <!-- <v-card v-show="view === true" style="width: 700px; background-color: grey;">
         <v-col>
           <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
             <v-virtual-scroll
@@ -50,7 +53,7 @@
     
                 <v-list-item-content>
                   <v-list-item-title>
-                    <strong>{{ item }}</strong>
+                    {{ item.dong }}
                   </v-list-item-title>
                 </v-list-item-content>
     
@@ -64,43 +67,15 @@
           </v-virtual-scroll>
         </v-card-text>
       </v-col>
+    </v-card> -->
 
-        <v-col>
-          <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
-            <v-virtual-scroll
-            :items="dongSearch"
-            item-height="40"
-            >
-              <template v-slot:default="{ item }">
-                <v-list-item :key="item">
-                  <v-list-item-action>
-                    <v-icon>mdi-home-city-outline</v-icon>
-                  </v-list-item-action>
-      
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      User Database Record <strong>ID {{ item }}</strong>
-                    </v-list-item-title>
-                  </v-list-item-content>
-      
-                  <v-list-item-action>
-                    <v-icon small>
-                      mdi-open-in-new
-                    </v-icon>
-                  </v-list-item-action>
-                </v-list-item>
-              </template>
-            </v-virtual-scroll>
-          </v-card-text>
-        </v-col>
-    </v-card>
 
       
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const aptStore = "aptStore"
 
@@ -108,16 +83,22 @@ export default {
   data () {
     return {
       loading: false,
-      states: [],
+      items: [],
       view: false,
+      search: null,
+      keyword: "",
     }
   },
   watch: {
     search (val) {
-      val && val !== this.select && this.querySelections(val)
+      val && val !== this.keyword && this.querySelections(val)
     },
   },
+  computed: {
+    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
+  },
   methods: {
+    ...mapActions(aptStore, ["setDongSearch", "setAptSearch"]),
     searchApt() {
       console.log("아파트 검색");
       this.$router.push({ name: "map" });
@@ -126,7 +107,7 @@ export default {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.states.filter(e => {
+        this.items = this.dongSearch.dong.filter(e => {
           return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
         this.loading = false
@@ -139,10 +120,16 @@ export default {
     focusout() {
       this.view = false;
       console.log(this.view);
+    },
+    keyup() {
+      console.log(this.keyword);
+      this.setDongSearch(this.keyword);
+      this.setAptSearch(this.keyword);
     }
   },
-  computed: {
-    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
+  created() {
+    console.log(this.keyword);
+    this.setDongSearch(this.keyword);
   }
 };
 </script>
