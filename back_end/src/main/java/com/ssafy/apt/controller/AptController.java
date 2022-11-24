@@ -153,6 +153,7 @@ public class AptController {
 				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
@@ -177,6 +178,7 @@ public class AptController {
 				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}

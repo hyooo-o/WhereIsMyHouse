@@ -6,15 +6,13 @@
       <h2 class="mb-4" style="text-align: center">집을 찾고 계신가요?</h2>
       <hr />
       <p class="mb-4" style="text-align: center">찾고 있는 아파트를 검색해 보세요.</p>
-
         <v-container>
           <v-row>
             <v-col cols="9">
               <v-autocomplete
-                v-model="keyword"
-
-                :items="items"
-                :search-input.sync="search"
+                v-model="haha"
+                :items="products"
+                :loading="loading"
                 append-item
                 cache-items
                 flat
@@ -23,7 +21,10 @@
                 hide-details
                 label="동 / 아파트 검색"
                 solo
+                @focus="focus"
+                @focusout="focusout"
                 >
+                
               </v-autocomplete>
 
               <!-- <v-text-field solo v-model="keyword" placeholder="동 / 아파트 검색" @focus="focus" @focusout="focusout" @keyup="keyup"></v-text-field> -->
@@ -38,8 +39,8 @@
         </v-container>
       </div>
 
-      <!-- <v-card v-show="view === true" style="width: 700px; background-color: grey;">
-        <v-col>
+      <v-card v-show="view === true" style="width: 700px; background-color: grey;">
+      <!--   <v-col>
           <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
             <v-virtual-scroll
               :items="dongSearch"
@@ -53,7 +54,11 @@
     
                 <v-list-item-content>
                   <v-list-item-title>
+
                     {{ item.dong }}
+
+                    <strong>{{ item.dong }}</strong>
+
                   </v-list-item-title>
                 </v-list-item-content>
     
@@ -68,6 +73,36 @@
         </v-card-text>
       </v-col>
     </v-card> -->
+
+        <v-col>
+          <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
+            <v-virtual-scroll
+            :items="aptSearch"
+            item-height="40"
+            >
+              <template v-slot:default="{ item }">
+                <v-list-item :key="item">
+                  <v-list-item-action>
+                    <v-icon>mdi-home-city-outline</v-icon>
+                  </v-list-item-action>
+      
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <strong>{{ item.apartmentName }}</strong>
+                    </v-list-item-title>
+                  </v-list-item-content>
+      
+                  <v-list-item-action>
+                    <v-icon small>
+                      mdi-open-in-new
+                    </v-icon>
+                  </v-list-item-action>
+                </v-list-item>
+              </template>
+            </v-virtual-scroll>
+          </v-card-text>
+        </v-col>
+    </v-card>
 
 
       
@@ -86,7 +121,11 @@ export default {
       items: [],
       view: false,
       search: null,
-      keyword: "",
+      haha: {},
+      products: [
+        'Samson', 'Wichita', 'Combustion', 'Triton',
+        'Helios', 'Wimbeldon', 'Brixton', 'Iguana',
+        'Xeon', 'Falsy', 'Armagedon', 'Zepellin'],
     }
   },
   watch: {
@@ -121,16 +160,16 @@ export default {
       this.view = false;
       console.log(this.view);
     },
-    keyup() {
+    key() {
       console.log(this.keyword);
-      this.setDongSearch(this.keyword);
+      this.setDogSearch(this.keyword);
       this.setAptSearch(this.keyword);
     }
   },
   created() {
     console.log(this.keyword);
     this.setDongSearch(this.keyword);
-  }
+  },
 };
 </script>
 
