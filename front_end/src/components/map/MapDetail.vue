@@ -55,9 +55,8 @@
         <deal-list></deal-list>
       </v-row>
       <v-row justify="center">
-          <price-chart style="width: 27vw; height: 40vh;"></price-chart>
+          <price-chart style="width: 90%; height: 40vh;"></price-chart>
       </v-row>
-      
     </v-navigation-drawer>
   </v-sheet>
 </template>

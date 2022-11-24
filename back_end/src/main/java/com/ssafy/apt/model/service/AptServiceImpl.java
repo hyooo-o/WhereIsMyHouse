@@ -29,26 +29,6 @@ public class AptServiceImpl implements AptService {
 	public ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws Exception {
 		return aptMapper.getList(loc);
 	}
-	
-	@Override
-	public List<AptDto> search(String dong) throws Exception {
-		// 값 설정
-//		condition.put("gugun", condition.get("gugun").substring(0, 5));
-//		condition.put("dong", condition.remove("dododong"));
-
-//		System.out.println(condition.toString());
-		
-		// 가격 정렬 (Merge 정렬 사용)
-		List<AptDto> list = aptMapper.search(dong); // 검색 목록의 리스트를 list에 담음
-		
-//		System.out.println(list.toString());
-		
-//		mergeSort(list, 0, list.size() - 1);
-		
-//		System.out.println(list.toString());
-		
-		return list; // 정렬한 list를 리턴
-	}
 
 	private void mergeSort(List<AptSearchDto> list, int left, int right) {
 		int mid;
@@ -118,6 +98,21 @@ public class AptServiceImpl implements AptService {
 	@Override
 	public List<DealDto> aptDealList(String aptCode) throws Exception {
 		return aptMapper.aptDealList(aptCode);
+	}
+
+	@Override
+	public List<AptDto> dongSearch(String dong) throws Exception {
+		return aptMapper.dongSearch(dong);
+	}
+
+	@Override
+	public List<AptDto> aptSearch(String apartmentName) throws Exception {
+		return aptMapper.aptSearch(apartmentName);
+	}
+
+	@Override
+	public AptDto getApt(String aptCode) throws Exception {
+		return aptMapper.getApt(aptCode);
 	}
 
 }

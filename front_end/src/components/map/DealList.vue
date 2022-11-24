@@ -3,30 +3,16 @@
     <p>실거래가</p>
     <v-row>
       <v-col>
-        <v-sheet rounded="lg">
-          <v-simple-table>
-            <thead>
-              <tr>
-                <th class="text-center">계약일</th>
-                <th class="text-center">거래가격</th>
-                <th class="text-center">타입</th>
-                <th class="text-center">층수</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="aptDealItem in aptDeal" :key="aptDealItem.aptCode">
-                <td>{{ aptDealItem.dealYear }}</td>
-                <td>{{ aptDealItem.dealYear }}</td>
-                <td>{{ aptDealItem.dealYear }}</td>
-                <td>{{ aptDealItem.dealYear }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
+        <v-sheet>
+          <v-data-table hide-default-footer :headers="headers" :items="totalDealList" :items-per-page=this.endPage></v-data-table>
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row>
-      <v-btn>더보기</v-btn>
+    <v-row v-if="this.dataFull === false">
+      <v-btn @click="addList">더보기 ( {{ this.endPage }} / {{totalDealList.length}} )<v-icon>mdi-chevron-down</v-icon></v-btn>
+    </v-row>
+    <v-row v-if="this.dataFull === true">
+      <v-btn @click="closeList" color="#E0E0E0">접기 ( {{ totalDealList.length }} / {{totalDealList.length}} )<v-icon>mdi-chevron-up</v-icon></v-btn>
     </v-row>
   </v-container>
 </template>
@@ -39,21 +25,65 @@ const aptStore = "aptStore"
 export default {
   data () {
     return {
-      dealList: []
+      headers: [
+        { text: '계약일', value: 'dealDate', align: 'center' },
+        { text: '거래가격 (만원)', value: 'dealAmount', align: 'center' },
+        { text: '타입', value: 'area', align: 'center' },
+        { text: '층수', value: 'floor', align: 'center' },
+      ],
+      endPage: 5,
+      itemsPerPage: 5,
+      dataFull: false,
+      subDealList: [
+        {
+          dealDate: null,
+          dealAmount: null,
+          area: null,
+          floor: null,
+        }
+      ],
     }
   },
   computed: {
-    ...mapState(aptStore, ["aptDeal"]),
+    ...mapState(aptStore, ["aptDeal", "apt"]),
+    totalDealList() {
+      let totalDealList = this.aptDeal;
+
+      for (let i = 0; i < totalDealList.length; i++) {
+        totalDealList[i].dealDate = this.aptDeal[i].dealYear + '.' + this.aptDeal[i].dealMonth + "." + this.aptDeal[i].dealDay;
+      }
+      return totalDealList;
+    },
   },
   methods: {
-        ...mapActions(aptStore, ["getAptDeal"]),
-        print(){
-            console.log(this.aptDeal);
-        }
+    ...mapActions(aptStore, ["getAptDeal"]),
+    print() {
+      console.log(this.aptDeal);
     },
-    created() {
-        this.getAptDeal();
-    }
+    addList() {
+      this.endPage += 5;
+      this.subDealList = this.totalDealList;
+
+      if (this.endPage < this.subDealList.length) {
+        let list = [];
+        
+        for (let i = 0; i < this.endPage; i++){
+          list.push(this.subDealList[i]);
+        }
+        this.subDealList = list;
+      } else {
+        this.dataFull = true;
+      }
+    },
+    closeList() {
+      this.endPage = 5;
+      this.subDealList = this.totalDealList;
+      this.dataFull = false;
+    },
+  },
+  created() {
+    this.getAptDeal(this.apt.aptCode);
+  }
 }
 </script>
 
