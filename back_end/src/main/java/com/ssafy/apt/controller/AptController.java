@@ -110,16 +110,66 @@ public class AptController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@PostMapping("/search/{dong}")
-	private ResponseEntity<Map<String, Object>> search(@PathVariable("dong") String dong) {
+	@GetMapping("/search/{aptCode}")
+	private ResponseEntity<Map<String, Object>> getApt(@PathVariable("aptCode") String aptCode) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 
 		try {
-			ArrayList<AptDto> list = (ArrayList<AptDto>) aptService.search(dong);
+			AptDto aptDto = aptService.getApt(aptCode);
+			
+			if (aptDto != null) {
+				resultMap.put("apt", aptDto);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	
+	
+	@GetMapping("/search/{dong}")
+	private ResponseEntity<Map<String, Object>> dongSearch(@PathVariable("dong") String dong) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			ArrayList<AptDto> list = (ArrayList<AptDto>) aptService.dongSearch(dong);
 			
 			if (list != null && !list.isEmpty()) {
-				resultMap.put("aptList", list);
+				resultMap.put("dongSearch", list);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@GetMapping("/search/{apartmentName}")
+	private ResponseEntity<Map<String, Object>> aptSearch(@PathVariable("apartmentName") String apartmentName) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			ArrayList<AptDto> list = (ArrayList<AptDto>) aptService.dongSearch(apartmentName);
+			
+			if (list != null && !list.isEmpty()) {
+				resultMap.put("aptSearch", list);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} else {
@@ -145,27 +195,27 @@ public class AptController {
 //		}
 //	}
 
-	@DeleteMapping("/delete/{trade_id}")
-	private ResponseEntity<?> deleteTrade(@PathVariable("trade_id") int id) {
-		try {
-			aptService.deleteTrade(id);
-
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
-
-	@PutMapping("/update")
-	private ResponseEntity<?> updateTrade(@RequestBody TradeDto tradeDto) {
-		try {
-			aptService.updateTrade(tradeDto);
-
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@DeleteMapping("/delete/{trade_id}")
+//	private ResponseEntity<?> deleteTrade(@PathVariable("trade_id") int id) {
+//		try {
+//			aptService.deleteTrade(id);
+//
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
+//
+//	@PutMapping("/update")
+//	private ResponseEntity<?> updateTrade(@RequestBody TradeDto tradeDto) {
+//		try {
+//			aptService.updateTrade(tradeDto);
+//
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 
 	@GetMapping("/chart/{aptCode}")
 	private ResponseEntity<Map<String, Object>> aptTradePrice(@PathVariable("aptCode") String aptCode) {
