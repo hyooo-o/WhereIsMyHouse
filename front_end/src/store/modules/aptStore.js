@@ -1,4 +1,4 @@
-import { getChartData, getAptList, getAptImg, getAptDeal } from "@/api/apt";
+import { getChartData, getAptList, getAptImg, getAptDeal, getAptSearch, getDongSearch } from "@/api/apt";
 
 const aptStore = {
   namespaced: true,
@@ -9,6 +9,8 @@ const aptStore = {
     chartDatas: null,
     drawer: false,
     aptDeal: [],
+    dongSearch: [],
+    aptSearch: [],
   },
   getters: {
     checkAptList: function (state) {
@@ -22,6 +24,12 @@ const aptStore = {
     },
     checkAptDeal: function (state) {
       return state.aptDeal;
+    },
+    checkDongSearch: function (state) {
+      return state.dongSearch;
+    },
+    checkAptSearch: function (state) {
+      return state.aptSearch;
     },
   },
   mutations: {
@@ -37,14 +45,18 @@ const aptStore = {
     SET_DRAWER: (state, isDrawer) => {
       state.drawer = isDrawer;
     },
-
     SET_APT_DEAL: (state, aptDeal) => {
       state.aptDeal = aptDeal;
     },
-
     SET_APT_IMG: (state, aptImg) => {
       state.aptImg = aptImg
-    }
+    },
+    SET_DONG_SEARCH: (state, dongSearch) => {
+      state.dongSearch = dongSearch
+    },
+    SET_APT_SEARCH: (state, aptSearch) => {
+      state.aptSearch = aptSearch
+    },
   },
   actions: {
     async getAptList({ commit }, loc) {
@@ -79,7 +91,7 @@ const aptStore = {
         }
       )
     },
-    async getAptDeal({ commit }, aptCode) {
+    async setAptDeal({ commit }, aptCode) {
       await getAptDeal(
         aptCode,
         ({ data }) => {
@@ -119,6 +131,40 @@ const aptStore = {
     },
     turnOffDrawer({ commit }) {
       commit("SET_DRAWER", false);
+    },
+    async setDongSearch({ commit }, dong) {
+      await getDongSearch(
+        dong,
+        ({ data }) => {
+          console.log(data.message);
+          if (data.message === "success") {
+            commit("SET_APT_SEARCH", data.dongSearch);
+            console.log("getAptSearch data >> ", data);
+        } else {
+            console.log("동 검색내역을 가져오지 못함!!!!");
+          }
+        },
+        async (error) => {
+          console.log("동 검색내역 가져오는 중 에러 발생!!! ", error.response.status);
+        }
+      );
+    },
+    async setAptSearch({ commit }, apartmentName) {
+      await getAptSearch(
+        apartmentName,
+        ({ data }) => {
+          console.log(data.message);
+          if (data.message === "success") {
+            commit("SET_APT_SEARCH", data.aptSearch);
+            console.log("getAptSearch data >> ", data);
+        } else {
+            console.log("아파트 검색내역을 가져오지 못함!!!!");
+          }
+        },
+        async (error) => {
+          console.log("아파트 검색내역 가져오는 중 에러 발생!!! ", error.response.status);
+        }
+      );
     },
   },
 };

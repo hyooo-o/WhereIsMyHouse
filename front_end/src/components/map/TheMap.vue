@@ -28,7 +28,7 @@ export default {
 	},
     methods: {
 		...mapActions(userStore, ["setFavorite"]),
-		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer", "setAptImg"]),
+		...mapActions(aptStore, ["getAptList", "setChartData", "setApt", "turnOnDrawer", "setAptImg", "setAptDeal"]),
         // searchApt() {
         //     let form = document.querySelector("#search-form");
 			
@@ -139,6 +139,7 @@ export default {
 					vueInstance.setAptImg();
 					vueInstance.setChartData(apt.aptCode);
 					vueInstance.setFavorite(apt.aptCode);
+					vueInstance.setAptDeal(apt.aptCode);
 					vueInstance.turnOnDrawer();
 				});
 
