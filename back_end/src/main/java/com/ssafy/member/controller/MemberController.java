@@ -1,5 +1,6 @@
 package com.ssafy.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ssafy.apt.AptSearchDto;
+import com.ssafy.member.model.FavoriteCardDto;
 import com.ssafy.member.model.FavoriteDto;
 import com.ssafy.member.model.MemberDto;
+import com.ssafy.member.model.service.FavoriteService;
 import com.ssafy.member.model.service.FavoriteServiceImpl;
 import com.ssafy.member.model.service.JwtServiceImpl;
 import com.ssafy.member.model.service.MemberService;
@@ -40,7 +44,7 @@ public class MemberController {
 	private JwtServiceImpl jwtService;
 
 	@Autowired
-	private FavoriteServiceImpl favoriteService;
+	private FavoriteService favoriteService;
 
 	@GetMapping()
 	public String index() {
@@ -310,7 +314,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
@@ -342,7 +346,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
@@ -369,7 +373,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
@@ -394,7 +398,7 @@ public class MemberController {
 			}
 		} catch (Exception e) {
 			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
@@ -405,4 +409,32 @@ public class MemberController {
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	// 관심지역 가져오기
+		@GetMapping("/favorite/{userid}")
+		@ResponseBody
+		public ResponseEntity<Map<String, Object>> getFavorite(@PathVariable("userid") String userId) {
+			Map<String, Object> resultMap = new HashMap<>();
+			HttpStatus status = null;
+			
+			try {
+				ArrayList<FavoriteCardDto> list = (ArrayList<FavoriteCardDto>)favoriteService.getFavoriteInfo(userId);
+				
+				System.out.println(list);
+				
+				if (list != null) {
+					resultMap.put("favoriteInfo", list);
+					resultMap.put("message", SUCCESS);
+					status = HttpStatus.ACCEPTED;
+				} else {
+					resultMap.put("message", FAIL);
+					status = HttpStatus.ACCEPTED;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultMap.put("message", FAIL);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+
+			return new ResponseEntity<Map<String, Object>>(resultMap, status);
+		}
 }
