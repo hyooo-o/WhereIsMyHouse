@@ -30,4 +30,4 @@ async function getDongSearch(dong, success, fail) {
   await api.get(`/apt/search/${dong}`).then(success).catch(fail);
 }
 
-export { getAptList, getChartData, getAptImg, getAptDeal, getAptSearch, getDongSearch }
+export { getAptList, getApt, getChartData, getAptImg, getAptDeal, getAptSearch, getDongSearch }

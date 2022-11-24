@@ -60,10 +60,19 @@ export default {
         // }
 		initMap() {
 			const container = document.getElementById("map");
-			const options = {
-				center: new kakao.maps.LatLng(37.555, 127),
-				level: 5,
-			};
+
+			let options;
+			if(this.apt !== null){
+				options = {
+					center: new kakao.maps.LatLng(this.apt.lat, this.apt.lng),
+					level: 5,
+				};
+			}else{
+				options = {
+					center: new kakao.maps.LatLng(37.555, 127),
+					level: 5,
+				};
+			}
 			// var markers=[];
 			const vueInstance = this;
 

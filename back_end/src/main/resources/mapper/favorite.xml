@@ -29,7 +29,7 @@
 	
 	<!-- get Favorite Information -->
 	<select id="getFavoriteInfo" parameterType="String" resultType="FavoriteCardDto">
-		select apart.apartmentName, max(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as maxPrice, min(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as minPrice
+		select apart.aptCode, apart.apartmentName, max(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as maxPrice, min(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as minPrice
 		from apart, deal, favorite
 		where apart.aptCode = deal.aptCode and deal.aptCode in (select aptCode from favorite where user_id = #{userId})
 		group by deal.aptCode;
