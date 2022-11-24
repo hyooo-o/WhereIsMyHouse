@@ -23,11 +23,11 @@ async function getAptDeal(aptCode, success, fail) {
 }
 
 async function getAptSearch(apartmentName, success, fail) {
-  await api.get(`/apt/search/${apartmentName}`).then(success).catch(fail);
+  await api.get(`/apt/search/apt/${apartmentName}`).then(success).catch(fail);
 }
 
 async function getDongSearch(dong, success, fail) {
-  await api.get(`/apt/search/${dong}`).then(success).catch(fail);
+  await api.get(`/apt/search/dong/${dong}`).then(success).catch(fail);
 }
 
-export { getAptList, getChartData, getAptImg, getAptDeal, getAptSearch, getDongSearch }
+export { getAptList, getChartData, getAptImg, getAptDeal, getAptSearch, getDongSearch, getApt }
