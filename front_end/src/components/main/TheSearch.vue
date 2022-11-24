@@ -23,10 +23,11 @@
                 solo
                 @focus="focus"
                 @focusout="focusout"
-                
                 >
                 
               </v-autocomplete>
+
+              <!-- <v-text-field solo v-model="keyword" placeholder="동 / 아파트 검색" @focus="focus" @focusout="focusout" @keyup="keyup"></v-text-field> -->
             </v-col>
             <v-col style="display: flex;" cols="1">
               <button type="button" class="btn btn-outline-secondary me-4"
@@ -39,7 +40,7 @@
       </div>
 
       <v-card v-show="view === true" style="width: 700px; background-color: grey;">
-        <v-col>
+      <!--   <v-col>
           <v-card-text style="height: 250px; width: 50%;" overflow-hidden>
             <v-virtual-scroll
               :items="dongSearch"
@@ -53,7 +54,11 @@
     
                 <v-list-item-content>
                   <v-list-item-title>
+
+                    {{ item.dong }}
+
                     <strong>{{ item.dong }}</strong>
+
                   </v-list-item-title>
                 </v-list-item-content>
     
@@ -67,6 +72,7 @@
           </v-virtual-scroll>
         </v-card-text>
       </v-col>
+    </v-card> -->
 
         <v-col>
           <v-card-text style="height: 250px; width: 50%; background-color: grey;" overflow-hidden>
@@ -98,6 +104,7 @@
         </v-col>
     </v-card>
 
+
       
   </div>
 </template>
@@ -111,8 +118,9 @@ export default {
   data () {
     return {
       loading: false,
-      states: [],
+      items: [],
       view: false,
+      search: null,
       haha: {},
       products: [
         'Samson', 'Wichita', 'Combustion', 'Triton',
@@ -122,8 +130,11 @@ export default {
   },
   watch: {
     search (val) {
-      val && val !== this.select && this.querySelections(val)
+      val && val !== this.keyword && this.querySelections(val)
     },
+  },
+  computed: {
+    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
   },
   methods: {
     ...mapActions(aptStore, ["setDongSearch", "setAptSearch"]),
@@ -135,7 +146,7 @@ export default {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.states.filter(e => {
+        this.items = this.dongSearch.dong.filter(e => {
           return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
         this.loading = false
@@ -151,12 +162,13 @@ export default {
     },
     key() {
       console.log(this.keyword);
-      this.setDongSearch(this.keyword);
+      this.setDogSearch(this.keyword);
       this.setAptSearch(this.keyword);
     }
   },
-  computed: {
-    ...mapState(aptStore, ["dongSearch", "aptSearch"]),
+  created() {
+    console.log(this.keyword);
+    this.setDongSearch(this.keyword);
   },
 };
 </script>

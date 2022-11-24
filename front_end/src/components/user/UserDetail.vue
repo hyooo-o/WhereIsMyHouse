@@ -51,12 +51,12 @@ export default {
 		...mapState(userStore, ["userInfo"]),
 	},
 	watch: {
-		$route(to,from) {
-			// store 좌표를 받아서
-			// if(store 있을 때만) 옮기고
-			// 없으면 안해
-			// 그럼 스토어 울어... (；′⌒`)   .·´¯`(>▂<)´¯`·. 
-		}
+		// $route(to,from) {
+		// 	// store 좌표를 받아서
+		// 	// if(store 있을 때만) 옮기고
+		// 	// 없으면 안해
+		// 	// 그럼 스토어 울어... (；′⌒`)   .·´¯`(>▂<)´¯`·. 
+		// }
 	}
 };
 </script>
