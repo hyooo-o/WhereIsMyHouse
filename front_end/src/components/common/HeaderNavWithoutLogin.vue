@@ -1,11 +1,12 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
 		<div class="container-fluid">
-			<a class="navbar-brand text-primary" href="/">
+			<router-link to="/">
             <img
-                src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
+                src="@/assets/img/logo.png"
                 width="100"
-                alt=""/></a>
+                style="margin-left: 50px;"
+                alt=""/></router-link>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"

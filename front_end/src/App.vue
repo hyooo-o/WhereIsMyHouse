@@ -55,6 +55,7 @@ export default {
 
 li {
 	/*margin-top:20px;*/
+  list-style:none;
 }
 
 .content-list {
