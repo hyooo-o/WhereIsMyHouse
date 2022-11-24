@@ -71,7 +71,7 @@ export default {
     BoardListItem,
     ThePageLink
   },
-  created() {
+  mounted() {
     // http.get(`/board/list`).then(({ data }) => (this.articles = data));
     this.initComponent();
   },
@@ -86,7 +86,6 @@ export default {
       this.$router.push({ name: "boardwrite" });
     },
     initComponent() {
-      
       http.get('/board/list',{
         params: { limit: this.pageLimit, offset: `${eval(this.$route.query.no - this.pageLimit)}`}
       })
