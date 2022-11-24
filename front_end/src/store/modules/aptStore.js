@@ -75,6 +75,22 @@ const aptStore = {
         }
       );
     },
+    async getApt({ commit }, aptCode) {
+      await this.getApt(
+        aptCode,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_APT", data.apt);
+            console.log("아파트 정보 가져옴!!!!");
+        } else {
+            console.log("아파트 정보 가져오지 못함!!!!");
+          }
+        },
+        async (error) => {
+          console.log("아파트 정보 가져오는 중 에러 발생!!! ", error.response.status);
+        }
+      )
+    },
     async setChartData({ commit }, aptCode) {
       await getChartData(
         aptCode,

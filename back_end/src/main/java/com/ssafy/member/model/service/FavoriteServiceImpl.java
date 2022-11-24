@@ -1,6 +1,7 @@
 package com.ssafy.member.model.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.member.model.FavoriteCardDto;
 import com.ssafy.member.model.FavoriteDto;
 import com.ssafy.member.model.MemberDto;
 import com.ssafy.member.model.mapper.FavoriteMapper;
@@ -35,6 +37,10 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Override
 	public int deleteFavorite(FavoriteDto favoriteDto) throws SQLException {
 		return favoriteMapper.deleteFavorite(favoriteDto);
+	}
+
+	public ArrayList<FavoriteCardDto> getFavoriteInfo(String userId) throws SQLException {
+		return favoriteMapper.getFavoriteInfo(userId);
 	}
 
 }
