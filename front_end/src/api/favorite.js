@@ -15,4 +15,8 @@ async function deleteFavorite(favorite, success, fail) {
     await api.delete(`/user/favorite`, {data: JSON.stringify(favorite) }).then(success).catch(fail);
 }
 
-export { getFavorite, addFavorite, deleteFavorite }
+async function getFavoriteInfo(userId, success, fail) {
+    await api.get(`/user/favorite/${userId}`).then(success).catch(fail);
+}
+
+export { getFavorite, addFavorite, deleteFavorite, getFavoriteInfo }

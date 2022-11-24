@@ -6,6 +6,10 @@ async function getAptList(loc, success, fail) {
   await api.get(`/apt/list?neLat=${loc.neLat}&neLng=${loc.neLng}&swLat=${loc.swLat}&swLng=${loc.swLng}`).then(success).catch(fail);
 }
 
+async function getApt(aptCode, success, fail) {
+  await api.get(`/apt/search/${aptCode}`).then(success).catch(fail);
+}
+
 async function getAptImg(aptCode, keyword, success, fail) {
   await api.get(`/apt/image/${aptCode}/${keyword}`).then(success).catch(fail);
 }
