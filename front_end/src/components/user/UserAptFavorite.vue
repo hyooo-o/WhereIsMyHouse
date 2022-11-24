@@ -64,7 +64,7 @@ export default {
     ...mapActions(userStore, ["setFavoriteInfo"]),
     ...mapActions(aptStore, ["getApt"]),
     goToMap(aptCode) {
-      
+      this.getApt(aptCode);
       this.$router.push("/map/list");
     },
     isNull(favorite) {
