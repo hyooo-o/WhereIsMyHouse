@@ -2,6 +2,12 @@
 	<div style="width: 100%; height: 100%">
 		<div id="map" style="width: 100%; height: 100%"></div>
 		<map-detail></map-detail>
+		<v-snackbar
+		v-model="snackbar"
+		timeout="3000"
+		>
+		{{ text }}
+		</v-snackbar>
 	</div>
 </template>
 
@@ -18,6 +24,7 @@ export default {
 			map: null,
 			markers: [],
 			clusterer: null,
+			text: "상세 매물 확인을 위해 지도를 확대해 주세요.",
 		}
 	},
 	components: {
@@ -25,6 +32,14 @@ export default {
 	},
 	computed: {
 		...mapState(aptStore, ["apt", "aptList", "drawer"]),
+		snackbar() {
+			if(this.map !== null && this.map.getLevel() > 5){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	},
     methods: {
 		...mapActions(userStore, ["setFavorite"]),
