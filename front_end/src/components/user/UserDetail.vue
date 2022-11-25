@@ -24,14 +24,13 @@
 					</div>
 					<div class="col-auto text-center">
 						<v-btn type="button" id="btn-modify">
-              <router-link class="nav-link" :to="{ name: 'usermodify' }">수정</router-link>
+            <router-link class="nav-link" :to="{ name: 'usermodify' }">수정</router-link>
 						</v-btn>
 						<v-btn id="btn-ok">
 							<router-link class="nav-link" :to="{ name: 'main' }">확인</router-link>
 						</v-btn>
 						<v-btn id="btn-del">
-							<a class="nav-link"
-								href="${root}/user?act=del&userid=${userinfo.userId}">탈퇴</a>
+							<router-link class="nav-link" :to="{ name: 'userdelete' }">탈퇴</router-link>
 						</v-btn>
 					</div>
 				</form>
@@ -46,11 +45,19 @@ import { mapState } from "vuex";
 const userStore = "userStore";
 
 export default {
-  name: "UserMyPage",
-  components: {},
-  computed: {
-    ...mapState(userStore, ["userInfo"]),
-  },
+	name: "UserMyPage",
+	components: {},
+	computed: {
+		...mapState(userStore, ["userInfo"]),
+	},
+	// watch: {
+	// 	$route(to,from) {
+	// 		// store 좌표를 받아서
+	// 		// if(store 있을 때만) 옮기고
+	// 		// 없으면 안해
+	// 		// 그럼 스토어 울어... (；′⌒`)   .·´¯`(>▂<)´¯`·. 
+	// 	}
+	// }
 };
 </script>
 

@@ -39,8 +39,8 @@
 						</div>
 					</div>
 					<div class="col-auto text-center">
-						<v-btn @click="modify">회원수정</v-btn>
-						<v-btn @click="reset">초기화</v-btn>
+						<v-btn @click="modifyUser">회원수정</v-btn>
+						<v-btn @click="moveMain">취소</v-btn>
 					</div>
 				<!-- </form> -->
 			</div>
@@ -49,8 +49,7 @@
 </template>
 
 <script>
-// import http from "@/api/http";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const userStore = "userStore";
 
@@ -78,19 +77,17 @@ export default {
     this.user.emailDomain = this.userInfo.emailDomain;
   },
   methods: {
-  //   modify() {
-  //     http.put("modify").then(({ data }) => {
-  //       let msg = "등록 처리 중 문제 발생";
-  //       if (data === "SUCCESS") msg = "수정 완료";
-  //       alert(msg);
-  //       this.moveMypage();
-  //     });
-  //   },
+    ...mapActions(userStore, ["userModify"]),
+    async modifyUser() {
+      // 비밀번호 입력 안하면 DB에서 사라지나??..
+      this.userModify(this.user);
+      this.$router.push({name : "userdetail"});
+    },
 
-  //   moveMypage() {
-  //     console.log("내 정보로");
-  //     this.$router.push({ name: "userdetail" });
-  //   },
+    moveMain() {
+      console.log("moveMain");
+      this.$router.push({ name: "main" });
+    },
   }
 };
 </script>

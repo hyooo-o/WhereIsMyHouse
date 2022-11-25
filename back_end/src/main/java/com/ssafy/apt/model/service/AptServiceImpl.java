@@ -1,7 +1,6 @@
 package com.ssafy.apt.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.apt.AptDto;
 import com.ssafy.apt.AptSearchDto;
+import com.ssafy.apt.DealChartDto;
+import com.ssafy.apt.DealDto;
 import com.ssafy.apt.TradeDto;
 import com.ssafy.apt.model.mapper.AptMapper;
 
@@ -25,28 +26,8 @@ public class AptServiceImpl implements AptService {
 	}
 
 	@Override
-	public ArrayList<AptSearchDto> getList() throws Exception {
-		return aptMapper.getList();
-	}
-	
-	@Override
-	public List<AptSearchDto> search(Map<String, String> condition) throws Exception {
-		// 값 설정
-		condition.put("gugun", condition.get("gugun").substring(0, 5));
-		condition.put("dong", condition.remove("dododong"));
-
-		System.out.println(condition.toString());
-		
-		// 가격 정렬 (Merge 정렬 사용)
-		List<AptSearchDto> list = aptMapper.search(condition); // 검색 목록의 리스트를 list에 담음
-		
-		System.out.println(list.toString());
-		
-//		mergeSort(list, 0, list.size() - 1);
-		
-//		System.out.println(list.toString());
-		
-		return list; // 정렬한 list를 리턴
+	public ArrayList<AptSearchDto> getList(Map<String, Double> loc) throws Exception {
+		return aptMapper.getList(loc);
 	}
 
 	private void mergeSort(List<AptSearchDto> list, int left, int right) {
@@ -110,8 +91,28 @@ public class AptServiceImpl implements AptService {
 	}
 
 	@Override
-	public List<TradeDto> aptTradePrice(String name) throws Exception {
-		return aptMapper.aptTradePrice(name);
+	public List<DealChartDto> aptTradePrice(String aptCode) throws Exception {
+		return aptMapper.aptTradePrice(aptCode);
+	}
+
+	@Override
+	public List<DealDto> aptDealList(String aptCode) throws Exception {
+		return aptMapper.aptDealList(aptCode);
+	}
+
+	@Override
+	public List<AptDto> dongSearch(String dong) throws Exception {
+		return aptMapper.dongSearch(dong);
+	}
+
+	@Override
+	public List<AptDto> aptSearch(String apartmentName) throws Exception {
+		return aptMapper.aptSearch(apartmentName);
+	}
+
+	@Override
+	public AptDto getApt(String aptCode) throws Exception {
+		return aptMapper.getApt(aptCode);
 	}
 
 }

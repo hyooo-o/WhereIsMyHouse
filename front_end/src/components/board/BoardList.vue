@@ -5,7 +5,7 @@
         <h1 class="underline">공지사항</h1>
       </v-col>
       
-      <v-row>
+      <v-row v-show="this.userInfo !== null && this.id === `admin`">
         <v-col style="text-align: right">
           <v-btn tile color="secondary" @click="moveWrite">
             <v-icon left> mdi-pencil </v-icon>
@@ -38,7 +38,7 @@
     </v-row>
     <v-row>
       <div class="text-center">
-        <page-link></page-link>
+        <the-page-link></the-page-link>
       </div>
     </v-row>
   </v-container>
@@ -47,7 +47,10 @@
 <script>
 import http from "@/api/http";
 import BoardListItem from "@/components/board/BoardListItem.vue";
-import PageLink from "@/components/board/PageLink";
+import ThePageLink from "@/components/common/ThePageLink";
+import { mapState } from "vuex";
+
+const userStore = "userStore";
 
 export default {
   name: "BoardList",
@@ -58,11 +61,17 @@ export default {
       pageOffet : 0
     };
   },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+    id() {
+      return this.userInfo.userId;
+    }
+  },
   components: {
     BoardListItem,
-    PageLink
+    ThePageLink
   },
-  created() {
+  mounted() {
     // http.get(`/board/list`).then(({ data }) => (this.articles = data));
     this.initComponent();
   },
@@ -77,7 +86,6 @@ export default {
       this.$router.push({ name: "boardwrite" });
     },
     initComponent() {
-      
       http.get('/board/list',{
         params: { limit: this.pageLimit, offset: `${eval(this.$route.query.no - this.pageLimit)}`}
       })

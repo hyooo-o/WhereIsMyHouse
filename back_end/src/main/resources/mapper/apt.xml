@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.apt.model.mapper.AptMapper">
+	
+	<insert id="regist" parameterType="AptDto">
+		insert into apart(build_year, dong, name, area, jibun, regional_code)
+		values(#{build_year}, #{dong}, #{name}, #{area}, #{jibun}, #{regional_code})
+	</insert>
+	
+	<select id="getList" parameterType="map" resultType="AptDto">
+		select *
+		from apart
+		where (lat between #{swLat} and #{neLat})
+		and (lng between #{swLng} and #{neLng})		
+	</select>
+	
+	<select id="dongSearch" parameterType="String" resultType="AptDto">
+		select *
+		from apart
+		<where>
+			<if test="dong != null and dong != ''">
+				dong like concat('%', #{dong},'%')
+			</if>
+		</where>
+		order by length(dong) limit 10
+	</select>
+	
+	<select id="aptSearch" parameterType="String" resultType="AptDto">
+		select *
+		from apart
+		<where>
+			<if test="apartmentName != null and apartmentName != ''">
+				apartmentName like concat('%', #{apartmentName},'%')
+			</if>
+		</where>
+		order by length(apartmentName) limit 10
+	</select>
+
+	<update id="updateTrade" parameterType="TradeDto">
+		update trade
+		set deal_amount = #{dealAmount}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteTrade" parameterType="int">
+		delete
+		from trade
+		where id = #{trade_id}
+	</delete>
+	
+	<select id="aptTradePrice" parameterType="String" resultType="DealChartDto">
+		select dealYear, avg(cast(replace(dealAmount, ',', '') as DECIMAL)) as 'pricePerYear'
+		from deal
+		where dealYear between 2015 and 2021 and aptCode = #{aptCode}
+		group by dealYear;
+	</select>
+	
+	<select id="aptDealList" parameterType="String" resultType="DealDto">
+		select dealAmount, dealYear, dealMonth, dealDay, floor, area
+		from deal
+		where aptCode = #{aptCode}
+		order by dealYear desc, dealMonth desc, dealDay desc
+	</select>
+	
+	<select id="getApt" parameterType="String" resultType="AptDto">
+		select *
+		from apart
+		where aptCode = #{aptCode}
+	</select>
+
+</mapper>

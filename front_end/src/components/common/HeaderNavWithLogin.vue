@@ -1,16 +1,17 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
     <div class="container-fluid">
-        <a class="navbar-brand text-primary" href="/">
+      <router-link to="/">
             <img
-            src="https://play-lh.googleusercontent.com/nza1fOdLWUtyN1Z-rJQA7XrwHux0dGs2x5wdNpwZNaY677OMVD-4Lm-QDgFuY-XvZVbB=w600-h300-pc0xffffff-pd"
-            width="150"
+            src="@/assets/img/logo.png"
+            width="100"
+            style="margin-left: 50px;"
             alt=""/>
-        </a>
+        </router-link>
 
         <ul class="navbar-nav" id="login-menu">
             <li class="nav-item" style="padding-right: 30px">
-                <router-link class="nav-link" :to="{ name: 'map' }">지도</router-link>
+                <router-link class="nav-link" :to="{ name: 'map' }">내 집 찾기</router-link>
             </li>
             <li class="nav-item" style="padding-right: 30px">
                 <router-link class="nav-link" :to="{ name: 'board' }">공지사항</router-link>
@@ -85,7 +86,7 @@ methods: {
         this.$router.push({ name: "userdetail" });
     },
     favorite() {
-        // this.$router.push({name : "userlogin"});
+        this.$router.push({name : "useraptfavorite"});
     }
 }
 }

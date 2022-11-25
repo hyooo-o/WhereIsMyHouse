@@ -11,31 +11,31 @@
 					<input type="hidden" name="act" value="join" />
 					<div class="mb-3">
 						<label for="username" class="form-label">이름 : </label> <input
-							type="text" class="form-control" id="username" name="username"
+							type="text" class="form-control" id="username" name="username" v-model="user.userName"
 							placeholder="이름..." />
 					</div>
 					<div class="mb-3">
 						<label for="userid" class="form-label">아이디 : </label> <input
-							type="text" class="form-control" id="userid" name="userid"
+							type="text" class="form-control" id="userid" name="userid" v-model="user.userId"
 							placeholder="아이디..." />
 					</div>
 					<div id="idcheck-result"></div>
 					<div class="mb-3">
 						<label for="userpwd" class="form-label">비밀번호 : </label> <input
-							type="password" class="form-control" id="userpwd" name="userpwd"
+							type="password" class="form-control" id="userpwd" name="userpwd" v-model="user.userPwd"
 							placeholder="비밀번호..." />
 					</div>
 					<div class="mb-3">
 						<label for="pwdcheck" class="form-label">비밀번호확인 : </label> <input
-							type="password" class="form-control" id="pwdcheck"
-							placeholder="비밀번호확인..." />
+							type="password" class="form-control" id="pwdcheck" v-model="user.userPwdChk"
+							placeholder="비밀번호확인..." /> 
 					</div>
 					<div class="mb-3">
 						<label for="emailid" class="form-label">이메일 : </label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="emailid"
+							<input type="text" class="form-control" id="emailid"  v-model="user.emailId"
 								name="emailid" placeholder="이메일아이디" /> <span
-								class="input-group-text">@</span> <select class="form-select"
+								class="input-group-text">@</span> <select class="form-select" v-model="user.emailDomain"
 								id="emaildomain" name="emaildomain" aria-label="이메일 도메인 선택">
 								<option selected>선택</option>
 								<option value="ssafy.com">싸피</option>
@@ -47,7 +47,7 @@
 					</div>
 					<div class="col-auto text-center">
 						<button type="button" id="btn-join"
-							class="btn btn-outline-primary mb-3">회원가입</button>
+							class="btn btn-outline-primary mb-3" @click.prevent="userJoin">회원가입</button>
 						<button type="button" class="btn btn-outline-success mb-3">초기화</button>
 					</div>
 				</form>
@@ -57,10 +57,31 @@
 </template>
 
 <script>
-export default {
-    
-}
+import { join } from "@/api/user";
 
+export default {
+    name: "UserJoin",
+	data() {
+		return {
+			user: {
+				userName: null,
+				userId: null,
+				userPwd: null,
+				userPwdChk: null,
+				emailId: null,
+				emailDomain: null,
+			},
+		};
+	},
+	methods: {
+		async userJoin() {
+			console.log(this.user);
+			await join(this.user);
+			alert("회원 가입 완료! 로그인 해주세요.");
+			this.$router.push({ name: 'userlogin' });
+		},
+	}
+}
 // let isUseId = false;
 //       document.querySelector("#userid").addEventListener("keyup", function () {
 //     	 let userid = this.value;

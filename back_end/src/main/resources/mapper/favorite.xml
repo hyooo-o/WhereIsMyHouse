@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.member.model.mapper.FavoriteMapper">
+	
+	<resultMap type="favoriteDto" id="favorite">
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+	</resultMap>
+	
+	<!-- get Favorite -->
+	<select id="getFavorite" parameterType="favoriteDto" resultMap="favorite">
+		select *
+		from favorite
+		where user_id=#{userId} and aptCode=#{aptCode}
+	</select>
+	
+	<!-- insert Favorite -->
+	<insert id="addFavorite" parameterType="favoriteDto">
+		insert into favorite
+		values(#{aptCode},#{userId})
+	</insert>
+	
+	<!-- delete Favorite -->
+	<delete id="deleteFavorite" parameterType="favoriteDto">
+		delete from favorite
+		where user_id=#{userId} and aptCode = #{aptCode}
+	</delete>
+	
+	<!-- get Favorite Information -->
+	<select id="getFavoriteInfo" parameterType="String" resultType="FavoriteCardDto">
+		select apart.aptCode, apart.apartmentName, max(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as maxPrice, min(cast(replace(deal.dealAmount, ',', '') as DECIMAL)) as minPrice
+		from apart, deal, favorite
+		where apart.aptCode = deal.aptCode and deal.aptCode in (select aptCode from favorite where user_id = #{userId})
+		group by deal.aptCode;
+	</select>
+
+</mapper>

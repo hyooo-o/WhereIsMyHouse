@@ -1,9 +1,8 @@
 package com.ssafy.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ssafy.apt.AptSearchDto;
+import com.ssafy.member.model.FavoriteCardDto;
+import com.ssafy.member.model.FavoriteDto;
 import com.ssafy.member.model.MemberDto;
+import com.ssafy.member.model.service.FavoriteService;
+import com.ssafy.member.model.service.FavoriteServiceImpl;
 import com.ssafy.member.model.service.JwtServiceImpl;
 import com.ssafy.member.model.service.MemberService;
 
@@ -38,6 +42,9 @@ public class MemberController {
 
 	@Autowired
 	private JwtServiceImpl jwtService;
+
+	@Autowired
+	private FavoriteService favoriteService;
 
 	@GetMapping()
 	public String index() {
@@ -68,36 +75,54 @@ public class MemberController {
 	// modify
 	@PutMapping("/modify")
 	@ResponseBody
-	public ResponseEntity<?> userModify(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<Map<String, Object>> userModify(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
 		try {
 			int cnt = memberService.modifyMember(memberDto);
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// join
-	@PostMapping(value = "/user")
+	@PostMapping("/join")
 	@ResponseBody
-	public ResponseEntity<?> userRegister(@RequestBody MemberDto memberDto) {
+	public ResponseEntity<Map<String, Object>> userRegister(@RequestBody MemberDto memberDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		System.out.println(memberDto);
+
 		try {
 			int cnt = memberService.joinMember(memberDto);
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
-
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	// login page
@@ -196,7 +221,7 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	// logout
 	@GetMapping("/logout/{userid}")
 	public ResponseEntity<?> removeToken(@PathVariable("userid") String userid) {
@@ -270,19 +295,113 @@ public class MemberController {
 //	}
 
 	// delete - 회원 탈퇴
-	@DeleteMapping("/user/{userid}")
+	@DeleteMapping("/{userid}")
 	@ResponseBody
-	public ResponseEntity<?> userDelete(@PathVariable("userid") String userId) {
+	public ResponseEntity<Map<String, Object>> userDelete(@PathVariable("userid") String userId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		logger.info("delMember - 호출");
+
 		try {
 			int cnt = memberService.delMember(userId);
+
 			if (cnt > 0) {
-				return new ResponseEntity<Void>(HttpStatus.OK);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			} else {
-				return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	// 관심지역 가져오기
+	@GetMapping("/favorite/{userid}/{aptCode}")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getFavorite(@PathVariable("userid") String userId,
+			@PathVariable("aptCode") String aptCode) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		System.out.println("관심매물 가져오기");
+		System.out.println(userId + " " + aptCode);
+		try {
+			FavoriteDto favoriteDto = new FavoriteDto(Long.parseLong(aptCode), userId);
+
+			FavoriteDto result = favoriteService.getFavorite(favoriteDto);
+
+			System.out.println(result);
+			
+			if (result != null) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	// 관심지역 등록
+	@PostMapping("/favorite")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> addFavorite(@RequestBody FavoriteDto favoriteDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		System.out.println("관심 지역 등록!   " + favoriteDto);
+		
+		try {
+			int cnt = favoriteService.addFavorite(favoriteDto);
+
+			if (cnt > 0) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	// 관심지역 제거
+	@DeleteMapping("/favorite")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> deleteFavorite(@RequestBody FavoriteDto favoriteDto) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			int cnt = favoriteService.deleteFavorite(favoriteDto);
+
+			if (cnt > 0) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {
@@ -290,4 +409,32 @@ public class MemberController {
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	// 관심지역 가져오기
+		@GetMapping("/favorite/{userid}")
+		@ResponseBody
+		public ResponseEntity<Map<String, Object>> getFavorite(@PathVariable("userid") String userId) {
+			Map<String, Object> resultMap = new HashMap<>();
+			HttpStatus status = null;
+			
+			try {
+				ArrayList<FavoriteCardDto> list = (ArrayList<FavoriteCardDto>)favoriteService.getFavoriteInfo(userId);
+				
+				System.out.println(list);
+				
+				if (list != null) {
+					resultMap.put("favoriteInfo", list);
+					resultMap.put("message", SUCCESS);
+					status = HttpStatus.ACCEPTED;
+				} else {
+					resultMap.put("message", FAIL);
+					status = HttpStatus.ACCEPTED;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultMap.put("message", FAIL);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+
+			return new ResponseEntity<Map<String, Object>>(resultMap, status);
+		}
 }

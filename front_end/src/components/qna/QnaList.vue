@@ -5,7 +5,7 @@
         <h1 class="underline">Q & A</h1>
       </v-col>
 
-      <v-row>
+      <v-row v-show="this.userInfo !== null && userInfo.userId !== `admin`">
         <v-col style="text-align: right">
           <v-btn tile color="secondary" @click="moveWrite">
             <v-icon left> mdi-pencil </v-icon>
@@ -36,9 +36,7 @@
     </v-row>
     <v-row>
       <div class="text-center">
-        <v-pagination
-          :length="3"
-        ></v-pagination>
+        <the-page-link></the-page-link>
       </div>
     </v-row>
   </v-container>
@@ -47,6 +45,10 @@
 <script>
 import http from "@/api/http";
 import QnaListItem from "@/components/qna/QnaListItem.vue";
+import ThePageLink from "@/components/common/ThePageLink";
+import { mapState } from "vuex";
+
+const userStore = "userStore";
 
 export default {
   name: "QnaList",
@@ -55,8 +57,12 @@ export default {
       articles: [],
     };
   },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+  },
   components: {
     QnaListItem,
+    ThePageLink
   },
   created() {
     http.get(`/qna/list`)

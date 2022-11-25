@@ -25,12 +25,9 @@
 					</div>
 					<div class="text-danger mb-2"></div>
 					<div class="col-auto text-center">
-						<button type="button" id="btn-login"
-							class="btn btn-outline-primary mb-3" @click="confirm">로그인</button>
-						<button type="button" id="btn-mv-join"
-							class="btn btn-outline-success mb-3">회원가입</button>
-						<button type="button" id="btn-search-pwd"
-							class="btn btn-outline-primary mb-3">비밀번호 찾기</button>
+						<v-btn type="button" id="btn-login" @click="confirm">로그인</v-btn>
+						<v-btn type="button" id="btn-mv-join" @click="moveJoin">회원가입</v-btn>
+						<v-btn type="button" id="btn-search-pwd" @click="pwdsearch">비밀번호 찾기</v-btn>
 					</div>
 				</form>
 			</div>
@@ -63,16 +60,17 @@ export default {
 			console.log(this.user);
 			await this.userConfirm(this.user);
 			let token = sessionStorage.getItem("access-token");
-			// console.log("1. confirm() token >> " + token);
 			if (this.isLogin) {
-				await this.getUserInfo(token);
-				// console.log("4. confirm() userInfo :: ", this.userInfo);
-				this.$router.push('/');
+				await this.getUserInfo(token)
+				this.$router.push({ name: "main" });
 			}
 		},
-		movePage() {
-			this.$router.push({ name: "join" });
+		moveJoin() {
+			this.$router.push({ name: "userjoin" });
 		},
+		pwdsearch() {
+			this.$router.push({ name: "usersearchpwd" });
+		}
 	},
 }
 </script>
